@@ -1,5 +1,5 @@
 import io from "socket.io-client";
 
-const socketServerAddress = "http://localhost:3443";
+const socketServerAddress = "http://api.oowl.tech";
 
 export const socket = io(socketServerAddress);
