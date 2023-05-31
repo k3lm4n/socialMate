@@ -12,10 +12,6 @@ export default function ActiveListProvider({ children }: PropsWithChildren) {
   function handle() {
     setIsOpen(!isOpen);
   }
-  console.log('====================================');
-  console.log(isOpen);
-  console.log('====================================');
-
 
   return (
     <ActiveListContext.Provider value={{ isOpen, handle }}>

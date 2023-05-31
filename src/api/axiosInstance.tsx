@@ -7,7 +7,7 @@ const { "socialMate.token": token } = parseCookies();
 
 
 const axiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_BASE_URL || "http://localhost:3443/api",
+    baseURL: import.meta.env.VITE_BASE_URL,
   
     // baseURL: "http://localhost:3443/api",
 
