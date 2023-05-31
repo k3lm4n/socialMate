@@ -7,7 +7,8 @@ import {
 } from "react";
 import io from "socket.io-client";
 
-export const socket = io("https://api.oowl.tech");
+// export const socket = io("https://api.oowl.tech");
+export const socket = io("http://localhost:3443");
 export const SocketContext = createContext({} as IContext);
 
 type SetRoomType = {
@@ -28,9 +29,9 @@ type IContext = {
 export default function SocketProvider({ children }: PropsWithChildren) {
   const [messages, setMessages] = useState<Array<Message>>([]);
 
-  useEffect(() => {
-    getMessages();
-  }, []);
+  // useEffect(() => {
+  //   getMessages();
+  // }, []);
 
   function setRoom(room: SetRoomType) {
     socket.emit("connectedOn", room, (msg: Message) => {
@@ -43,11 +44,11 @@ export default function SocketProvider({ children }: PropsWithChildren) {
     socket.emit("createdMessage", message);
   }
 
-  function getMessages() {
-    socket.on("newIncomingMessage", (msg: Message) => {
-      setMessages((prev) => [...prev, msg]);
-    });
-  }
+  // function getMessages() {
+  //   socket.on("newIncomingMessage", (msg: Message) => {
+  //     setMessages((prev) => [...prev, msg]);
+  //   });
+  // }
 
 
   return (
