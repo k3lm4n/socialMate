@@ -26,29 +26,29 @@
 }
 
 .bg-auth {
-    background-image: url('../../src/assets/background.jpg');
+    background-image: url('./assets/background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .bg-home {
-    background-image: url('../../src/assets/home_background.jpg');
+    background-image: url('./assets/home_background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .bg-section-1 {
-    background-image: url('../../src/assets/engeneer.png');
+    background-image: url('./assets/engeneer.png');
     background-repeat: no-repeat;
     background-size: cover;
 }
 .bg-section-2 {
-    background-image: url('../../src/assets/architecture.png');
+    background-image: url('./assets/architecture.png');
     background-repeat: no-repeat;
     background-size: cover;
 }
 .bg-section-3 {
-    background-image: url('../../src/assets/networking.png');
+    background-image: url('./assets/networking.png');
     background-repeat: no-repeat;
     background-size: cover;
 }

@@ -30,7 +30,7 @@ export default function SocketProvider({ children }: PropsWithChildren) {
 
   useEffect(() => {
     getMessages();
-  }, [socket]);
+  }, []);
 
   function setRoom(room: SetRoomType) {
     socket.emit("connectedOn", room, (msg: Message) => {
@@ -45,7 +45,6 @@ export default function SocketProvider({ children }: PropsWithChildren) {
 
   function getMessages() {
     socket.on("newIncomingMessage", (msg: Message) => {
-      console.log(msg);
       setMessages((prev) => [...prev, msg]);
     });
   }
