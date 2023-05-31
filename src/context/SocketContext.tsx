@@ -7,7 +7,7 @@ import {
 } from "react";
 import io from "socket.io-client";
 
-export const socket = io("http://localhost:3443");
+export const socket = io("https://api.oowl.tech");
 export const SocketContext = createContext({} as IContext);
 
 type SetRoomType = {
