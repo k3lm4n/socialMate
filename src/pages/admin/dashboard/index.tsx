@@ -9,7 +9,7 @@ const Dashboard = () => {
       <h1 className="text-3xl font-semibold text-navy-700 dark:text-white p-4">
         Dashboard
       </h1>
-      <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-6">
+      <div className="mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 max-xl:grid-cols-6">
         <Widget
           icon={<UserGroupIcon className="h-7 w-7" />}
           title={"Earnings"}
