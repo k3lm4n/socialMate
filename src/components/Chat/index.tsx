@@ -19,7 +19,7 @@ const Chat = () => {
   const { user } = useContext(AuthContext);
   const { sendMessage, messages, setRoom } = useContext(SocketContext);
 
-  const { register, handleSubmit } = useForm<Message>({
+  const { register, handleSubmit, setValue } = useForm<Message>({
     defaultValues: {
       content: "",
     },
@@ -37,6 +37,7 @@ const Chat = () => {
       senderId: user?.id as string,
       receiverId: communityId,
     });
+    setValue("content", "");
   };
 
   return (

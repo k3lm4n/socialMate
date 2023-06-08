@@ -6,6 +6,7 @@ import SocketProvider from "./context/SocketContext.tsx";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 
+
 import App from "./app.tsx";
 
 const client = new QueryClient();

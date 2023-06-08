@@ -1,10 +1,5 @@
 import { Message } from "../utils/types/@types";
-import {
-  PropsWithChildren,
-  createContext,
-  useEffect,
-  useState,
-} from "react";
+import { PropsWithChildren, createContext, useEffect, useState } from "react";
 import io from "socket.io-client";
 
 // export const socket = io("https://api.oowl.tech");
@@ -17,21 +12,19 @@ type SetRoomType = {
   socketId: string | undefined;
 };
 
-
 type IContext = {
-    setRoom: (room:SetRoomType) => void;
-    sendMessage: (message:Message) => void;
-    messages: Message[]
-  };
-  
-
+  setRoom: (room: SetRoomType) => void;
+  sendMessage: (message: Message) => void;
+  messages: Message[];
+};
 
 export default function SocketProvider({ children }: PropsWithChildren) {
   const [messages, setMessages] = useState<Array<Message>>([]);
 
-  // useEffect(() => {
-  //   getMessages();
-  // }, []);
+  useEffect(() => {
+    // getMessages();
+   
+  }, []);
 
   function setRoom(room: SetRoomType) {
     socket.emit("connectedOn", room, (msg: Message) => {
@@ -40,7 +33,6 @@ export default function SocketProvider({ children }: PropsWithChildren) {
   }
 
   function sendMessage(message: Message) {
-
     socket.emit("createdMessage", message);
   }
 
@@ -50,14 +42,9 @@ export default function SocketProvider({ children }: PropsWithChildren) {
   //   });
   // }
 
-
   return (
-    <SocketContext.Provider value={{sendMessage,messages,setRoom}}>
+    <SocketContext.Provider value={{ sendMessage, messages, setRoom }}>
       {children}
     </SocketContext.Provider>
   );
 }
-
-
-
-

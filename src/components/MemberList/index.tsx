@@ -52,7 +52,29 @@ const groups = [
   },
 ];
 
+import { useQuery } from "react-query";
+import { ChatEndPoints } from "../../api/api";
+
+
+function useChats() {
+  return useQuery("chats", async () => {
+    const { data } = await ChatEndPoints.getChats()
+    return data;
+  });
+}
+
 const MemberCommunity = () => {
+
+  const { status, data, error, isFetching } = useChats();
+
+  console.log('====================================');
+  console.log(status);
+  console.log(isFetching);
+  console.log(data);
+  console.log(error);
+  console.log('====================================');
+
+
   return (
     <>
       {groups.map((group) => (

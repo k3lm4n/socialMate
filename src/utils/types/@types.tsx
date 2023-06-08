@@ -1,15 +1,20 @@
+import { GroupedOption } from "../categories";
+
 export type Signup = {
   email: string;
   password: string;
   passwordConfirmation: string;
   name: string;
-  phone: string;
-  address: string;
-  city: string;
-  state: string;
-  degree: string;
-  birthdate: string;
-  interest: Array<string>;
+  username: string;
+  lastname: string;
+  course: string;
+  phone?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  degree?: string;
+  birthdate?: string;
+  interest?: GroupedOption[];
 };
 
 export type Login = {

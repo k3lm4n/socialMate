@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { MicrophoneIcon, Cog6ToothIcon } from "@heroicons/react/24/outline";
 import { AuthContext } from "../../context/AuthContext";
+import { Link } from "react-router-dom";
 
 const StatusBar = () => {
   const context = useContext(AuthContext);
@@ -25,7 +26,9 @@ const StatusBar = () => {
       </div>
       <div className="flex flex-row mr-3 items-center">
         <MicrophoneIcon className="h-6 w-6 ml-2" />
+        <Link to={'/feed/settings'}>
         <Cog6ToothIcon className="h-6 w-6 ml-2" />
+        </Link>
       </div>
     </div>
   );

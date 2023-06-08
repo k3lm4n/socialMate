@@ -10,6 +10,7 @@ import Img4 from "../../assets/img4.jpg";
 
 
 import Footer from "../../components/Footer";
+import { Link } from "react-router-dom";
 
 const Links = [
   {
@@ -190,10 +191,10 @@ const Homepage = () => {
               </div>
               <div className="flex lg:flex-row gap-4 lg:my-11 mt-4 flex-row-reverse ">
                 <button className=" lg:text-2xl text-white font-inter lg:py-3 py-2 px-3 lg:px-5 rounded-md bg-blue-600  hover:shadow-lg transition-all duration-500">
-                  <a href="auth/signup">Registre-se</a>
+                  <Link to="auth/signup">Registre-se</Link>
                 </button>
                 <button className=" lg:text-2xl text-black font-inter lg:py-3 py-2 px-3 lg:px-5 rounded-md border-2 border-blue-600 hover:shadow-lg transition-all duration-500">
-                  <a href="/Invite">Convide um amigo</a>
+                  <Link to="/Invite">Convide um amigo</Link>
                 </button>
               </div>
             </div>

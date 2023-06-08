@@ -1,3 +1,7 @@
+import { useQuery } from "react-query";
+
+import { UserEndPoints } from "../../api/api";
+
 const people = [
   {
     name: "Leslie Alexander",
@@ -53,13 +57,31 @@ const people = [
   },
 ];
 
+function useUser() {
+  return useQuery("posts", async () => {
+    const { data } = await UserEndPoints.getUsers();
+    return data;
+  });
+}
+
 export default function ActiveList() {
+
+  // const queryClient = useQueryClient();
+  const { status, data, error, isFetching } = useUser();
+
+  console.log('====================================');
+  console.log(status);
+  console.log(isFetching);
+  console.log(data);
+  console.log(error);
+  console.log('====================================');
+
   return (
     <div className="space-y-12" >
       <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
         <div className="sm:col-span-6">
           <label
-            htmlFor="username"
+            htmlFor="searchbar"
             className="block text-sm font-medium leading-6 text-gray-900"
           >
             Pesquisar activos
@@ -69,9 +91,9 @@ export default function ActiveList() {
               <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm"></span>
               <input
                 type="text"
-                name="username"
-                id="username"
-                autoComplete="username"
+                name="searchbar"
+                id="searchbar"
+                autoComplete="searchbar"
                 className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                 placeholder=""
               />
