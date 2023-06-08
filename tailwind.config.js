@@ -172,10 +172,6 @@ module.exports = {
           from: { opacity: 0, transform: "translateX(-2px)" },
           to: { opacity: 1, transform: "translateX(0)" },
         },
-        slideDownAndFade: {
-          from: { opacity: 0, transform: "translateY(-2px)" },
-          to: { opacity: 1, transform: "translateY(0)" },
-        },
         slideLeftAndFade: {
           from: { opacity: 0, transform: "translateX(2px)" },
           to: { opacity: 1, transform: "translateX(0)" },
@@ -184,17 +180,9 @@ module.exports = {
           "0%": { opacity: 0, transform: "translateY(2px)" },
           "100%": { opacity: 1, transform: "translateY(0)" },
         },
-        slideRightAndFade: {
-          "0%": { opacity: 0, transform: "translateX(-2px)" },
-          "100%": { opacity: 1, transform: "translateX(0)" },
-        },
         slideDownAndFade: {
           "0%": { opacity: 0, transform: "translateY(-2px)" },
           "100%": { opacity: 1, transform: "translateY(0)" },
-        },
-        slideLeftAndFade: {
-          "0%": { opacity: 0, transform: "translateX(2px)" },
-          "100%": { opacity: 1, transform: "translateX(0)" },
         },
         slideDown: {
           from: { height: 0 },
