@@ -2,15 +2,19 @@ import { Controller, useFormContext } from "react-hook-form";
 import { Signup } from "../../../utils/types/@types";
 import Select from "react-select";
 import { useState } from "react";
-import { groupedOptions, GroupedOption } from "../../../utils/categories";
+import { useQuery } from "react-query";
+import { CategoriesEndPoints } from "../../../api/api";
 
 
-const mappedCourses = groupedOptions.map((data) => {
-  return {
-    label: data.label,
-    value: data.value,
+
+type MappedCourses = {
+  label: string;
+  value: string;
+  options: {
+    label: string;
+    value: string;
   };
-});
+};
 
 const degrreOptions = [
   { label: "1º Ano", value: "1º Ano" },
@@ -20,11 +24,16 @@ const degrreOptions = [
   { label: "5º Ano", value: "5º Ano" },
 ];
 
+
 export default function StepTwo() {
   const { control, formState: errors } = useFormContext<Signup>();
 
-  const [selectedOptions, setSelectedOptions] = useState<GroupedOption[]>([]);
+  const [selectedOptions, setSelectedOptions] = useState<MappedCourses[]>([]);
 
+  const { status, data } = useQuery("posts", async () => {
+    const { data } = await CategoriesEndPoints.getCategories();
+    return data;
+  });
 
   const setHandle = (e: any) => {
     setSelectedOptions(Array.isArray(e) ? e.map((data) => data.label) : []);
@@ -41,16 +50,18 @@ export default function StepTwo() {
 
             <div className="flex flex-wrap items-center lg:justify-between justify-center">
               <div className=" block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
-                <Controller
-                  name="course"
-                  control={control}
-                  render={({ field: { onChange } }) => (
-                    <Select
-                      options={mappedCourses}
-                      onChange={(e) => onChange(e?.value || "")}
-                    />
-                  )}
-                />
+                {status === "success" && (
+                  <Controller
+                    name="course"
+                    control={control}
+                    render={({ field: { onChange } }) => (
+                      <Select
+                        options={data.courses}
+                        onChange={(e: any) => onChange(e?.value || "")}
+                      />
+                    )}
+                  />
+                )}
                 {errors.errors.course?.message && (
                   <p className="text-red-600 text-xs">
                     {errors.errors.course?.message}
@@ -96,20 +107,22 @@ export default function StepTwo() {
 
           <div className="flex flex-wrap items-center lg:justify-between justify-center">
             <div className=" block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6">
-              <Controller
-                control={control}
-                name="interest"
-                render={({ field: { onChange } }) => (
-                  <Select
-                    isMulti
-                    options={groupedOptions}
-                    onChange={(e) => {
-                      onChange(e);
-                      setHandle(e);
-                    }}
-                  />
-                )}
-              />
+              {status === "success" && (
+                <Controller
+                  control={control}
+                  name="interest"
+                  render={({ field: { onChange } }) => (
+                    <Select
+                      isMulti
+                      options={data.mappedCategories}
+                      onChange={(e) => {
+                        onChange(e);
+                        setHandle(e);
+                      }}
+                    />
+                  )}
+                />
+              )}
               {errors.errors.interest?.message && (
                 <p className="text-red-600 text-xs">
                   {errors.errors.interest?.message}

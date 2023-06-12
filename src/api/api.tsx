@@ -61,8 +61,6 @@ async function deleteChat(id: string) {
   return response;
 }
 
-
-
 export const ChatEndPoints = {
   getChats,
   createChat,
@@ -71,4 +69,11 @@ export const ChatEndPoints = {
   deleteChat,
 };
 
+async function getCategories() {
+  const response = await axiosInstance.get("/category");
+  return response;
+}
 
+export const CategoriesEndPoints = {
+  getCategories,
+};

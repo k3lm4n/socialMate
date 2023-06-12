@@ -35,7 +35,7 @@ const SignUp = () => {
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<Signup> = (data) => {
-    console.log(data);
+    // console.log(data);
     mutateAsync(data);
     if (status === "success") {
       notify();
@@ -79,7 +79,8 @@ const SignUp = () => {
                   </div>
                   <FormProvider {...methods}>
                     <form
-                      onSubmit={handleSubmit(onSubmit, (error) => console.error(error)
+                      onSubmit={handleSubmit(onSubmit, (error) =>
+                        console.error(error)
                       )}
                       className="w-full h-full flex justify-center items-center flex-col"
                     >
