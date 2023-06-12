@@ -3,7 +3,7 @@ import { PropsWithChildren, createContext, useEffect, useState } from "react";
 import io from "socket.io-client";
 
 // export const socket = io("https://api.oowl.tech");
-export const socket = io("http://localhost:3443");
+export const socket = io(import.meta.env.VITE_SOCKET_URL);
 export const SocketContext = createContext({} as IContext);
 
 type SetRoomType = {
