@@ -9,10 +9,12 @@ import ListGroup from "../ListGroup";
 import { Link, useLocation } from "react-router-dom";
 import { useContext } from "react";
 import { ActiveListContext } from "../../context/ActiveListContext";
+import { ModalCreateChannelContext } from "../../context/ModalCreateChannelContext";
 
 const ExternalSideBar = () => {
   const location = useLocation();
-  const ctx = useContext(ActiveListContext);
+  const ctx_act = useContext(ActiveListContext);
+  const ctx_mdl = useContext(ModalCreateChannelContext);
 
   return (
     <div
@@ -40,7 +42,7 @@ const ExternalSideBar = () => {
               </Link>
             </li>
             <li className="flex items-center justify-center lg:w-12 w-8 lg:h-12 h-8 my-2 rounded-full bg-white hover:shadow-inner transition-all duration-300">
-              <button onClick={() => ctx.handle()}>
+              <button onClick={() => ctx_act.handle()}>
                 <ChatBubbleLeftRightIcon
                   fill="#3298"
                   className="h-8 w-8"
@@ -53,12 +55,12 @@ const ExternalSideBar = () => {
             <ListGroup />
 
             <li className="flex items-center justify-center lg:w-12 w-8 lg:h-12 h-8 my-2 rounded-full bg-white hover:shadow-inner transition-all duration-300">
-              <Link
-                to={"/feed/discovery"}
+              <button
+                onClick={() => ctx_mdl.handle()}
                 className=" flex items-center justify-center lg:w-12 w-8 lg:h-12 h-8"
               >
                 <PlusIcon className="h-6 w-6" color="#3BA55D" />
-              </Link>
+              </button>
             </li>
 
             <li className="flex items-center justify-center lg:w-12 w-8 lg:h-12 h-8 my-2 rounded-full bg-white hover:shadow-inner transition-all duration-300">

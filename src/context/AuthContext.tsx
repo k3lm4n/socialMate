@@ -3,9 +3,6 @@ import React, { PropsWithChildren, useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
 import { setCookie, parseCookies } from "nookies";
 
-
-
-
 type User = {
   name: string;
   email: string;
@@ -47,12 +44,7 @@ const AuthProvider = (props: PropsWithChildren) => {
     email: string;
     password: string;
   }) {
-    const response = await axiosInstance.post( "/auth", { email, password });
-
-    setCookie(undefined, "socialMate.token", response.data.accessToken, {
-      maxAge: 60 * 60 * 1, // 1 hour
-    });
-
+    const response = await axiosInstance.post("/auth", { email, password });
     setUser(response.data.userReponse);
 
     return response.data;
