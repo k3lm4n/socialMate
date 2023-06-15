@@ -58,7 +58,7 @@ const people = [
 ];
 
 function useUser() {
-  return useQuery("posts", async () => {
+  return useQuery("actives", async () => {
     const { data } = await UserEndPoints.getUsers();
     return data;
   });

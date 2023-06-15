@@ -16,9 +16,9 @@ const notify = () =>
   });
 
 const Login = () => {
-
+  const context = useContext(AuthContext);
   const navigate = useNavigate();
-  const { mutateAsync, isLoading, isError } = useMutation(
+  const { mutateAsync, isLoading, isError} = useMutation(
     ({ email, password }: { email: string; password: string }) =>
       context.signIn({ email, password }),
     {
@@ -30,16 +30,20 @@ const Login = () => {
         // }
         // ,
       },
+    
     }
   );
 
-  const context = useContext(AuthContext);
 
   const { register, handleSubmit } = useForm<Login>({});
 
   const onSubmit: SubmitHandler<Login> = async (data) => {
     console.log(data);
-    await mutateAsync(data);
+    await mutateAsync(data).catch((res) => {
+      if (res.response.status === 401) {
+        toast.error("Email ou senha incorretos");
+      }
+    });
   };
 
   return (

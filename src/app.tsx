@@ -16,6 +16,9 @@ import { Settings } from "./pages/admin/settings";
 import { Posts } from "./pages/admin/posts";
 import { Users } from "./pages/admin/user";
 import Dashboard from "./pages/admin/dashboard";
+import axiosInstance from "./api/axiosInstance";
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "./context/AuthContext";
 
 export default function App() {
   return (
@@ -44,14 +47,21 @@ export default function App() {
           }
         />
         <Route
-          path="communities"
+          path=":channelId"
           element={
             <RequireAuth>
               <ChatPage />
             </RequireAuth>
           }
         >
-          <Route path=":communityId" element={<ChatPageView />} />
+          <Route
+            path=":communityId"
+            element={
+              <RequireAuth>
+                <ChatPageView />
+              </RequireAuth>
+            }
+          />
         </Route>
       </Route>
 
@@ -94,10 +104,16 @@ export default function App() {
 }
 
 function RequireAuth({ children }: { children: JSX.Element }) {
-  let { "socialMate.token": token } = parseCookies();
-  let location = useLocation();
+  // const [isauth, setisAuth] = useState(false);
 
-  if (!token) {
+  const ctx = useContext(AuthContext);
+  const location = useLocation();
+
+  if (ctx.authData.isAuth === undefined) {
+    return null;
+  }
+
+  if (ctx.authData.isAuth === "isLoggedOut") {
     return <Navigate to="/auth/login" state={{ from: location }} replace />;
   }
 

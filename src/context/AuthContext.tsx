@@ -1,7 +1,7 @@
 // "use client";
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
-import { setCookie, parseCookies } from "nookies";
+// import { parseCookies } from "nookies";
 
 type User = {
   name: string;
@@ -10,10 +10,15 @@ type User = {
   id: string;
 };
 
+type AuthData = {
+  isAuth?: "isLoggedIn" | "isLoggedOut";
+};
+
 type IContext = {
-  isAuth: boolean;
+  authData: AuthData;
   user: User | undefined;
   signIn: (data: { email: string; password: string }) => Promise<void>;
+  logOut: () => Promise<void>;
 };
 
 export const AuthContext = React.createContext({} as IContext);
@@ -21,20 +26,27 @@ export const AuthContext = React.createContext({} as IContext);
 const AuthProvider = (props: PropsWithChildren) => {
   const [user, setUser] = useState<User | undefined>();
 
-  const isAuth = !!user;
+  const [isAuth, setIsAuth] = useState<AuthData>({
+    isAuth: undefined,
+  });
+
+  async function checkIfUserIsAuthorized() {
+    try {
+      const response = await axiosInstance.get("/auth/me");
+      setUser(response.data.user);
+      setIsAuth({
+        isAuth: "isLoggedIn",
+      });
+    } catch (error) {
+      setUser(undefined);
+      setIsAuth({
+        isAuth: "isLoggedOut",
+      });
+    }
+  }
 
   useEffect(() => {
-    const { "socialMate.token": token } = parseCookies();
-    if (token) {
-      axiosInstance
-        .get("/auth/me")
-        .then((response) => {
-          setUser(response.data.user);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
+    checkIfUserIsAuthorized();
   }, []);
 
   async function signIn({
@@ -45,13 +57,23 @@ const AuthProvider = (props: PropsWithChildren) => {
     password: string;
   }) {
     const response = await axiosInstance.post("/auth", { email, password });
-    setUser(response.data.userReponse);
-
+    setUser(response.data.user);
+    setIsAuth({
+      isAuth: "isLoggedIn",
+    });
     return response.data;
   }
 
+  async function logOut() {
+    await axiosInstance.get("/auth/logout");
+    setUser(undefined);
+    setIsAuth({
+      isAuth: "isLoggedOut",
+    });
+  }
+
   return (
-    <AuthContext.Provider value={{ user, isAuth, signIn }}>
+    <AuthContext.Provider value={{ authData: isAuth, signIn, user, logOut }}>
       {props.children}
     </AuthContext.Provider>
   );

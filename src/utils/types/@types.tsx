@@ -1,5 +1,3 @@
-import { GroupedOption } from "../categories";
-
 export type Signup = {
   email: string;
   password: string;
@@ -14,7 +12,10 @@ export type Signup = {
   state?: string;
   degree?: string;
   birthdate?: string;
-  interest?: GroupedOption[];
+  interest?: {
+    label: string;
+    value: string;
+  }[];
 };
 
 export type Login = {
@@ -45,3 +46,11 @@ export interface Group {
   messages: Message[];
 }
 
+export type MappedCourses = {
+  label: string;
+  value: string;
+  options: {
+    label: string;
+    value: string;
+  };
+};

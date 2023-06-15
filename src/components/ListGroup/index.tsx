@@ -1,48 +1,41 @@
+import { useQuery } from "react-query";
+import { ChatEndPoints } from "../../api/api";
+import { Link } from "react-router-dom";
 
-
-
-const groups = [
-  {
-    name: "Project 1",
-    id: "1",
-    photo: "https://picsum.photos/200",
-  },
-  {
-    name: "Project 2",
-    id: "2",
-    photo: "https://picsum.photos/300",
-  },
-  {
-    name: "Project 3",
-    id: "3",
-    photo: "https://picsum.photos/400",
-  },
-  {
-    name: "Project 4",
-    id: "4",
-    photo: "https://picsum.photos/500",
-  },
-];
+function useChannels() {
+  return useQuery("actives", async () => {
+    const { data } = await ChatEndPoints.getChannels();
+    return data;
+  });
+}
 
 const ListGroup = () => {
+  const { status, data } = useChannels();
+
   return (
     <>
-      {groups.map((group) => (
-        <li className="flex items-center my-2  " key={group.id}>
-          <a
-            href={"/feed/communities"}
-            className="lg:w-11 w-8 lg:h-11 h-8"
-          >
-            <img
-              src={group.photo}
-              width={44}
-              height={44}
-              alt="Icon Group"
-              className="top-0 lg:w-11 w-8 lg:h-11 h-8 animate-scaleOut hover:animate-scaleIn  hover:rounded-xl rounded-full "
-            />
-          </a>
-        </li>
-      ))}
+      {status === "loading" ? (
+        "Loading..."
+      ) : status === "error" ? (
+        <span>Error </span>
+      ) : (
+        data.channels.map((channel: { id: string; name: string }) => (
+          <li className="flex items-center my-2  " key={channel.id}>
+            <Link
+              to={`/feed/${channel.id}`}
+              className="lg:w-11 w-8 lg:h-11 h-8"
+            >
+              <img
+                src={"https://ui-avatars.com/api/" + channel.name}
+                width={44}
+                height={44}
+                alt={channel.name}
+                className="top-0 lg:w-11 w-8 lg:h-11 h-8 animate-scaleOut hover:animate-scaleIn  hover:rounded-xl rounded-full "
+              />
+            </Link>
+          </li>
+        ))
+      )}
     </>
   );
 };
