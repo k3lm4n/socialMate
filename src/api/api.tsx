@@ -1,6 +1,6 @@
 // "use client";
 
-import { ChatChannelType } from "../utils/validator/chatChannel";
+import { ChatChannelType, ChatType } from "../utils/validator/chatChannel";
 import axiosInstance from "./axiosInstance";
 
 //User API
@@ -53,14 +53,8 @@ async function getChatsOnChannel(id:string) {
 }
 
 
-async function createChat({
-  userIds,
-  name,
-}: {
-  userIds: string[];
-  name: string;
-}) {
-  const response = await axiosInstance.post("/chat", { userIds, name });
+async function createChat(data:ChatType) {
+  const response = await axiosInstance.post("/chat", data);
   return response;
 }
 
@@ -78,6 +72,11 @@ async function getChannelbyId(id?: string) {
 
 async function getChannels() {
   const response = await axiosInstance.get("/chatChannel/byUser/");
+  return response;
+}
+
+async function getChannel(id?:string) {
+  const response = await axiosInstance.get("/chatChannel/"+id);
   return response;
 }
 
@@ -113,7 +112,8 @@ export const ChatEndPoints = {
   createChannel,
   getChannelbyId,
   getChannels,
-  getChatsOnChannel
+  getChatsOnChannel,
+  getChannel
 };
 
 async function getCategories() {

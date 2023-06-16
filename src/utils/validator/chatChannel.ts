@@ -1,10 +1,10 @@
 import z from "zod";
 
 export const chatChannel = z.object({
-  name: z.string().min(3, { message: "Name must be at least 3 characters" }),
+  name: z.string().min(3, { message: "O nome deve ter pelo menos 3 caracteres" }),
   description: z
     .string()
-    .min(10, { message: "Description must be at least 10 characters" })
+    .min(10, { message: "A descrição deve ter pelo menos 10 caracteres" })
     .optional(),
   members: z
     .array(
@@ -31,4 +31,28 @@ export const chatChannel = z.object({
   private: z.boolean().optional(),
 });
 
+export const chatSchema = z.object({
+  name: z
+    .string()
+    .min(3, { message: "O nome deve ter pelo menos 3 caracteres" })
+    .max(20, {
+      message: "O nome deve ter pelo menos 20 caracteres",
+    })
+    .optional(),
+  description: z
+    .string()
+    .min(10, { message: "A descrição deve ter pelo menos 10 caracteres" })
+    .optional(),
+  members: z
+    .array(z.string())
+    .min(1, { message: "Members must be at least 1" })
+    .optional(),
+  channel: z
+    .string()
+    .min(1, { message: "Channel must be Selected one" })
+    .optional(),
+  avatar: z.string().min(1, { message: "" }).optional(),
+});
+
+export type ChatType = z.infer<typeof chatSchema>;
 export type ChatChannelType = z.infer<typeof chatChannel>;

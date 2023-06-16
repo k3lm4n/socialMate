@@ -53,6 +53,12 @@
     background-size: cover;
 }
 
+.bg-chat {
+    background-image: url('./assets/background_chat.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 
 
 .hover-underline-animation {

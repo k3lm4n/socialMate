@@ -3,16 +3,22 @@ import ActiveListProvider from "../../context/ActiveListContext";
 import ActivePanel from "../ActivePanel";
 import ModalCreateChannelProvider from "../../context/ModalCreateChannelContext";
 import ModalCreateChannel from "../ModalCreateChannel";
+import ModalCreateChat from "../ModalCreateChat";
+import ModalCreateChatProvider from "../../context/ModalCreateChatContext";
 
 export const FeedLayout = () => {
   return (
     <ActiveListProvider>
       <ModalCreateChannelProvider>
-        <div className="bg-gray-300 w-full h-screen">
-          <ActivePanel />
-          <ModalCreateChannel/>
-          <Outlet />
-        </div>
+        <ModalCreateChatProvider>
+          <div className="bg-gray-300 w-full h-screen">
+            <ActivePanel />
+            <ModalCreateChannel />
+            <ModalCreateChat />
+
+            <Outlet />
+          </div>
+        </ModalCreateChatProvider>
       </ModalCreateChannelProvider>
     </ActiveListProvider>
   );

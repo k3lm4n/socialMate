@@ -1,6 +1,8 @@
 import { useQuery } from "react-query";
 import { ChatEndPoints } from "../../api/api";
 import { Link } from "react-router-dom";
+import { MiniLoading } from "../Loading";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 
 function useChannels() {
   return useQuery("actives", async () => {
@@ -15,9 +17,11 @@ const ListGroup = () => {
   return (
     <>
       {status === "loading" ? (
-        "Loading..."
+        <MiniLoading />
       ) : status === "error" ? (
-        <span>Error </span>
+        <span>
+          <ExclamationTriangleIcon className="h-8 w-8 fill-red-500" />{" "}
+        </span>
       ) : (
         data.channels.map((channel: { id: string; name: string }) => (
           <li className="flex items-center my-2  " key={channel.id}>

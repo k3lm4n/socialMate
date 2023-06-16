@@ -1,7 +1,4 @@
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
-
-import { parseCookies } from "nookies";
-
 import { NotFoundPage } from "./pages/NotFoundPage";
 import Homepage from "./pages/homepage";
 import SignUp from "./pages/auth/signup";
@@ -16,9 +13,9 @@ import { Settings } from "./pages/admin/settings";
 import { Posts } from "./pages/admin/posts";
 import { Users } from "./pages/admin/user";
 import Dashboard from "./pages/admin/dashboard";
-import axiosInstance from "./api/axiosInstance";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
+import { ChatPageContacts } from "./pages/feed/chats";
 
 export default function App() {
   return (
@@ -29,15 +26,32 @@ export default function App() {
 
       <Route path="*" element={<NotFoundPage />} />
 
-      <Route path="/feed/*" element={<FeedLayout />}>
+      <Route path="/feed/" element={<FeedLayout />}>
         <Route
-          path="*"
+          path="discovery"
           element={
             <RequireAuth>
               <FeedPage />
             </RequireAuth>
           }
         />
+        <Route
+          path="chats"
+          element={
+            <RequireAuth>
+              <ChatPageContacts />
+            </RequireAuth>
+          }
+        >
+          <Route
+            path=":communityId"
+            element={
+              <RequireAuth>
+                <ChatPageView />
+              </RequireAuth>
+            }
+          />
+        </Route>
         <Route
           path="settings"
           element={
@@ -104,8 +118,6 @@ export default function App() {
 }
 
 function RequireAuth({ children }: { children: JSX.Element }) {
-  // const [isauth, setisAuth] = useState(false);
-
   const ctx = useContext(AuthContext);
   const location = useLocation();
 

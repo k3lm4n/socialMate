@@ -13,6 +13,9 @@ import { ModalCreateChannelContext } from "../../context/ModalCreateChannelConte
 import { useMutation } from "react-query";
 import { AuthContext } from "../../context/AuthContext";
 import { Toaster, toast } from "react-hot-toast";
+import { UserGroupIcon } from "@heroicons/react/24/solid";
+
+
 
 const ExternalSideBar = () => {
   const location = useLocation();
@@ -50,12 +53,14 @@ const ExternalSideBar = () => {
               </li>
               <li className="flex items-center justify-center lg:w-12 w-8 lg:h-12 h-8 my-2 rounded-full bg-white hover:shadow-inner transition-all duration-300">
                 <button onClick={() => ctx_act.handle()}>
-                  <ChatBubbleLeftRightIcon
-                    fill="#3298"
-                    className="h-8 w-8"
-                    color="#3298"
-                  />
+                  <ChatBubbleLeftRightIcon className="h-8 w-8 fill-blue-400" />
                 </button>
+              </li>
+
+              <li className="flex items-center justify-center lg:w-12 w-8 lg:h-12 h-8 my-2 rounded-full bg-white hover:shadow-inner transition-all duration-300">
+                <Link to="/feed/chats">
+                  <UserGroupIcon className="h-8 w-8 fill-blue-400" />
+                </Link>
               </li>
               <span className="flex w-10 h-[2px] bg-black/30 max-sm:my-1 max-sm:mt-3 " />
 

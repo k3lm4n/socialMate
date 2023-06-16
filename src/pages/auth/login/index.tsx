@@ -27,8 +27,6 @@ const Login = () => {
         setTimeout(() => {
           navigate("/feed/discovery");
         }, 3000);
-        // }
-        // ,
       },
     
     }
@@ -42,6 +40,9 @@ const Login = () => {
     await mutateAsync(data).catch((res) => {
       if (res.response.status === 401) {
         toast.error("Email ou senha incorretos");
+      }
+      else if (res.response.status === 500) {
+        toast.error("Erro interno do servidor");
       }
     });
   };
