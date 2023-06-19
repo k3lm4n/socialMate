@@ -87,7 +87,7 @@ async function searchChat(name: string) {
   return response;
 }
 
-async function getChat(id: string) {
+async function getChat(id?: string) {
   const response = await axiosInstance.get("/chat/" + id);
   return response;
 }

@@ -43,14 +43,7 @@ export default function App() {
         />
       </Route>
 
-      <Route
-        path="*"
-        element={
-          <Suspense fallback={<Loading />}>
-            <NotFoundPage />
-          </Suspense>
-        }
-      />
+      <Route path="*" element={<NotFoundPage />} />
       <Route path="/feed/" element={<FeedLayout />}>
         <Route
           path="discovery"
@@ -73,7 +66,7 @@ export default function App() {
           }
         >
           <Route
-            path=":communityId"
+            path=":chatId"
             element={
               <RequireAuth>
                 <Suspense fallback={<Loading />}>
@@ -104,7 +97,7 @@ export default function App() {
           }
         >
           <Route
-            path=":communityId"
+            path=":chatId"
             element={
               <RequireAuth>
                 <Suspense fallback={<Loading />}>
