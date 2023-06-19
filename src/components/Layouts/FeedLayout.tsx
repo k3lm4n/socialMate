@@ -6,7 +6,7 @@ import ModalCreateChannel from "../ModalCreateChannel";
 import ModalCreateChat from "../ModalCreateChat";
 import ModalCreateChatProvider from "../../context/ModalCreateChatContext";
 
-export const FeedLayout = () => {
+export default function FeedLayout() {
   return (
     <ActiveListProvider>
       <ModalCreateChannelProvider>
@@ -22,4 +22,4 @@ export const FeedLayout = () => {
       </ModalCreateChannelProvider>
     </ActiveListProvider>
   );
-};
+}

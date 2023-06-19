@@ -3,7 +3,7 @@ import Channel from "../../../components/Channel";
 import TopBar from "../../../components/TopBar";
 import { Outlet } from "react-router-dom";
 
-export const ChatPage = () => {
+export default function ChatPage() {
   return (
     <>
       <TopBar />
@@ -15,4 +15,4 @@ export const ChatPage = () => {
       </div>
     </>
   );
-};
+}

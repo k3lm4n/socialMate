@@ -3,7 +3,7 @@ import Chats from "../../../components/Chats";
 import TopBar from "../../../components/TopBar";
 import { Outlet } from "react-router-dom";
 
-export const ChatPageContacts = () => {
+export default function ChatPageContacts() {
   return (
     <>
       <TopBar />
@@ -15,4 +15,4 @@ export const ChatPageContacts = () => {
       </div>
     </>
   );
-};
+}

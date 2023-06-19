@@ -6,7 +6,7 @@ import {
   ChatBubbleLeftRightIcon,
 } from "@heroicons/react/24/outline";
 import ListGroup from "../ListGroup";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { ActiveListContext } from "../../context/ActiveListContext";
 import { ModalCreateChannelContext } from "../../context/ModalCreateChannelContext";
@@ -19,6 +19,7 @@ import { UserGroupIcon } from "@heroicons/react/24/solid";
 
 const ExternalSideBar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const ctx_user = useContext(AuthContext);
   const ctx_act = useContext(ActiveListContext);
   const ctx_mdl = useContext(ModalCreateChannelContext);
@@ -91,6 +92,7 @@ const ExternalSideBar = () => {
                       duration: 3000,
                     });
                     setTimeout(() => {
+                      navigate("/auth/login")
                       mutateAsync();
                     }, 3000);
                   }}
