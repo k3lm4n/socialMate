@@ -1,37 +1,29 @@
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { Suspense, useContext, lazy } from "react";
+import { AuthContext } from "./context/AuthContext";
+import Loading from "./components/Loading";
+
 const FeedPage = lazy(() => import("./pages/feed/discovery"));
-const FeedLayout = lazy(() => import("./components/Layouts/FeedLayout"));
 const ChatPage = lazy(() => import("./pages/feed/communities"));
 const ChatPageView = lazy(() => import("./pages/feed/communities/chatView"));
 const SettingsPage = lazy(() => import("./pages/feed/settings"));
-const DashboardLayout = lazy(
-  () => import("./components/Layouts/DashboardLayout")
-);
 const Settings = lazy(() => import("./pages/admin/settings"));
 const Posts = lazy(() => import("./pages/admin/posts"));
 const Users = lazy(() => import("./pages/admin/user"));
 const Dashboard = lazy(() => import("./pages/admin/dashboard"));
 const ChatPageContacts = lazy(() => import("./pages/feed/chats"));
-const Homepage = lazy(() => import("./pages/homepage"));
-const SignUp = lazy(() => import("./pages/auth/signup"));
-const Login = lazy(() => import("./pages/auth/login"));
-const NotFoundPage = lazy(() => import("./pages/NotFoundPage"));
-import { AuthContext } from "./context/AuthContext";
 
-import Loading from "./components/Loading";
+import FeedLayout from "./components/Layouts/FeedLayout";
+import DashboardLayout from "./components/Layouts/DashboardLayout";
+import Homepage from "./pages/homepage";
+import SignUp from "./pages/auth/signup";
+import Login from "./pages/auth/login";
+import NotFoundPage from "./pages/NotFoundPage";
 
 export default function App() {
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <Suspense fallback={<Loading />}>
-            <Homepage />
-          </Suspense>
-        }
-      />
+      <Route path="/" element={<Homepage />} />
       <Route path="/auth/">
         <Route
           path="signup"
@@ -59,14 +51,7 @@ export default function App() {
           </Suspense>
         }
       />
-      <Route
-        path="/feed/"
-        element={
-          <Suspense fallback={<Loading />}>
-            <FeedLayout />
-          </Suspense>
-        }
-      >
+      <Route path="/feed/" element={<FeedLayout />}>
         <Route
           path="discovery"
           element={
@@ -131,14 +116,7 @@ export default function App() {
         </Route>
       </Route>
 
-      <Route
-        path="dashboard/*"
-        element={
-          <Suspense fallback={<Loading />}>
-            <DashboardLayout />
-          </Suspense>
-        }
-      >
+      <Route path="dashboard/*" element={<DashboardLayout />}>
         <Route
           path="*"
           element={
