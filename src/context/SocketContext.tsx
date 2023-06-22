@@ -8,7 +8,7 @@ export const SocketContext = createContext({} as IContext);
 
 type SetRoomType = {
   senderId: string;
-  receiverId: string | undefined;
+  chatId: string | undefined;
   socketId: string | undefined;
 };
 

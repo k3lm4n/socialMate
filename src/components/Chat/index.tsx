@@ -31,6 +31,16 @@ const Chat = () => {
   const { user } = useContext(AuthContext);
   const { sendMessage, messages, setRoom } = useContext(SocketContext);
 
+  // var y = window.scrollY;
+
+  // useEffect(() => {
+  //   var element = document.querySelector(".ref");
+  //   window.scroll({
+  //     top: element?.scrollHeight,
+  //     left: 0,
+  //   });
+  // }, [messages]);
+
   const { register, handleSubmit, setValue } = useForm<Message>({
     defaultValues: {
       content: "",
@@ -38,7 +48,7 @@ const Chat = () => {
   });
 
   setRoom({
-    receiverId: chatId,
+    chatId: chatId,
     senderId: user?.id as string,
     socketId: undefined,
   });
@@ -47,10 +57,15 @@ const Chat = () => {
     sendMessage({
       content: data.content,
       senderId: user?.id as string,
-      receiverId: chatId,
+      chatId: chatId,
     });
     setValue("content", "");
   };
+
+  console.log("====================================");
+  console.log(messages);
+  console.log(user);
+  console.log("====================================");
 
   return (
     <>
@@ -86,14 +101,15 @@ const Chat = () => {
               </button>
             </div>
           </div>
-          <div className="h-full overflow-y-auto pb-3">
-            {messages.map((msg, index) =>
-              msg.senderId === user?.id ? (
-                <BubbleChatRight props={msg} key={index} />
-              ) : (
-                <BubbleChatLeft props={msg} key={index} />
-              )
-            )}
+          <div className="ref h-full overflow-y-auto pb-3">
+            {Object.values(messages).length > 0 &&
+              messages.map((msg, index) =>
+                msg.senderId == user?.id ? (
+                  <BubbleChatRight props={msg} key={index} />
+                ) : (
+                  <BubbleChatLeft props={msg} key={index} />
+                )
+              )}
           </div>
           <div className="w-full flex flex-row justify-end ">
             <form

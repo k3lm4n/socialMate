@@ -12,6 +12,7 @@ const Posts = lazy(() => import("./pages/admin/posts"));
 const Users = lazy(() => import("./pages/admin/user"));
 const Dashboard = lazy(() => import("./pages/admin/dashboard"));
 const ChatPageContacts = lazy(() => import("./pages/feed/chats"));
+const ChannelDetails = lazy(() => import("./pages/feed/communities/details"));
 
 import FeedLayout from "./components/Layouts/FeedLayout";
 import DashboardLayout from "./components/Layouts/DashboardLayout";
@@ -104,6 +105,14 @@ export default function App() {
                   <ChatPageView />
                 </Suspense>
               </RequireAuth>
+            }
+          />
+          <Route
+            path="details"
+            element={
+              <Suspense fallback={<Loading />}>
+                <ChannelDetails />
+              </Suspense>
             }
           />
         </Route>

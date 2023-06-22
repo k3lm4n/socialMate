@@ -1,6 +1,10 @@
 // "use client";
 
-import { ChatChannelType, ChatType } from "../utils/validator/chatChannel";
+import {
+  AddMembersType,
+  ChatChannelType,
+  ChatType,
+} from "../utils/validator/chatChannel";
 import axiosInstance from "./axiosInstance";
 
 //User API
@@ -14,8 +18,6 @@ async function getUsers() {
   const response = await axiosInstance.get("/user");
   return response;
 }
-
-
 
 async function createUser(data: {}) {
   const response = await axiosInstance.post("/user", data);
@@ -47,20 +49,23 @@ async function getChats() {
   return response;
 }
 
-async function getChatsOnChannel(id:string) {
-  const response = await axiosInstance.get("/chat/byChannel/"+id);
+async function getChatsOnChannel(id: string) {
+  const response = await axiosInstance.get("/chat/byChannel/" + id);
   return response;
 }
 
-
-async function createChat(data:ChatType) {
+async function createChat(data: ChatType) {
   const response = await axiosInstance.post("/chat", data);
   return response;
 }
 
+async function createChannel(data: ChatChannelType) {
+  const response = await axiosInstance.post("/chatChannel", { data });
+  return response;
+}
 
-async function createChannel(data:ChatChannelType){
-  const response = await axiosInstance.post("/chatChannel",{data});
+async function joinChannel(data: AddMembersType) {
+  const response = await axiosInstance.post("/chatChannel/join", data);
   return response;
 }
 
@@ -69,14 +74,20 @@ async function getChannelbyId(id?: string) {
   return response;
 }
 
+async function search(query: string) {
+  const response = await axiosInstance.get("/search/", {
+    params: { query },
+  });
+  return response;
+}
 
 async function getChannels() {
   const response = await axiosInstance.get("/chatChannel/byUser/");
   return response;
 }
 
-async function getChannel(id?:string) {
-  const response = await axiosInstance.get("/chatChannel/"+id);
+async function getChannel(id?: string) {
+  const response = await axiosInstance.get("/chatChannel/" + id);
   return response;
 }
 
@@ -113,7 +124,12 @@ export const ChatEndPoints = {
   getChannelbyId,
   getChannels,
   getChatsOnChannel,
-  getChannel
+  getChannel,
+  joinChannel,
+};
+
+export const SearchEndPoints = {
+  search,
 };
 
 async function getCategories() {
