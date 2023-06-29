@@ -62,8 +62,8 @@ export default function ModalAddMembers() {
       };
     }
   );
-
-  const mapMembers = options.users.filter((user: any) => {
+  
+  const mapMembers = options?.users.filter((user: any) => {
     return !MappedMembers?.some((member: any) => member.value === user.value);
 });
 

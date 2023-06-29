@@ -4,10 +4,11 @@ type BubbleChatRightProps = {
   content: string;
   createdAt?: Date;
   senderId: string;
+  sender: string;
 };
-type Props = { props: BubbleChatRightProps,key:any };
+type Props = { props: BubbleChatRightProps; key: any };
 
-function BubbleChatRight(props: Props, key:any) {
+function BubbleChatRight(props: Props, key: any) {
   return (
     <div className="chat chat-end" key={key}>
       <div className="chat-image avatar">
@@ -20,14 +21,13 @@ function BubbleChatRight(props: Props, key:any) {
           />
         </div>
       </div>
-      <div className="chat-header">
-        {props.props.senderId}
+      {/* <div className="chat-header">{props.props.sender}</div> */}
+      <div className="chat-bubble">{props.props.content}</div>
+      <div className="chat-footer opacity-50">
         <time className="text-xs opacity-50">
           {dayjs(props.props.createdAt).format("DD/MM HH:mm")}
         </time>
       </div>
-      <div className="chat-bubble">{props.props.content}</div>
-      <div className="chat-footer opacity-50"></div>
     </div>
   );
 }

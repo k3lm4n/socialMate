@@ -4,6 +4,7 @@ type BubbleChatLeftProps = {
   content: string;
   createdAt?: Date;
   receiverId?: string;
+
 };
 type Props = { props: BubbleChatLeftProps,key:any  };
 

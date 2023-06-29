@@ -115,7 +115,7 @@ async function getCreateOptionsChannel() {
 }
 
 async function sendMessage(data: Message) {
-  const response = await axiosInstance.post("/message", data);
+  const response = await axiosInstance.post("/message/", data);
   return response;
 }
 

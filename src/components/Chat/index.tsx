@@ -5,6 +5,7 @@ import {
   VideoCameraIcon,
   PhoneIcon,
   PaperAirplaneIcon,
+  ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";
 
 import { Message } from "../../utils/types/@types";
@@ -12,14 +13,28 @@ import { AuthContext } from "../../context/AuthContext";
 import { SocketContext } from "../../context/SocketContext";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
-import { useQuery, useQueryClient } from "react-query";
-import { ChatEndPoints } from "../../api/api";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { ChatEndPoints, MessageEndPoints } from "../../api/api";
 import Loading from "../Loading";
+import toast from "react-hot-toast";
 
 const Chat = () => {
   const { chatId } = useParams<{ chatId: string }>();
   const { status, data } = useQuery(["chatUnique", chatId], () =>
     ChatEndPoints.getChat(chatId)
+  );
+  const { messages, setRoom, populateMessages } = useContext(SocketContext);
+
+  const { status: statusMessage } = useQuery(
+    ["chatMessagessss", chatId],
+    () =>
+      MessageEndPoints.getMessages(chatId).then((res) => {
+        populateMessages(res.data);
+        return res;
+      }),
+    {
+      refetchOnWindowFocus: false,
+    }
   );
 
   const queryClient = useQueryClient();
@@ -29,7 +44,6 @@ const Chat = () => {
   }, [chatId]);
 
   const { user } = useContext(AuthContext);
-  const { sendMessage, messages, setRoom } = useContext(SocketContext);
 
   // var y = window.scrollY;
 
@@ -53,19 +67,27 @@ const Chat = () => {
     socketId: undefined,
   });
 
+  const { mutateAsync } = useMutation((message: Message) =>
+    MessageEndPoints.sendMessage(message)
+  );
+
   const onSubmit: SubmitHandler<Message> = async (data) => {
-    sendMessage({
-      content: data.content,
-      senderId: user?.id as string,
-      chatId: chatId,
+    console.log(data);
+    await mutateAsync(data).catch((res: any) => {
+      if (res.response.status === 500) {
+        toast.error("Impossivel enviar a mensagem");
+      }
     });
     setValue("content", "");
   };
 
-  console.log("====================================");
-  console.log(messages);
-  console.log(user);
-  console.log("====================================");
+  // console.log("====================================");
+  // console.log(messages);
+  // console.log(user);
+  // console.log("====================================");
+
+  register("senderId", { value: user?.id });
+  register("chatId", { value: chatId });
 
   return (
     <>
@@ -102,14 +124,27 @@ const Chat = () => {
             </div>
           </div>
           <div className="ref h-full overflow-y-auto pb-3">
-            {Object.values(messages).length > 0 &&
+            {statusMessage === "success" ? (
+              Object.values(messages).length > 0 &&
               messages.map((msg, index) =>
-                msg.senderId == user?.id ? (
+                msg.senderId === user?.id ? (
                   <BubbleChatRight props={msg} key={index} />
                 ) : (
                   <BubbleChatLeft props={msg} key={index} />
                 )
-              )}
+              )
+            ) : statusMessage === "loading" ? (
+              <Loading />
+            ) : (
+              <span>
+                <ExclamationTriangleIcon
+                  className="h-7 w-7"
+                  width={48}
+                  height={48}
+                />{" "}
+                Erro ao carregar as mensagens
+              </span>
+            )}
           </div>
           <div className="w-full flex flex-row justify-end ">
             <form
