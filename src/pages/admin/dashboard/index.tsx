@@ -25,7 +25,7 @@ const Dashboard = () => {
           title={"Sales"}
           subtitle={"$574.34"}
         />
-         <Widget
+        <Widget
           icon={<UserGroupIcon className="h-7 w-7" />}
           title={"Earnings"}
           subtitle={"$340.5"}
@@ -46,7 +46,6 @@ const Dashboard = () => {
         <TotalChart />
         <PieChartCard />
       </div>
-
     </div>
   );
 };

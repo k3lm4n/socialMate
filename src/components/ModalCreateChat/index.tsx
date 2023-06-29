@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { ModalCreateChatContext } from "../../context/ModalCreateChatContext";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { ChatType, chatSchema } from "../../utils/validator/chatChannel";
 import Loading from "../Loading";
@@ -216,7 +216,6 @@ export default function ModalCreateChat() {
           </div>
         </Dialog>
       </Transition.Root>
-      <Toaster />
     </>
   );
 }

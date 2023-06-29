@@ -6,7 +6,7 @@ const DiscoverySpace = () => {
       <div className="m-4">
         <h1 className="m-4">Space Discovery</h1>
         <div className="overflow-y-scroll h-[calc(100vh-6rem)]">
-          <div className="grid lg:grid-cols-2 grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 gap-4 content-center justify-center">
             <PostView />
             <PostView />
             <PostView />

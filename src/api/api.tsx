@@ -1,5 +1,6 @@
 // "use client";
 
+import { Message } from "../utils/types/@types";
 import {
   AddMembersType,
   ChatChannelType,
@@ -112,6 +113,21 @@ async function getCreateOptionsChannel() {
   const response = await axiosInstance.get("/chatChannel/options");
   return response;
 }
+
+async function sendMessage(data: Message) {
+  const response = await axiosInstance.post("/message", data);
+  return response;
+}
+
+async function getMessages(chatId?: string) {
+  const response = await axiosInstance.get("/message/" + chatId);
+  return response;
+}
+
+export const MessageEndPoints = {
+  sendMessage,
+  getMessages,
+};
 
 export const ChatEndPoints = {
   getChats,

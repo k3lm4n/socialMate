@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { ChatEndPoints } from "../../api/api";
+import { MiniLoading } from "../Loading";
 
 const ChannelChatList = () => {
   const { channelId } = useParams<{ channelId: string }>();
@@ -14,7 +15,7 @@ const ChannelChatList = () => {
   return (
     <>
       {status === "loading" ? (
-        "Loading..."
+        <MiniLoading />
       ) : status === "error" ? (
         <span>Error </span>
       ) : (

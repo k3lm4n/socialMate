@@ -5,7 +5,7 @@ import AuthProvider from "./context/AuthContext.tsx";
 import SocketProvider from "./context/SocketContext.tsx";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
-
+import { Toaster } from "react-hot-toast";
 
 import App from "./app.tsx";
 
@@ -18,6 +18,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <SocketProvider>
           <BrowserRouter>
             <App />
+            <Toaster />
           </BrowserRouter>
         </SocketProvider>
       </AuthProvider>

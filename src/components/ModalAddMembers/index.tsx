@@ -2,7 +2,7 @@ import { Fragment, useContext, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ModalAddMembersContext } from "../../context/ModalAddMembersContext";
 import { useMutation, useQuery } from "react-query";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { AddMembersSchema, AddMembersType } from "../../utils/validator/chatChannel";
 import Loading from "../Loading";
@@ -179,7 +179,6 @@ export default function ModalAddMembers() {
           </div>
         </Dialog>
       </Transition.Root>
-      <Toaster />
     </>
   );
 }

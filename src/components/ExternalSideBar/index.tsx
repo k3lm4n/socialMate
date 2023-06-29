@@ -12,10 +12,8 @@ import { ActiveListContext } from "../../context/ActiveListContext";
 import { ModalCreateChannelContext } from "../../context/ModalCreateChannelContext";
 import { useMutation } from "react-query";
 import { AuthContext } from "../../context/AuthContext";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { UserGroupIcon } from "@heroicons/react/24/solid";
-
-
 
 const ExternalSideBar = () => {
   const location = useLocation();
@@ -92,7 +90,7 @@ const ExternalSideBar = () => {
                       duration: 3000,
                     });
                     setTimeout(() => {
-                      navigate("/auth/login")
+                      navigate("/auth/login");
                       mutateAsync();
                     }, 3000);
                   }}
@@ -105,7 +103,6 @@ const ExternalSideBar = () => {
           </nav>
         </aside>
       </div>
-      <Toaster />
     </>
   );
 };
