@@ -1,12 +1,12 @@
 // "use client";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
-import {  useMutation } from "react-query";
+import { useMutation } from "react-query";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Login } from "../../../utils/types/@types";
 import Loading from "../../../components/Loading";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 
 const notify = () =>
@@ -18,7 +18,7 @@ const notify = () =>
 const Login = () => {
   const context = useContext(AuthContext);
   const navigate = useNavigate();
-  const { mutateAsync, isLoading, isError} = useMutation(
+  const { mutateAsync, isLoading, isError } = useMutation(
     ({ email, password }: { email: string; password: string }) =>
       context.signIn({ email, password }),
     {
@@ -28,10 +28,8 @@ const Login = () => {
           navigate("/feed/discovery");
         }, 3000);
       },
-    
     }
   );
-
 
   const { register, handleSubmit } = useForm<Login>({});
 
@@ -40,8 +38,7 @@ const Login = () => {
     await mutateAsync(data).catch((res) => {
       if (res.response.status === 401) {
         toast.error("Email ou senha incorretos");
-      }
-      else if (res.response.status === 500) {
+      } else if (res.response.status === 500) {
         toast.error("Erro interno do servidor");
       }
     });
