@@ -37,6 +37,7 @@
     "react-apexcharts": "^1.4.0",
     "react-cssfx-loading": "^2.1.0",
     "react-dom": "^18.2.0",
+    "react-drag-drop-files": "^2.3.10",
     "react-hook-form": "^7.43.9",
     "react-hot-toast": "^2.4.0",
     "react-query": "^3.39.3",

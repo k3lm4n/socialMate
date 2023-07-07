@@ -13,7 +13,8 @@ import { ModalCreateChannelContext } from "../../context/ModalCreateChannelConte
 import { useMutation } from "react-query";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-hot-toast";
-import { UserGroupIcon } from "@heroicons/react/24/solid";
+import { PencilSquareIcon, UserGroupIcon } from "@heroicons/react/24/solid";
+import { ModalCreatePostContext } from "../../context/ModalCreatePostContext";
 
 const ExternalSideBar = () => {
   const location = useLocation();
@@ -21,6 +22,7 @@ const ExternalSideBar = () => {
   const ctx_user = useContext(AuthContext);
   const ctx_act = useContext(ActiveListContext);
   const ctx_mdl = useContext(ModalCreateChannelContext);
+  const ctx_mdlpost = useContext(ModalCreatePostContext);
 
   const { mutateAsync } = useMutation(() => ctx_user.logOut());
 
@@ -49,6 +51,11 @@ const ExternalSideBar = () => {
                     className="h-6 w-6"
                   />
                 </Link>
+              </li>
+              <li className="flex items-center justify-center lg:w-12 w-8 lg:h-12 h-8 my-2 rounded-full bg-white hover:shadow-inner transition-all duration-300">
+                <button onClick={() => ctx_mdlpost.handle()}>
+                  <PencilSquareIcon className="h-8 w-8 fill-blue-400" />
+                </button>
               </li>
               <li className="flex items-center justify-center lg:w-12 w-8 lg:h-12 h-8 my-2 rounded-full bg-white hover:shadow-inner transition-all duration-300">
                 <button onClick={() => ctx_act.handle()}>

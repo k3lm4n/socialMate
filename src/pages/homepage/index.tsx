@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import Logo from "../../assets/logo.svg";
 import Home from "../../assets/home.svg";
 import AboutUs from "../../assets/aboutus.svg";
@@ -7,10 +7,9 @@ import Img2 from "../../assets/img2.jpg";
 import Img3 from "../../assets/img3.jpg";
 import Img4 from "../../assets/img4.jpg";
 
-
-
 import Footer from "../../components/Footer";
 import { Link } from "react-router-dom";
+import PostCardHome from "../../components/PostCardHome";
 
 const Links = [
   {
@@ -19,13 +18,13 @@ const Links = [
     id: 1,
   },
   {
-    name: "Sobre Nós",
-    path: "#aboutus",
+    name: "Funcionalidades",
+    path: "#features",
     id: 2,
   },
   {
-    name: "Funcionalidades",
-    path: "#features",
+    name: "Sobre Nós",
+    path: "#aboutus",
     id: 3,
   },
   {
@@ -34,18 +33,157 @@ const Links = [
     id: 4,
   },
 ];
+
+const posts = [
+  {
+    id: "1",
+    title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    content:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, vero commodi modi dicta, similique atque alias provident, voluptate obcaecati sapiente aut ex! Nesciunt quisquam praesentium odit, sapiente facere eveniet laborum...",
+    image: Img1,
+    interest: [
+      {
+        id: "1",
+        name: "Redes",
+      },
+      {
+        id: "2",
+        name: "Programação",
+      },
+    ],
+  },
+  {
+    id: "2",
+    title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    content:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, vero commodi modi dicta, similique atque alias provident, voluptate obcaecati sapiente aut ex! Nesciunt quisquam praesentium odit, sapiente facere eveniet laborum...",
+    image: Img2,
+    interest: [
+      {
+        id: "1",
+        name: "Redes",
+      },
+      {
+        id: "2",
+        name: "Programação",
+      },
+    ],
+  },
+  {
+    id: "3",
+    title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    content:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, vero commodi modi dicta, similique atque alias provident, voluptate obcaecati sapiente aut ex! Nesciunt quisquam praesentium odit, sapiente facere eveniet laborum...",
+    image: Img3,
+    interest: [
+      {
+        id: "1",
+        name: "Redes",
+      },
+      {
+        id: "2",
+        name: "Programação",
+      },
+    ],
+  },
+  {
+    id: "4",
+    title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    content:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, vero commodi modi dicta, similique atque alias provident, voluptate obcaecati sapiente aut ex! Nesciunt quisquam praesentium odit, sapiente facere eveniet laborum...",
+    image: Img4,
+    interest: [
+      {
+        id: "1",
+        name: "Redes",
+      },
+      {
+        id: "2",
+        name: "Programação",
+      },
+    ],
+  },
+  {
+    id: "5",
+    title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    content:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, vero commodi modi dicta, similique atque alias provident, voluptate obcaecati sapiente aut ex! Nesciunt quisquam praesentium odit, sapiente facere eveniet laborum...",
+    image: Img1,
+    interest: [
+      {
+        id: "1",
+        name: "Redes",
+      },
+      {
+        id: "2",
+        name: "Programação",
+      },
+    ],
+  },
+  {
+    id: "6",
+    title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    content:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, vero commodi modi dicta, similique atque alias provident, voluptate obcaecati sapiente aut ex! Nesciunt quisquam praesentium odit, sapiente facere eveniet laborum...",
+    image: Img3,
+    interest: [
+      {
+        id: "1",
+        name: "Redes",
+      },
+      {
+        id: "2",
+        name: "Programação",
+      },
+    ],
+  },
+  {
+    id: "7",
+    title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    content:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, vero commodi modi dicta, similique atque alias provident, voluptate obcaecati sapiente aut ex! Nesciunt quisquam praesentium odit, sapiente facere eveniet laborum...",
+    image: Img1,
+    interest: [
+      {
+        id: "1",
+        name: "Redes",
+      },
+      {
+        id: "2",
+        name: "Programação",
+      },
+    ],
+  },
+  {
+    id: "8",
+    title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+    content:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, vero commodi modi dicta, similique atque alias provident, voluptate obcaecati sapiente aut ex! Nesciunt quisquam praesentium odit, sapiente facere eveniet laborum...",
+    image: Img2,
+    interest: [
+      {
+        id: "1",
+        name: "Redes",
+      },
+      {
+        id: "2",
+        name: "Programação",
+      },
+    ],
+  },
+];
+
 const people = [
   {
-    name: 'Kelman Dias dos Santos',
-    role: 'Co-Founder / CEO',
+    name: "Kelman Dias dos Santos",
+    role: "Co-Founder / CEO",
     imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      "https://media.licdn.com/dms/image/C4D03AQEabtjHx7Og4w/profile-displayphoto-shrink_800_800/0/1653379109364?e=1694044800&v=beta&t=fVGOg9i2VwDIkgf1z3fnb1qmC02FuPkwkPCU9ldYbmg",
   },
   // More people...
-]
+];
 
 const Homepage = () => {
-
   const [open, setOpen] = useState(false);
 
   const handleScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
@@ -165,7 +303,7 @@ const Homepage = () => {
                   <li className="h-16 w-full flex items-center justify-center mx-6 text-xl  font-inter  text-black">
                     <a
                       href="auth/login"
-                      className="w-full h-16 lg:h-12 flex items-center justify-center font-inter text-black lg:text-white lg:bg-blue-500 lg:rounded-md px-6 "
+                      className="w-full h-16 lg:h-12 flex items-center justify-center font-inter text-black lg:text-white lg:bg-blue-500 lg:rounded-md px-6 hover:bg-blue-400  "
                     >
                       Entrar
                     </a>
@@ -211,11 +349,28 @@ const Homepage = () => {
           </div>
         </div>
       </div>
+
+      <div
+        className=" bg-section-2 w-screen  mt-32 bg-white flex justify-center items-center"
+        id="features"
+      >
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-y-6 gap-x-10 content-center justify-center">
+          {posts.map((post) => (
+            <PostCardHome
+              id={post.id}
+              content={post.content}
+              title={post.title}
+              image={post.image}
+              interest={post.interest}
+            />
+          ))}
+        </div>
+      </div>
       <div
         className="bg-section-1 w-full lg:h-screen bg-white flex items-center justify-center "
         id="aboutus"
       >
-        <div className=" w-[calc(100vw-20%)] bg-white flex lg:flex-row flex-col justify-center gap-11 mt-4 rounded-2xl">
+        <div className=" w-[calc(100vw-20%)] bg-white flex lg:flex-row flex-col justify-center gap-11 mt-4 rounded-2xl drop-shadow-2xl">
           <img
             src={AboutUs}
             width={557}
@@ -224,15 +379,14 @@ const Homepage = () => {
             className=" lg:w-[557px] lg:h-[473px] "
           />
 
-          <div className="w-full flex flex-col justify-center items-center bg-white rounded-xl ">
-            <h1 className="lg:text-4xl text-2xl w-full text-justify font-bold ">
+          <div className="w-full flex flex-col h-auto justify-center items-center bg-white rounded-xl  ">
+            <h1 className="lg:text-4xl text-2xl w-full text-justify font-bold  ">
               Sobre nós
             </h1>
             <p className="lg:text-2xl mt-6   pr-10 text-justify font-regular text-gray-700">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure,
               vero commodi modi dicta, similique atque alias provident,
-              voluptate obcaecati sapiente aut ex! Nesciunt quisquam praesentium
-              odit, sapiente facere eveniet laborum...
+              voluptate obcaecati sapiente aut ex!...
             </p>
             <div className="w-full flex my-10 justify-end lg:justify-start mr-10">
               <button className="bg-blue-600 text-white p-3 text-lg rounded-lg">
@@ -242,164 +396,44 @@ const Homepage = () => {
           </div>
         </div>
       </div>
-      <div
-        className=" bg-section-2 w-screen lg:h-screen bg-white flex justify-center items-center"
-        id="features"
-      >
-        <div className="w-[calc(100vw-20%)] lg:h-[490px] h-[400px] overflow-x-auto flex flex-row gap-10 ">
-          <div className=" w-64">
-            <div className="card w-64 lg:h-[450px] glass ">
-              <figure>
-                <img
-                  alt="image 1"
-                  src={Img1}
-                  width={384}
-                  height={192}
-                  className="w-96 h-48"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">Life hack</h2>
-                <p>How to park your car at your garage?</p>
-                <div className="card-actions justify-end"></div>
-              </div>
-            </div>
-          </div>
-          <div className="w-64">
-            <div className="card w-64 lg:h-[450px] glass">
-              <figure>
-                <img
-                  alt="image 1"
-                  src={Img2}
-                  width={384}
-                  height={192}
-                  className="w-96 h-48"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">Life hack</h2>
-                <p>How to park your car at your garage?</p>
-                <div className="card-actions justify-end"></div>
-              </div>
-            </div>
-          </div>
-          <div className="w-64">
-            <div className="card w-64 lg:h-[450px] glass">
-              <figure>
-                <img
-                  alt="image 1"
-                  src={Img3}
-                  width={384}
-                  height={192}
-                  className="w-96 h-48"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">Life hack</h2>
-                <p>How to park your car at your garage?</p>
-                <div className="card-actions justify-end"></div>
-              </div>
-            </div>
-          </div>
-          <div className="w-64">
-            <div className="card w-64 lg:h-[450px] glass">
-              <figure>
-                <img
-                  alt="image 1"
-                  src={Img4}
-                  width={384}
-                  height={192}
-                  className="w-96 h-48"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">Life hack</h2>
-                <p>How to park your car at your garage?</p>
-                <div className="card-actions justify-end"></div>
-              </div>
-            </div>
-          </div>
-          <div className="w-64">
-            <div className="card w-64 lg:h-[450px] glass">
-              <figure>
-                <img
-                  alt="image 1"
-                  src={Img2}
-                  width={384}
-                  height={192}
-                  className="w-96 h-48"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">Life hack</h2>
-                <p>How to park your car at your garage?</p>
-                <div className="card-actions justify-end"></div>
-              </div>
-            </div>
-          </div>
-          <div className="w-64">
-            <div className="card w-64 lg:h-[450px] glass">
-              <figure>
-                <img
-                  alt="image 1"
-                  src={Img2}
-                  width={384}
-                  height={192}
-                  className="w-96 h-48"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">Life hack</h2>
-                <p>How to park your car at your garage?</p>
-                <div className="card-actions justify-end"></div>
-              </div>
-            </div>
-          </div>
-          <div className="w-64">
-            <div className="card w-64 lg:h-[450px] glass">
-              <figure>
-                <img
-                  alt="image 1"
-                  src={Img2}
-                  width={384}
-                  height={192}
-                  className="w-96 h-48"
-                />
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">Life hack</h2>
-                <p>How to park your car at your garage?</p>
-                <div className="card-actions justify-end"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div className="bg-section-3 w-full bg-white " id="teams">
-      <div className="bg-white py-24 sm:py-32 w-full ">
-      <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3">
-        <div className="max-w-2xl">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Meet our leadership</h2>
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae elementum enim vitae ullamcorper
-            suspendisse.
-          </p>
+        <div className="bg-white py-24 sm:py-32 w-full flex justify-center items-center  ">
+          <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 place-content-center">
+            <div className="max-w-2xl">
+              <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              Conheça nossa liderança
+              </h2>
+              <p className="mt-6 text-lg leading-8 text-gray-600">
+                Libero fames augue nisl porttitor nisi, quis. Id ac elit odio
+                vitae elementum enim vitae ullamcorper suspendisse.
+              </p>
+            </div>
+            <ul
+              role="list"
+              className="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2 "
+            >
+              {people.map((person) => (
+                <li key={person.name}>
+                  <div className="flex items-center gap-x-6">
+                    <img
+                      className="h-16 w-16 rounded-full"
+                      src={person.imageUrl}
+                      alt=""
+                    />
+                    <div>
+                      <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">
+                        {person.name}
+                      </h3>
+                      <p className="text-sm font-semibold leading-6 text-blue-600">
+                        {person.role}
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-        <ul role="list" className="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
-          {people.map((person) => (
-            <li key={person.name}>
-              <div className="flex items-center gap-x-6">
-                <img className="h-16 w-16 rounded-full" src={person.imageUrl} alt="" />
-                <div>
-                  <h3 className="text-base font-semibold leading-7 tracking-tight text-gray-900">{person.name}</h3>
-                  <p className="text-sm font-semibold leading-6 text-blue-600">{person.role}</p>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
       </div>
       <div className="w-full bg-white ">
         <Footer />

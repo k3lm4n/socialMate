@@ -15,7 +15,7 @@ export default function StepTwo() {
 
   const [selectedOptions, setSelectedOptions] = useState<MappedCourses[]>([]);
 
-  const { status, data } = useQuery("posts", async () => {
+  const { status, data } = useQuery("categories", async () => {
     const { data } = await CategoriesEndPoints.getCategories();
     return data;
   });

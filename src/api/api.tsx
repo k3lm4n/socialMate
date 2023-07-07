@@ -7,6 +7,7 @@ import {
   ChatType,
 } from "../utils/validator/chatChannel";
 import axiosInstance from "./axiosInstance";
+import { PostSchemaType, UpdatePostSchemaType } from "../utils/validator/post";
 
 //User API
 
@@ -127,6 +128,39 @@ async function getMessages(chatId?: string) {
 export const MessageEndPoints = {
   sendMessage,
   getMessages,
+};
+
+async function getPosts() {
+  const response = await axiosInstance.get("/post/");
+  return response;
+}
+
+async function getPost(id: string) {
+  const response = await axiosInstance.get("/post/" + id);
+  return response;
+}
+
+async function createPost(data: PostSchemaType) {
+  const response = await axiosInstance.post("/post/", data);
+  return response;
+}
+
+async function updatePost(id: string, data: UpdatePostSchemaType) {
+  const response = await axiosInstance.put("/post/" + id, data);
+  return response;
+}
+
+async function deletePost(id: string) {
+  const response = await axiosInstance.delete("/post/" + id);
+  return response;
+}
+
+export const PostEndPoints = {
+  getPosts,
+  getPost,
+  createPost,
+  updatePost,
+  deletePost,
 };
 
 export const ChatEndPoints = {

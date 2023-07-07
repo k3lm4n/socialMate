@@ -1,12 +1,12 @@
 import { Fragment, useContext, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { ModalAddMembersContext } from "../../context/ModalAddMembersContext";
+import { ModalAddMembersContext } from "../../../context/ModalAddMembersContext";
 import { useMutation, useQuery } from "react-query";
 import toast from "react-hot-toast";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { AddMembersSchema, AddMembersType } from "../../utils/validator/chatChannel";
-import Loading from "../Loading";
-import { ChatEndPoints } from "../../api/api";
+import { AddMembersSchema, AddMembersType } from "../../../utils/validator/chatChannel";
+import Loading from "../../Loading";
+import { ChatEndPoints } from "../../../api/api";
 import Select from "react-select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useParams } from "react-router-dom";

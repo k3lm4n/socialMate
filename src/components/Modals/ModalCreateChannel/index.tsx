@@ -1,15 +1,18 @@
-import { Fragment, useContext, useEffect, useRef } from "react";
+import { Fragment, useContext, useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { ModalCreateChatContext } from "../../context/ModalCreateChatContext";
+import { ModalCreateChannelContext } from "../../../context/ModalCreateChannelContext";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import toast from "react-hot-toast";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { ChatType, chatSchema } from "../../utils/validator/chatChannel";
-import Loading from "../Loading";
-import { ChatEndPoints } from "../../api/api";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import {
+  ChatChannelType,
+  chatChannel,
+} from "../../../utils/validator/chatChannel";
+import Loading from "../../Loading";
+import { ChatEndPoints } from "../../../api/api";
+import Select from "react-select";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useParams } from "react-router-dom";
 
 const notify = () =>
   toast("Boa!!", {
@@ -17,11 +20,11 @@ const notify = () =>
     duration: 3000,
   });
 
-export default function ModalCreateChat() {
-  const ctx = useContext(ModalCreateChatContext);
+export default function ModalCreateChannel() {
+  const ctx = useContext(ModalCreateChannelContext);
 
   const { mutateAsync, isLoading } = useMutation(
-    (data: ChatType) => ChatEndPoints.createChat(data),
+    (data: ChatChannelType) => ChatEndPoints.createChannel(data),
     {
       onSuccess: () => {
         ctx.handle();
@@ -30,36 +33,24 @@ export default function ModalCreateChat() {
     }
   );
 
-  const { channelId } = useParams<{ channelId: string }>();
-
-  const { data: name_channel } = useQuery(
-    ["getChatChannel", channelId],
-    async () => {
-      return await ChatEndPoints.getChannel(channelId);
-    },
-    { enabled: false }
-  );
-
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    ctx.isOpen && queryClient.getQueryData("getChatChannel");
-  }, [ctx.isOpen]);
+  const { status, data } = useQuery("usersPerOptions", async () => {
+    const { data } = await ChatEndPoints.getCreateOptionsChannel();
+    return data;
+  });
 
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
-  } = useForm<ChatType>({
-    resolver: zodResolver(chatSchema),
+  } = useForm<ChatChannelType>({
+    resolver: zodResolver(chatChannel),
   });
 
-  const onSubmit: SubmitHandler<ChatType> = async (req) => {
+  const onSubmit: SubmitHandler<ChatChannelType> = async (req) => {
     console.log(req);
     await mutateAsync(req);
   };
-
-  register("channel", { value: channelId });
 
   const cancelButtonRef = useRef(null);
 
@@ -107,8 +98,7 @@ export default function ModalCreateChat() {
                         <div className="space-y-12">
                           <div className="border-b border-gray-900/10 pb-12">
                             <h2 className="text-base font-semibold leading-7 text-gray-900">
-                              Criando chat para o canal{" "}
-                              {name_channel?.data.name}
+                              Canal de Comunidade
                             </h2>
                             <p className="mt-1 text-sm leading-6 text-gray-600">
                               Essas informações serão exibidas publicamente,
@@ -119,7 +109,7 @@ export default function ModalCreateChat() {
                             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                               <div className="sm:col-span-4">
                                 <label
-                                  htmlFor="chat"
+                                  htmlFor="channel_name"
                                   className="block text-sm font-medium leading-6 text-gray-900"
                                 >
                                   Nome
@@ -128,19 +118,41 @@ export default function ModalCreateChat() {
                                   <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md">
                                     <input
                                       type="text"
-                                      id="chat"
+                                      id="channel_name"
                                       {...register("name")}
                                       className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
                                       placeholder="Programação II"
-                                      required
                                     />
-                                    {errors.name && (
-                                      <p className="text-red-600 text-xs">
-                                        {errors.name.message}
-                                      </p>
-                                    )}
                                   </div>
                                 </div>
+                              </div>
+                              <div className="sm:col-span-4">
+                                <label
+                                  htmlFor="category"
+                                  className="block text-sm font-medium leading-6 text-gray-900"
+                                >
+                                  Categoria
+                                </label>
+                                {status === "success" && (
+                                  <Controller
+                                    name="category"
+                                    control={control}
+                                    render={({ field: { onChange } }) => (
+                                      <Select
+                                        placeholder="Selecione uma categoria"
+                                        options={data.courses}
+                                        onChange={(e: any) =>
+                                          onChange(e?.value || "")
+                                        }
+                                      />
+                                    )}
+                                  />
+                                )}
+                                {errors.category?.message && (
+                                  <p className="text-red-600 text-xs">
+                                    {errors.category?.message}
+                                  </p>
+                                )}
                               </div>
                               <div className="col-span-full">
                                 <label
@@ -157,15 +169,77 @@ export default function ModalCreateChat() {
                                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
                                     defaultValue={""}
                                   />
-                                  {errors.description && (
-                                    <p className="text-red-600 text-xs">
-                                      {errors.description.message}
-                                    </p>
-                                  )}
                                 </div>
                                 <p className="mt-3 text-sm leading-6 text-gray-600">
-                                  Assunto a ser abordado no chat
+                                  Escreva algumas frases sobre a comunidade.
                                 </p>
+                              </div>
+
+                              <div className="col-span-full">
+                                <label
+                                  htmlFor="subcategories"
+                                  className="block text-sm font-medium leading-6 text-gray-900"
+                                >
+                                  Intereses
+                                </label>
+                                {status === "success" && (
+                                  <Controller
+                                    control={control}
+                                    name="subcategories"
+                                    render={({ field: { onChange } }) => (
+                                      <Select
+                                        isMulti
+                                        placeholder="Selecione um ou mais interesses"
+                                        options={data.mappedCategories}
+                                        onChange={(e) => {
+                                          onChange(e);
+                                          // setHandle(e);
+                                        }}
+                                      />
+                                    )}
+                                  />
+                                )}
+                                {errors.members?.message && (
+                                  <p className="text-red-600 text-xs">
+                                    {errors.members?.message}
+                                  </p>
+                                )}
+                                {/* <div>
+                                  {selectedOptions.map((h, index) => {
+                                    return <p key={index}>{h.label}</p>;
+                                  })}
+                                </div> */}
+                              </div>
+
+                              <div className="col-span-full">
+                                <label
+                                  htmlFor="members"
+                                  className="block text-sm font-medium leading-6 text-gray-900"
+                                >
+                                  Membros
+                                </label>
+                                {status === "success" && (
+                                  <Controller
+                                    control={control}
+                                    name="members"
+                                    render={({ field: { onChange } }) => (
+                                      <Select
+                                        isMulti
+                                        placeholder="Selecione um ou mais membros"
+                                        options={data.users}
+                                        onChange={(e) => {
+                                          onChange(e);
+                                          // setHandle(e);
+                                        }}
+                                      />
+                                    )}
+                                  />
+                                )}
+                                {errors.members?.message && (
+                                  <p className="text-red-600 text-xs">
+                                    {errors.members?.message}
+                                  </p>
+                                )}
                               </div>
 
                               <div className="col-span-full">

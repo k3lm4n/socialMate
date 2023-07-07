@@ -1,7 +1,6 @@
-// "use client";
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
-// import { parseCookies } from "nookies";
+
 
 type User = {
   name: string;

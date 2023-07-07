@@ -6,8 +6,13 @@ export const postSchema = z.object({
     .string()
     .min(3, { message: "Content must be at least 3 characters" }),
   category: z
-    .string()
-    .min(3, { message: "Category ID must be at least 3 characters" }),
+    .array(
+      z.object({
+        value: z.string().min(1, { message: "Members must be at least 1" }),
+        label: z.string().min(1, { message: "Members must be at least 1" }),
+      })
+    )
+    .min(1, { message: "Category ID must be at least 1 characters" }),
   attatchments: z
     .object({
       filename: z.string(),
@@ -26,7 +31,15 @@ export const updatePostSchema = z.object({
     .min(3, { message: "Content must be at least 3 characters" })
     .optional(),
   category: z
-    .string()
-    .min(3, { message: "Category must be at least 3 characters" })
+    .array(
+      z.object({
+        value: z.string().min(1, { message: "Members must be at least 1" }),
+        label: z.string().min(1, { message: "Members must be at least 1" }),
+      })
+    )
     .optional(),
 });
+
+
+export type PostSchemaType = z.infer<typeof postSchema>;
+export type UpdatePostSchemaType = z.infer<typeof updatePostSchema>;
