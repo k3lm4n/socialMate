@@ -2,7 +2,7 @@ import Channel from "../../../components/Channel";
 import TopBar from "../../../components/TopBar";
 import { Outlet } from "react-router-dom";
 import ModalAddMembersProvider from "../../../context/ModalAddMembersContext";
-import ModalAddMembers from "../../../components/ModalAddMembers";
+import ModalAddMembers from "../../../components/Modals/ModalAddMembers";
 
 export default function ChatPage() {
   return (
