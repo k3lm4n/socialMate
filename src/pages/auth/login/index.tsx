@@ -40,6 +40,8 @@ const Login = () => {
         toast.error("Email ou senha incorretos");
       } else if (res.response.status === 500) {
         toast.error("Erro interno do servidor");
+      } else {
+        toast.error("Erro na conexão com o servidor");
       }
     });
   };
@@ -93,6 +95,12 @@ const Login = () => {
                     </div>
                   </div>
 
+                  {isError && (
+                    <p className="text-red-500 text-sm font-regular text-center">
+                      Erro ao iniciar sessão
+                    </p>
+                  )}
+
                   <button
                     type="submit"
                     className="w-full text-center py-2 my-3  rounded-md text-white bg-gray-500 text-sm font-regular hover:bg-gray-600  hover:transition-all duration-300 ease-in-out"
@@ -106,7 +114,6 @@ const Login = () => {
                     </b>
                   </p>
                 </form>
-                {isError && <p></p>}
               </div>
             </div>
           </div>

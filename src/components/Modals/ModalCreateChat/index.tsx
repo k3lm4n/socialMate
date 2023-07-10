@@ -55,7 +55,7 @@ export default function ModalCreateChat() {
   });
 
   const onSubmit: SubmitHandler<ChatType> = async (req) => {
-    console.log(req);
+
     await mutateAsync(req);
   };
 

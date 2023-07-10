@@ -3,84 +3,99 @@
 @tailwind utilities;
 
 .main-content {
-    width: calc(100vw - 5rem);
-    margin-left: auto;
-    margin-top: 4.7rem;
+  width: calc(100vw - 5rem);
+  margin-left: auto;
+  margin-top: 4.7rem;
 }
 
-.main-content-settings{
-    width: calc(100vw - 5rem);
-    margin-left: auto;
-    margin-top: 1rem;
+.main-content-settings {
+  width: calc(100vw - 5rem);
+  margin-left: auto;
+  margin-top: 1rem;
 }
 
-
-.top-bar{
-    width: calc(100vw - 5rem);
-    margin-left: auto;
+.top-bar {
+  width: calc(100vw - 5rem);
+  margin-left: auto;
 }
 
-.space-discovery{
-    width: calc(100vw - 23rem);
-    margin-left: auto;
+.space-discovery {
+  width: calc(100vw - 23rem);
+  margin-left: auto;
 }
 
 .bg-auth {
-    background-image: url('./assets/background.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-image: url("./assets/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .bg-home {
-    background-image: url('./assets/home_background.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-image: url("./assets/home_background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .bg-section-1 {
-    background-image: url('./assets/engeneer.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-image: url("./assets/engeneer.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .bg-section-2 {
-    background-image: url('./assets/architecture.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-image: url("./assets/architecture.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .bg-section-3 {
-    background-image: url('./assets/networking.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-image: url("./assets/networking.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .bg-chat {
-    background-image: url('./assets/background_chat.png');
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-image: url("./assets/background_chat.png");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-
-
 
 .hover-underline-animation {
-    display: inline-block;
-    position: relative;
-    color: #000;
-  }
-  
-.hover-underline-animation::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #000;
-    transform-origin: bottom right;
-    transition: transform 0.25s ease-out;
+  display: inline-block;
+  position: relative;
+  color: #000;
 }
-  
+
+.hover-underline-animation::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
 .hover-underline-animation:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+.overflow-y-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.overflow-y-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.overflow-y-auto::-webkit-scrollbar {
+  display: none;
+}
+
+.overflow-y-auto {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

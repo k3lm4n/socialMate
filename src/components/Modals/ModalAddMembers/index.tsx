@@ -50,7 +50,6 @@ export default function ModalAddMembers() {
   });
 
   const onSubmit: SubmitHandler<AddMembersType> = async (req) => {
-    console.log(req);
     await mutateAsync(req);
   };
 

@@ -81,10 +81,6 @@ const Chat = () => {
     setValue("content", "");
   };
 
-  // console.log("====================================");
-  // console.log(messages);
-  // console.log(user);
-  // console.log("====================================");
 
   register("senderId", { value: user?.id });
   register("chatId", { value: chatId });
@@ -146,9 +142,9 @@ const Chat = () => {
               </span>
             )}
           </div>
-          <div className="w-full flex flex-row justify-end ">
+          <div className="w-full flex flex-row  items-end ">
             <form
-              className="flex flex-row w-full"
+              className="flex flex-row w-full pt-2"
               onSubmit={handleSubmit(onSubmit)}
             >
               <input

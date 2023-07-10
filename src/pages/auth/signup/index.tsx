@@ -35,7 +35,6 @@ const SignUp = () => {
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<Signup> = (data) => {
-    // console.log(data);
     mutateAsync(data);
     if (status === "success") {
       notify();

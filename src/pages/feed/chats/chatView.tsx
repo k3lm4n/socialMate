@@ -1,11 +1,7 @@
 import Chat from "../../../components/Chat";
 
 const ChatPageView = () => {
-  return (
-    <>
-      <Chat />
-    </>
-  );
+  return <Chat />;
 };
 
 export default ChatPageView;

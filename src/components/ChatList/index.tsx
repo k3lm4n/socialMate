@@ -7,10 +7,7 @@ import { MiniLoading } from "../Loading";
 const ChatList = () => {
   const { status, data } = useQuery(["chats"], ChatEndPoints.getChats);
 
-  console.log("====================================");
-  console.log(status);
-  console.log(data?.data);
-  console.log("====================================");
+ 
 
   return (
     <>

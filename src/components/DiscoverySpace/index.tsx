@@ -1,26 +1,13 @@
-import PostView from "../PostView";
+import PostRipper from "../PostRipper";
+import Suggestions from "../Suggestions";
 
 const DiscoverySpace = () => {
   return (
-    <div className="lg:w-[calc(100vw-23rem)] w-[calc(100vw-4rem)] max-sm:w-full h-full max-sm:mt-0 max-sm:rounded-none  md:mt-4 mt-12 right-0 fixed bg-gray-50 lg:rounded-tl-none md:rounded-tl-xl  border-l-[1px] border-l-gray-200/80 ">
-      <div className="m-4">
-        <div className="overflow-y-scroll h-[calc(100vh-1rem)] ">
-          <div className=" mb-4">
-
-
-
-          </div>
-
-          <div className="flex gap-4 flex-col lg:ml-32 ">
-            <PostView />
-            <PostView />
-            <PostView />
-            <PostView />
-            <PostView />
-            <PostView />
-            <PostView />
-          </div>
-        </div>
+    <div className="lg:w-[calc(100vw-21rem)] w-[calc(100vw-4rem)] max-sm:w-full h-full max-sm:mt-0 max-sm:rounded-none  md:mt-4 mt-12 right-0 fixed bg-gray-50 lg:rounded-tl-none md:rounded-tl-xl  border-l-[1px] border-l-gray-200/80 ">
+      <div className=" m-4 px-8 text-2xl ">Space Discovery</div>
+      <div className="m-4 flex flex-row">
+        <PostRipper />
+        <Suggestions />
       </div>
     </div>
   );

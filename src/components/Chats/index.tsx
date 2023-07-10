@@ -15,7 +15,7 @@ const Chats = () => {
   return (
     <>
       <input className="peer hidden" type="checkbox" id="sidebar-toggle" />
-      <div className="animate-bounce fixed bottom-0 w-9 h-9 ml-5 mb-6 text-4xl bg-blue-900 rounded-full z-40 lg:hidden">
+      <div className="animate-bounce fixed top-0 right-0 w-9 h-9 mr-2 mt-24 text-4xl bg-blue-900 rounded-full z-40 lg:hidden">
         <label
           htmlFor="sidebar-toggle"
           className="flex justify-center items-center w-full h-full"

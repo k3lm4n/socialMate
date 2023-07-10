@@ -7,7 +7,7 @@ const StatusBar = () => {
   const context = useContext(AuthContext);
 
   return (
-    <div className="bottom-0 py-2 fixed flex flex-row lg:w-72 w-[calc(100vw-4rem)] h-14 items-center bg-gray-200 z-20">
+    <div className="bottom-0 py-2 fixed flex flex-row lg:w-64 w-[calc(100vw-4rem)] h-14 items-center bg-gray-200 z-20">
       <a href={"/feed/feed"} className="flex flex-row ">
         <div className="flex items-center w-8 h-8 mt-1 ml-3 rounded-xl ">
           <img

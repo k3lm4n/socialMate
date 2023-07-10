@@ -39,7 +39,7 @@ function PostCardHome({
         </h2>
         <p>
           {content && content.trim().length > 80
-            ? content.trim().substring(0, 80) + "..."
+            ? content.trim().substring(0, 80) + "..." + " Ler mais"
             : content}
         </p>
         <div className="card-actions justify-end">

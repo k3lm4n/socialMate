@@ -42,7 +42,6 @@ export default function ModalCreatePost() {
     const selectedFIles = [...files];
     const targetFilesObject = [...targetFiles];
     targetFilesObject.map((file) => {
-      console.log(file);
       return selectedFIles.push({
         type: file.type,
         name: file.name,
@@ -58,7 +57,7 @@ export default function ModalCreatePost() {
     setFiles(selectedFIles);
   }
 
-  console.log(files);
+
 
   const { mutateAsync, isLoading } = useMutation(
     (data: PostSchemaType) => PostEndPoints.createPost(data),
@@ -80,7 +79,6 @@ export default function ModalCreatePost() {
   });
 
   const onSubmit: SubmitHandler<PostSchemaType> = async (req) => {
-    console.log(req);
     await mutateAsync(req);
   };
 

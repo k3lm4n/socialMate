@@ -46,7 +46,7 @@ export default function ActiveListCommunity() {
   });
 
   const onSubmit: SubmitHandler<ChatChannelType> = async (req) => {
-    console.log(req);
+
     await mutateAsync(req);
   };
 

@@ -13,10 +13,6 @@ export default function SearchList() {
     }
   );
 
-  console.log("====================================");
-
-  console.log(resp);
-  console.log("====================================");
 
   return (
     <div className="space-y-12">
