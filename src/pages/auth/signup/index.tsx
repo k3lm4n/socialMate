@@ -12,7 +12,7 @@ import StepTwo from "../../../components/Form/Signup/StepTwo";
 import StepThree from "../../../components/Form/Signup/StepThree";
 import toast from "react-hot-toast";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
-import { registerSchema } from "../../../utils/validator/auth";
+import { RegisterSchema, registerSchema } from "../../../utils/validator/auth";
 
 const Steps = [<StepOne />, <StepTwo />, <StepThree />];
 
@@ -35,12 +35,38 @@ const SignUp = () => {
       },
     }
   );
-  const methods = useForm<Signup>({
+  const methods = useForm<RegisterSchema>({
     resolver: zodResolver(registerSchema),
   });
   const [step, setStep] = useState(0);
 
   const { handleSubmit } = methods;
+
+  async function validateFirstStep() {
+    const { trigger } = methods;
+    await trigger(["name", "lastname", "birthdate", "address"]);
+  }
+
+  async function validateSecondStep() {
+    const { trigger } = methods;
+    await trigger(["course", "degree", "interest"]);
+  }
+
+  async function goNextStep() {
+    if (step == 0) {
+      await validateFirstStep();
+      if (Object.values(methods.formState.errors).length > 0) return;
+    } else if (step == 1) {
+      await validateSecondStep();
+      if (Object.values(methods.formState.errors).length > 0) return;
+    }
+    setStep((step) => step + 1);
+  }
+
+  function returnLastStep() {
+    methods.clearErrors();
+    setStep((step) => step - 1);
+  }
 
   const onSubmit: SubmitHandler<Signup> = (data) => {
     mutateAsync(data);
@@ -98,7 +124,7 @@ const SignUp = () => {
                           type="button"
                           onClick={(e) => {
                             e.preventDefault();
-                            setStep((step) => step - 1);
+                            returnLastStep();
                           }}
                           className={
                             step !== 0
@@ -110,7 +136,11 @@ const SignUp = () => {
                         </button>
 
                         {step === Steps.length - 1 ? (
-                          <button type="submit" className="btn btn-outline">
+                          <button
+                            type="submit"
+                            className="btn btn-outline"
+                            disabled={isLoading ? true : false}
+                          >
                             Criar conta
                           </button>
                         ) : (
@@ -118,8 +148,7 @@ const SignUp = () => {
                             type="button"
                             onClick={(e) => {
                               e.preventDefault();
-
-                              setStep((step) => step + 1);
+                              goNextStep();
                             }}
                             className="btn btn-outline justify-self-end"
                           >

@@ -15,10 +15,14 @@ export const loginSchema = z.object({
 export type RegisterSchema = z.infer<typeof registerSchema>;
 
 export const registerSchema = z.object({
-  name: z.string().min(3, { message: "Name must be at least 3 characters" }),
+  name: z
+    .string()
+    .min(3, { message: "Campo Obrigatório deve ser composto por mais de 3 carateres" })
+    .regex(/^[A-Za-zÀ-ÿ\s'-]+$/),
   lastname: z
     .string()
-    .min(3, { message: "Lastname must be at least 3 characters" }),
+    .min(3, { message: "Campo Obrigatório deve ser composto por mais de 3 carateres" })
+    .regex(/^[A-Za-zÀ-ÿ\s'-]+$/, { message: "Deve apenas conter letras" }),
   username: z
     .string()
     .min(3, { message: "Username must be at least 3 characters" }),
@@ -34,12 +38,9 @@ export const registerSchema = z.object({
   passwordConfirmation: z.string().min(6, {
     message: "Password must be same as above",
   }),
-  birthdate: z.string().min(3, { message: "Required" }),
-  degree: z.string().min(1, { message: "Required" }).optional(),
-  course: z
-    .string()
-    .min(1, { message: "Course must be at least 3 characters" })
-    .optional(),
+  birthdate: z.string().min(3, { message: "Campo Obrigatório" }),
+  degree: z.string().min(1, { message: "Campo Obrigatório" }).optional(),
+  course: z.string().min(1, { message: "Campo Obrigatório" }),
   phone: z
     .string()
     .min(9, { message: "Phone must be at least 9 characters" })
