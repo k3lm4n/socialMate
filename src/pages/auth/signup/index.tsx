@@ -25,7 +25,15 @@ const notify = () =>
 const SignUp = () => {
   const navigate = useNavigate();
   const { mutateAsync, isError, status, isLoading } = useMutation(
-    (data: Signup) => UserEndPoints.createUser(data)
+    (data: Signup) => UserEndPoints.createUser(data),
+    {
+      onSuccess: () => {
+        notify();
+        setTimeout(() => {
+          navigate("/auth/login");
+        }, 3000);
+      },
+    }
   );
   const methods = useForm<Signup>({
     resolver: zodResolver(registerSchema),
@@ -110,6 +118,7 @@ const SignUp = () => {
                             type="button"
                             onClick={(e) => {
                               e.preventDefault();
+
                               setStep((step) => step + 1);
                             }}
                             className="btn btn-outline justify-self-end"

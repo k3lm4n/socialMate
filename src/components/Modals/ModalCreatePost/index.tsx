@@ -1,11 +1,15 @@
-import { Fragment, useContext, useRef, useState } from "react";
+import { ChangeEvent, Fragment, useContext, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import { useMutation, useQuery } from "react-query";
 import toast from "react-hot-toast";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import Loading from "../../Loading";
-import { CategoriesEndPoints, PostEndPoints } from "../../../api/api";
+import {
+  CategoriesEndPoints,
+  PostEndPoints,
+  UploadEndpoint,
+} from "../../../api/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ModalCreatePostContext } from "../../../context/ModalCreatePostContext";
 import { PostSchemaType, postSchema } from "../../../utils/validator/post";
@@ -24,8 +28,9 @@ const notify = () =>
 
 type IFile = {
   url: any;
-  name: string;
-  type: string;
+  originalName: string;
+  mimetype: string;
+  file: File;
 };
 
 export default function ModalCreatePost() {
@@ -37,18 +42,21 @@ export default function ModalCreatePost() {
 
   const [files, setFiles] = useState<IFile[]>([]);
 
-  const handleMultipleImages = (evnt: any) => {
+  const handleMultipleImages = (evnt: ChangeEvent<HTMLInputElement>) => {
     const targetFiles = evnt.target.files;
-    const selectedFIles = [...files];
-    const targetFilesObject = [...targetFiles];
-    targetFilesObject.map((file) => {
-      return selectedFIles.push({
-        type: file.type,
-        name: file.name,
-        url: URL.createObjectURL(file),
-      });
-    });
-    setFiles(selectedFIles);
+    if (!targetFiles) return;
+    const newFiles: (File | null)[] = [];
+    for (let index = 0; index < targetFiles?.length; index++) {
+      newFiles.push(targetFiles.item(index));
+    }
+    if (newFiles.some((file) => !file)) return;
+    const newIFiles: IFile[] = newFiles.map((file) => ({
+      mimetype: file?.type!,
+      originalName: file?.name!,
+      url: URL.createObjectURL(file!),
+      file: file!,
+    }));
+    setFiles((oldValue) => [...oldValue, ...newIFiles]);
   };
 
   function handleRemoveImage(index: any) {
@@ -57,9 +65,7 @@ export default function ModalCreatePost() {
     setFiles(selectedFIles);
   }
 
-
-
-  const { mutateAsync, isLoading } = useMutation(
+  const postCreationMutation = useMutation(
     (data: PostSchemaType) => PostEndPoints.createPost(data),
     {
       onSuccess: () => {
@@ -68,6 +74,12 @@ export default function ModalCreatePost() {
       },
     }
   );
+
+  const uploadMutation = useMutation((files: IFile[]) =>
+    Promise.all(files.map(({ file }) => UploadEndpoint.uploadFile(file)))
+  );
+
+  const isLoading = postCreationMutation.isLoading || uploadMutation.isLoading;
 
   const {
     register,
@@ -79,7 +91,18 @@ export default function ModalCreatePost() {
   });
 
   const onSubmit: SubmitHandler<PostSchemaType> = async (req) => {
-    await mutateAsync(req);
+    if (files.length > 0) {
+      let filesResponseMapped;
+      await uploadMutation.mutateAsync(files).then((response) => {
+        filesResponseMapped = response.map((res) => {
+          return res;
+        });
+      });
+      register("attatchments", { value: filesResponseMapped });
+      await postCreationMutation.mutateAsync(req);
+    } else {
+      await postCreationMutation.mutateAsync(req);
+    }
   };
 
   const cancelButtonRef = useRef(null);
@@ -135,7 +158,6 @@ export default function ModalCreatePost() {
                               portanto, tenha cuidado com o que você
                               compartilha.
                             </p>
-
                             <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
                               <div className="col-span-full">
                                 <label
@@ -243,24 +265,26 @@ export default function ModalCreatePost() {
                                                 handleRemoveImage(index);
                                               }}
                                             />
-                                            {file.type.includes("image") ? (
+                                            {file.mimetype.includes("image") ? (
                                               <img
                                                 src={file.url}
                                                 alt="lorem"
                                                 className="self-center aspect-[16/9] object-cover object-center h-20 w-20 rounded-sm"
                                               />
-                                            ) : file.type.includes("video") ? (
+                                            ) : file.mimetype.includes(
+                                                "video"
+                                              ) ? (
                                               <div>
                                                 <FilmIcon className="mx-auto h-12 w-12 text-gray-300" />
                                                 <span className="text-xs">
-                                                  {file.name}
+                                                  {file.originalName}
                                                 </span>
                                               </div>
                                             ) : (
                                               <div>
                                                 <DocumentIcon className="mx-auto h-12 w-12 text-gray-300" />
                                                 <span className="text-xs">
-                                                  {file.name}
+                                                  {file.originalName}
                                                 </span>
                                               </div>
                                             )}
@@ -277,7 +301,7 @@ export default function ModalCreatePost() {
                                         <span>Selecione</span>
                                         <input
                                           id="file-upload"
-                                          name="file-upload"
+                                          name="file"
                                           type="file"
                                           className="sr-only"
                                           onChange={handleMultipleImages}

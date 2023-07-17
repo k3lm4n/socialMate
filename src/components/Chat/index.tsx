@@ -72,39 +72,57 @@ const Chat = () => {
   );
 
   const onSubmit: SubmitHandler<Message> = async (data) => {
-    console.log(data);
-    await mutateAsync(data).catch((res: any) => {
-      if (res.response.status === 500) {
-        toast.error("Impossivel enviar a mensagem");
-      }
-    });
+    if (data.content !== "")
+      await mutateAsync(data).catch((res: any) => {
+        if (res.response.status === 500) {
+          toast.error("Impossivel enviar a mensagem");
+        }
+      });
     setValue("content", "");
   };
-
 
   register("senderId", { value: user?.id });
   register("chatId", { value: chatId });
 
   return (
     <>
-      {status === "loading" ? (
+      {status === "loading" && user?.id ? (
         <Loading />
       ) : (
         <div className="bg-gray-50 flex flex-col w-full h-full">
-          <div className="w-full h-14 bg-gray-100 rounded-l-3xl rounded-r-md  flex items-center mb-2 justify-between ">
-            <div className="flex items-center ">
-              <div className="w-11 rounded-full mr-2">
-                <img
-                  alt="Chat"
-                  width={56}
-                  height={56}
-                  src={"https://ui-avatars.com/api/" + data?.data.name}
-                  className="rounded-full"
-                />
-              </div>
-              <button>
-                <h1 className="text-xl">{data?.data.name}</h1>
-              </button>
+          <div className=" h-14 bg-gray-100 rounded-l-3xl rounded-r-md  flex items-center mb-2 justify-between mx-2 mt-4 ">
+            <div className="flex items-center gap-2 ">
+              {data.name === "Private Chat" ? (
+                <>
+                  <div className="w-11 rounded-full ">
+                    <img
+                      alt="Chat"
+                      width={56}
+                      height={56}
+                      src={"https://ui-avatars.com/api/" + data.members[0].name}
+                      className="rounded-full"
+                    />
+                  </div>
+                  <button>
+                    <h1 className="text-xl">{data.members[0].name}</h1>
+                  </button>
+                </>
+              ) : (
+                <>
+                  <div className="w-11 rounded-full ">
+                    <img
+                      alt="Chat"
+                      width={56}
+                      height={56}
+                      src={"https://ui-avatars.com/api/" + data.name}
+                      className="rounded-full"
+                    />
+                  </div>
+                  <button>
+                    <h1 className="text-xl">{data.name}</h1>
+                  </button>
+                </>
+              )}
             </div>
             <div className="flex mr-4 w-20 justify-between">
               <button>
@@ -119,7 +137,7 @@ const Chat = () => {
               </button>
             </div>
           </div>
-          <div className="ref h-full overflow-y-auto pb-3">
+          <div className="ref h-full overflow-y-auto pb-3 px-2">
             {statusMessage === "success" ? (
               Object.values(messages).length > 0 &&
               messages.map((msg, index) =>
@@ -142,7 +160,7 @@ const Chat = () => {
               </span>
             )}
           </div>
-          <div className="w-full flex flex-row  items-end ">
+          <div className="w-full flex flex-row  items-end px-4 pb-2 ">
             <form
               className="flex flex-row w-full pt-2"
               onSubmit={handleSubmit(onSubmit)}
@@ -152,8 +170,8 @@ const Chat = () => {
                 {...register("content")}
                 className="input input-bordered lg:input-lg  lg:w-full w-full "
               />
-              <button type="submit" className="btn btn-md ml-2  ">
-                <PaperAirplaneIcon className="h-7 w-7" width={48} height={48} />
+              <button type="submit" className="btn btn-xl ml-2">
+                <PaperAirplaneIcon className="h-12 w-7" />
               </button>
             </form>
           </div>

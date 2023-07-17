@@ -12,6 +12,8 @@ export const loginSchema = z.object({
     .min(6, { message: "Password must be at least 6 characters" }),
 });
 
+export type RegisterSchema = z.infer<typeof registerSchema>;
+
 export const registerSchema = z.object({
   name: z.string().min(3, { message: "Name must be at least 3 characters" }),
   lastname: z
@@ -33,12 +35,11 @@ export const registerSchema = z.object({
     message: "Password must be same as above",
   }),
   birthdate: z.string().min(3, { message: "Required" }),
-  degree: z
-    .string()
-    .min(1, { message: "Required" }).optional(),
+  degree: z.string().min(1, { message: "Required" }).optional(),
   course: z
     .string()
-    .min(1, { message: "Course must be at least 3 characters" }).optional(),
+    .min(1, { message: "Course must be at least 3 characters" })
+    .optional(),
   phone: z
     .string()
     .min(9, { message: "Phone must be at least 9 characters" })
@@ -47,5 +48,5 @@ export const registerSchema = z.object({
     .string()
     .min(3, { message: "Address must be at least 3 characters" })
     .optional(),
-    interest: z.array(z.any()).optional(),
+  interest: z.array(z.any()).optional(),
 });

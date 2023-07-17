@@ -1,12 +1,7 @@
 import dayjs from "dayjs";
+import { Message } from "../../utils/types/@types";
 
-type BubbleChatRightProps = {
-  content: string;
-  createdAt?: Date;
-  senderId: string;
-  sender: string;
-};
-type Props = { props: BubbleChatRightProps; key: any };
+type Props = { props: Message; key: any };
 
 function BubbleChatRight(props: Props, key: any) {
   return (
@@ -17,7 +12,7 @@ function BubbleChatRight(props: Props, key: any) {
             alt="Chat"
             width={40}
             height={40}
-            src="https://api.multiavatar.com/Starcrasher.svg"
+            src={"https://ui-avatars.com/api/" + props.props.sender}
           />
         </div>
       </div>

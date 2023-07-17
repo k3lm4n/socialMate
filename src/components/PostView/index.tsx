@@ -6,15 +6,9 @@ import {
   EllipsisHorizontalIcon,
 } from "@heroicons/react/24/outline";
 
-interface IPropsPost {
-  id?: string | undefined;
-  title?: string;
-  content?: string;
-  image?: string;
-  author?: string;
-}
+import { IPropsPost } from "../../utils/types/@types";
 
-function PostView({ id, title, content, image, author }: IPropsPost) {
+function PostView({ id, title, content, author, attatchments }: IPropsPost) {
   return (
     <article className=" flex-col flex gap-5 bg-white rounded-md py-4" key={id}>
       <div className="flex justify-between px-4">
@@ -35,20 +29,40 @@ function PostView({ id, title, content, image, author }: IPropsPost) {
         </button>
       </div>
       <div className="px-4">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui laudantium
-        tenetur fugit et magnam quas nostrum veritatis maiores totam sapiente,
-        adipisci in. Nesciunt sunt suscipit reiciendis at, quasi neque sequi?
         <p>
           {content && content.trim().length > 100
             ? content.trim().substring(0, 100) + "..." + " Ler mais"
             : content}
         </p>
       </div>
-      <img
-        className="flex-1 self-center aspect-[16/9] object-cover object-center rounded-sm"
-        src={image || "https://picsum.photos/800/500/?blur=2"}
-        alt="lorem"
-      />
+
+      {attatchments && attatchments.length > 0 && (
+        <div className="flex-1 self-center aspect-[16/9] object-cover object-center rounded-sm carousel w-full">
+          {attatchments.map((item) => {
+            if (item.mimetype.includes("video")) {
+              return (
+                <video
+                  key={item.id}
+                  width="100%"
+                  height="100%"
+                  id={item.id}
+                  className="carousel-item w-full"
+                  controls
+                >
+                  <source src={item.url} type={item.mimetype} />
+                </video>
+              );
+            } else if (item.mimetype.includes("image")) {
+              return (
+                <div key={item.id} className="carousel-item w-full">
+                  <img src={item.url} className="w-full" />
+                </div>
+              );
+            }
+          })}
+        </div>
+      )}
+
       <div className="flex justify-center px-4 xl:gap-8 gap-x-4 w-full">
         <button className="flex xl:flex-row flex-col items-center text-center gap-2">
           <HandThumbUpIcon className="text-black lg:w-6 w-5 h-5 lg:h-6 " />

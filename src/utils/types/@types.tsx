@@ -54,3 +54,60 @@ export type MappedCourses = {
     value: string;
   };
 };
+
+export type IPropsPost = {
+  id: string;
+  title?: string;
+  content?: string;
+  published?: boolean;
+  private?: boolean;
+  attatchments?: {
+    id: string;
+    url: string;
+    mimetype: string;
+    originalName: string;
+  }[];
+  categories?: {
+    id: string;
+    name: string;
+    sigle: string;
+  }[];
+  subCategory?: {
+    id: string;
+    name: string;
+    sigle: string;
+  }[];
+  author?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+// author
+// :
+// {id: '64871e2ef0898faca16c8d7b', name: 'Kelman', lastname: 'Dias dos Santos'}
+// categories
+// :
+// []
+// content
+// :
+// "Prog II"
+// createdAt
+// :
+// "2023-07-11T14:53:08.434Z"
+// id
+// :
+// "64ad6cd4c67554b76196be58"
+// private
+// :
+// false
+// published
+// :
+// false
+// subCategory
+// :
+// [{…}]
+// title
+// :
+// "Prog"
+// updatedAt
+// :
+// "2023-07-11T14:53:08.434Z"

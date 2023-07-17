@@ -5,6 +5,7 @@ import axiosInstance from "../api/axiosInstance";
 type User = {
   name: string;
   email: string;
+  username: string;
   avatar?: string;
   id: string;
 };
@@ -56,7 +57,7 @@ const AuthProvider = (props: PropsWithChildren) => {
     password: string;
   }) {
     const response = await axiosInstance.post("/auth", { email, password });
-    setUser(response.data.user);
+    setUser(response.data.userReponse);
     setIsAuth({
       isAuth: "isLoggedIn",
     });

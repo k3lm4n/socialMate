@@ -26,18 +26,18 @@ const Chats = () => {
       <div className="animate-exitToLeft fixed peer-checked:max-lg:animate-fadeIn max-sm:hidden peer-checked:block peer-checked:z-20 peer-checked:max-sm:left-0 w-16 max-sm:-left-[calc(100vw+5rem)] lg-20 ">
         <ExternalSideBar />
       </div>
-      <aside className=" ml-16 lg:ml-20 mt-4 lg:h-[calc(100vh-4.7rem)] h-[97%] rounded-tl-lg lg:w-72 w-[calc(100vw-4rem)] fixed bottom-0 bg-gray-100 lg:left-0  lg:shadow-2xl -left-[calc(100vw+5rem)] max-sm:rounded-tl-md animate-enterFromLeft peer-checked:max-lg:left-0 peer-checked:max-lg:animate-enterFromRight peer-checked:max-lg:z-20">
-        <nav className="h-full w-full justify-center">
+      <aside className="ml-16 lg:ml-20 mt-4 lg:h-[calc(100vh-1.5rem)] h-[97%] rounded-tl-lg lg:w-64 w-[calc(100vw-4rem)] fixed bottom-0 bg-gray-100 lg:left-0  lg:shadow-2xl -left-[calc(100vw+5rem)] max-sm:rounded-tl-md animate-enterFromLeft peer-checked:max-lg:left-0 peer-checked:max-lg:animate-enterFromRight peer-checked:max-lg:z-20">
+        <nav className="h-full w-full flex flex-col">
           <div className="bg-white flex flex-row h-14 rounded-lg justify-between items-center mx-2 px-2 my-2 py-2">
             <div className=" flex items-center gap-2 ">
-              <div className="flex justify-center items-center top-0 lg:w-11 w-8 lg:h-11 h-8 animate-scaleOut hover:animate-scaleIn  hover:rounded-xl rounded-full ">
+              <div className="flex justify-center items-center top-0 lg:w-11 w-8 lg:h-11 h-8 rounded-full ">
                 <ChatBubbleLeftEllipsisIcon
                   width={28}
                   height={28}
                   className="fill-blue-300"
                 />
               </div>
-              <p className=" text-xl text-gray-800 ">Conversas</p>
+              <p className=" text-xl font-bold text-gray-800 ">Conversas</p>
             </div>
             <div className=" flex items-center gap-2 ">
               {/* <button onClick={() => ctx.handle()}> */}
@@ -45,8 +45,10 @@ const Chats = () => {
               {/* </button> */}
             </div>
           </div>
-          <ChatList />
-          <StatusBar />
+          <div className="flex flex-col h-full justify-between ">
+            <ChatList />
+            <StatusBar />
+          </div>
         </nav>
       </aside>
     </>
