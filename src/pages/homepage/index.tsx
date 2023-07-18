@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import Logo from "../../assets/logo.svg";
 import Home from "../../assets/home.svg";
 import AboutUs from "../../assets/aboutus.svg";
-import Img1 from "../../assets/img1.jpg";
-import Img2 from "../../assets/img2.jpg";
-import Img3 from "../../assets/img3.jpg";
-import Img4 from "../../assets/img4.jpg";
+import { posts } from "../../utils/dbJson";
 
 import Footer from "../../components/Footer";
 import { Link } from "react-router-dom";
@@ -18,7 +15,7 @@ const Links = [
     id: 1,
   },
   {
-    name: "Funcionalidades",
+    name: "Posts",
     path: "#features",
     id: 2,
   },
@@ -31,145 +28,6 @@ const Links = [
     name: "Equipa",
     path: "#teams",
     id: 4,
-  },
-];
-
-const posts = [
-  {
-    id: "1",
-    title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, vero commodi modi dicta, similique atque alias provident, voluptate obcaecati sapiente aut ex! Nesciunt quisquam praesentium odit, sapiente facere eveniet laborum...",
-    image: Img1,
-    interest: [
-      {
-        id: "1",
-        name: "Redes",
-      },
-      {
-        id: "2",
-        name: "Programação",
-      },
-    ],
-  },
-  {
-    id: "2",
-    title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, vero commodi modi dicta, similique atque alias provident, voluptate obcaecati sapiente aut ex! Nesciunt quisquam praesentium odit, sapiente facere eveniet laborum...",
-    image: Img2,
-    interest: [
-      {
-        id: "1",
-        name: "Redes",
-      },
-      {
-        id: "2",
-        name: "Programação",
-      },
-    ],
-  },
-  {
-    id: "3",
-    title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, vero commodi modi dicta, similique atque alias provident, voluptate obcaecati sapiente aut ex! Nesciunt quisquam praesentium odit, sapiente facere eveniet laborum...",
-    image: Img3,
-    interest: [
-      {
-        id: "1",
-        name: "Redes",
-      },
-      {
-        id: "2",
-        name: "Programação",
-      },
-    ],
-  },
-  {
-    id: "4",
-    title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, vero commodi modi dicta, similique atque alias provident, voluptate obcaecati sapiente aut ex! Nesciunt quisquam praesentium odit, sapiente facere eveniet laborum...",
-    image: Img4,
-    interest: [
-      {
-        id: "1",
-        name: "Redes",
-      },
-      {
-        id: "2",
-        name: "Programação",
-      },
-    ],
-  },
-  {
-    id: "5",
-    title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, vero commodi modi dicta, similique atque alias provident, voluptate obcaecati sapiente aut ex! Nesciunt quisquam praesentium odit, sapiente facere eveniet laborum...",
-    image: Img1,
-    interest: [
-      {
-        id: "1",
-        name: "Redes",
-      },
-      {
-        id: "2",
-        name: "Programação",
-      },
-    ],
-  },
-  {
-    id: "6",
-    title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, vero commodi modi dicta, similique atque alias provident, voluptate obcaecati sapiente aut ex! Nesciunt quisquam praesentium odit, sapiente facere eveniet laborum...",
-    image: Img3,
-    interest: [
-      {
-        id: "1",
-        name: "Redes",
-      },
-      {
-        id: "2",
-        name: "Programação",
-      },
-    ],
-  },
-  {
-    id: "7",
-    title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, vero commodi modi dicta, similique atque alias provident, voluptate obcaecati sapiente aut ex! Nesciunt quisquam praesentium odit, sapiente facere eveniet laborum...",
-    image: Img1,
-    interest: [
-      {
-        id: "1",
-        name: "Redes",
-      },
-      {
-        id: "2",
-        name: "Programação",
-      },
-    ],
-  },
-  {
-    id: "8",
-    title: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    content:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, vero commodi modi dicta, similique atque alias provident, voluptate obcaecati sapiente aut ex! Nesciunt quisquam praesentium odit, sapiente facere eveniet laborum...",
-    image: Img2,
-    interest: [
-      {
-        id: "1",
-        name: "Redes",
-      },
-      {
-        id: "2",
-        name: "Programação",
-      },
-    ],
   },
 ];
 
@@ -225,7 +83,7 @@ const Homepage = () => {
                   : "flex flex-col w-full content-center items-center "
               }
             >
-              <div className="flex flex-row items-center gap-10">
+              <div className="flex w-full flex-row items-center gap-10">
                 <button
                   className="flex justify-center items-center w-14 h-14 focus:outline-none rounded lg:hidden "
                   onClick={() => setOpen(!open)}
@@ -257,9 +115,9 @@ const Homepage = () => {
                 <a
                   href="#home"
                   onClick={handleScroll}
-                  className="hover:shadow-inner transition-all duration-300"
+                  className="hover:shadow-inner transition-all duration-300 max-lg:w-full"
                 >
-                  <li className="flex items-center justify-center h-16 ">
+                  <li className="flex w-full items-center justify-center h-16 ">
                     <img
                       src={Logo}
                       width={241}
@@ -315,10 +173,10 @@ const Homepage = () => {
         </nav>
       </div>
 
-      <div className="w-full lg:h-[calc(100vh-10%)] bg-white flex justify-center items-center mt-16 lg:mb-0 mb-10">
-        <div className=" w-[calc(100vw-20%)] lg:h-full bg-white flex content-center lg:my-48 justify-center">
-          <div className="flex w-full items-center lg:flex-row flex-col-reverse ">
-            <div className="flex lg:flex-col w-full mx-10 h-full justify-center lg:mt-4 flex-col-reverse ">
+      <div className=" bg-home w-full lg:h-[calc(100vh-10%)] flex justify-center items-center mt-16 lg:mb-0 mb-10">
+        <div className=" w-[calc(100vw-20%)] lg:h-full  flex content-center lg:my-48 justify-center">
+          <div className=" flex w-full items-center lg:flex-row flex-col-reverse ">
+            <div className="  flex lg:flex-col w-full mx-10 h-full justify-center lg:mt-4 flex-col-reverse ">
               <div className="mt-4">
                 <h1 className="lg:text-6xl text-2xl  font-inter font-bold text-black text-end">
                   Aprenda da melhor maneira
@@ -370,7 +228,7 @@ const Homepage = () => {
         className="bg-section-1 w-full lg:h-screen bg-white flex items-center justify-center "
         id="aboutus"
       >
-        <div className=" w-[calc(100vw-20%)] bg-white flex lg:flex-row flex-col justify-center gap-11 mt-4 rounded-2xl drop-shadow-2xl">
+        <div className=" w-[calc(100vw-20%)] bg-white py-8 flex lg:flex-row flex-col justify-center gap-11 mt-4 rounded-2xl drop-shadow-2xl">
           <img
             src={AboutUs}
             width={557}
@@ -379,11 +237,11 @@ const Homepage = () => {
             className=" lg:w-[557px] lg:h-[473px] "
           />
 
-          <div className="w-full flex flex-col h-auto justify-center items-center bg-white rounded-xl  ">
-            <h1 className="lg:text-4xl text-2xl w-full text-justify font-bold  ">
+          <div className="w-full flex flex-col h-auto justify-center items-center bg-white rounded-xl max-lg:px-4 ">
+            <h1 className="lg:text-4xl text-2xl w-full text-justify font-bold max-lg:px-4 ">
               Sobre nós
             </h1>
-            <p className="lg:text-2xl mt-6   pr-10 text-justify font-regular text-gray-700">
+            <p className="lg:text-2xl mt-6 pr-10 text-justify font-regular text-gray-700 max-lg:px-4">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure,
               vero commodi modi dicta, similique atque alias provident,
               voluptate obcaecati sapiente aut ex!...
@@ -401,7 +259,7 @@ const Homepage = () => {
           <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3 place-content-center">
             <div className="max-w-2xl">
               <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-              Conheça nossa liderança
+                Conheça nossa liderança
               </h2>
               <p className="mt-6 text-lg leading-8 text-gray-600">
                 Libero fames augue nisl porttitor nisi, quis. Id ac elit odio

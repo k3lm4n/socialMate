@@ -13,6 +13,11 @@ const Users = lazy(() => import("./pages/admin/user"));
 const Dashboard = lazy(() => import("./pages/admin/dashboard"));
 const ChatPageContacts = lazy(() => import("./pages/feed/chats"));
 const ChannelDetails = lazy(() => import("./pages/feed/communities/details"));
+const Profile = lazy(() => import("./pages/admin/profile"));
+const Channels = lazy(() => import("./pages/admin/Channels"));
+const FilesManager = lazy(() => import("./pages/admin/fileManager"));
+const Courses = lazy(() => import("./pages/admin/courses"));
+const Interests = lazy(() => import("./pages/admin/interests"));
 
 import FeedLayout from "./components/Layouts/FeedLayout";
 import DashboardLayout from "./components/Layouts/DashboardLayout";
@@ -20,6 +25,8 @@ import Homepage from "./pages/homepage";
 import SignUp from "./pages/auth/signup";
 import Login from "./pages/auth/login";
 import NotFoundPage from "./pages/NotFoundPage";
+
+
 
 export default function App() {
   return (
@@ -155,6 +162,56 @@ export default function App() {
             <RequireAuth>
               <Suspense fallback={<Loading />}>
                 <Users />
+              </Suspense>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="channels"
+          element={
+            <RequireAuth>
+              <Suspense fallback={<Loading />}>
+                <Channels />
+              </Suspense>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="profile"
+          element={
+            <RequireAuth>
+              <Suspense fallback={<Loading />}>
+                <Profile />
+              </Suspense>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="filemanager"
+          element={
+            <RequireAuth>
+              <Suspense fallback={<Loading />}>
+                <FilesManager />
+              </Suspense>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="courses"
+          element={
+            <RequireAuth>
+              <Suspense fallback={<Loading />}>
+                <Courses />
+              </Suspense>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="interests"
+          element={
+            <RequireAuth>
+              <Suspense fallback={<Loading />}>
+                <Interests />
               </Suspense>
             </RequireAuth>
           }

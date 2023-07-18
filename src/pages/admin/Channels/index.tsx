@@ -2,11 +2,11 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Table from "../../../components/Table";
 import { typesTable } from "../../../utils/typesTable";
 
-export default function Users() {
+export default function Channels() {
   return (
-    <div className="w-full h-full flex flex-col">
+    <div className="flex flex-col gap-4 px-4 pt-4 w-full h-full">
       <div className="w-full flex justify-between items-center text-center px-4 pt-3">
-        <h1 className="text-3xl font-bold ">Usuários Registrados</h1>
+        <h1 className="text-3xl font-bold ">Canais</h1>
         <form className="flex flex-row items-center gap-2 ">
           <div className="relative lg:w-72">
             <span className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -28,16 +28,11 @@ export default function Users() {
           </button>
         </form>
       </div>
-      <div className="w-full text-center py-4 my-4  shadow-sm">
-        <h2 className="text-2xl font-semi-bold">Usuários</h2>
+      <div className="w-full flex flex-col items-end py-4">
+        <button className="btn btn-outline hover:bg-blue-400">Adicionar</button>
       </div>
-        <div className="w-full flex flex-col items-end py-4">
-          <button className="btn btn-outline hover:bg-blue-400">
-            Adicionar
-          </button>
-        </div>
-      <div className="flex flex-col w-full h-full px-8  overflow-auto">
-        <Table type={typesTable.Utilizadores} />
+      <div className="flex flex-col w-full h-full  overflow-auto">
+        <Table type={typesTable.Canais} />
       </div>
     </div>
   );

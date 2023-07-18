@@ -58,6 +58,13 @@
   background-size: cover;
 }
 
+.bg-home {
+  background-image: url("./assets/backfill.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
 .hover-underline-animation {
   display: inline-block;
   position: relative;

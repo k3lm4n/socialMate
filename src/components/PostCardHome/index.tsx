@@ -17,7 +17,7 @@ function PostCardHome({
   interest,
 }: IPropsPostCardHome) {
   return (
-    <div className="card lg:w-80 md:w-72 max-md:w-72 bg-base-100 shadow-xl hover:cursor-pointer" id={id}>
+    <div className="card xl:w-80 md:w-72 max-md:w-72 shadow-md bg-base-100  hover:cursor-pointer" id={id}>
       <figure>
         <img
           src={

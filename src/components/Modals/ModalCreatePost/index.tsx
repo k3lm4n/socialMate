@@ -92,14 +92,13 @@ export default function ModalCreatePost() {
 
   const onSubmit: SubmitHandler<PostSchemaType> = async (req) => {
     if (files.length > 0) {
-      let filesResponseMapped;
-      await uploadMutation.mutateAsync(files).then((response) => {
+      let filesResponseMapped: {url:string, mimetype: string, originalName: string}[] = [];
+      uploadMutation.mutateAsync(files).then((response) => {
         filesResponseMapped = response.map((res) => {
           return res;
         });
+        postCreationMutation.mutateAsync({attatchments: filesResponseMapped, ...req});
       });
-      register("attatchments", { value: filesResponseMapped });
-      await postCreationMutation.mutateAsync(req);
     } else {
       await postCreationMutation.mutateAsync(req);
     }
