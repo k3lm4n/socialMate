@@ -3,7 +3,7 @@ import Table from "../../../components/Table";
 import { typesTable } from "../../../utils/typesTable";
 import { useQuery } from "react-query";
 import { UserEndPoints } from "../../../api/api";
-import Loading, { MiniLoading } from "../../../components/Loading";
+import { MiniLoading } from "../../../components/Loading";
 
 export default function Users() {
   const { data, status } = useQuery("users", async () =>
