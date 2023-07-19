@@ -61,7 +61,9 @@ const Channel = () => {
             </div>
           </div>
           <div className="flex flex-col h-full justify-between">
-            <ChannelChatList />
+            <div>
+              <ChannelChatList />
+            </div>
             <StatusBar />
           </div>
         </nav>
