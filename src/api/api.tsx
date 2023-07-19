@@ -9,11 +9,11 @@ import {
 import axiosInstance from "./axiosInstance";
 import { PostSchemaType, UpdatePostSchemaType } from "../utils/validator/post";
 
-type IFile ={
+type IFile = {
   url: any;
   originalName: string;
   mimetype: string;
-}
+};
 
 //User API
 
@@ -98,6 +98,11 @@ async function getChannels() {
   return response;
 }
 
+async function getAllChannel() {
+  const response = await axiosInstance.get("/chatChannel/");
+  return response;
+}
+
 async function getChannel(id?: string) {
   const response = await axiosInstance.get("/chatChannel/" + id);
   return response;
@@ -173,10 +178,6 @@ export const PostEndPoints = {
   deletePost,
 };
 
-
-
-
-
 export const ChatEndPoints = {
   getChats,
   createChat,
@@ -190,9 +191,10 @@ export const ChatEndPoints = {
   getChatsOnChannel,
   getChannel,
   joinChannel,
+  getAllChannel,
 };
 
-async function uploadFile(file:File) {
+async function uploadFile(file: File) {
   const formData = new FormData();
   formData.append("file", file);
   const response = await axiosInstance.post<IFile>("/file/", formData);
@@ -200,15 +202,34 @@ async function uploadFile(file:File) {
 }
 export const UploadEndpoint = {
   uploadFile,
+};
+
+async function getFiles() {
+  const response = await axiosInstance.get("/file/");
+  return response;
 }
 
-
+export const FileEndPoints = {
+  getFiles,
+};
 
 async function getCategories() {
   const response = await axiosInstance.get("/category");
   return response;
 }
 
+async function getCourses() {
+  const response = await axiosInstance.get("/category/courses");
+  return response;
+}
+
+async function getInterests() {
+  const response = await axiosInstance.get("/category/interests");
+  return response;
+}
+
 export const CategoriesEndPoints = {
   getCategories,
+  getCourses,
+  getInterests,
 };

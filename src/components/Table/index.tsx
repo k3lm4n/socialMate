@@ -6,7 +6,6 @@ import FileLine from "./Lines/FileLine";
 import InterestLine from "./Lines/InterestLine";
 import UserLine from "./Lines/UserLine";
 
-
 type Props = {
   type: string;
   dataUser?: {
@@ -28,7 +27,6 @@ type Props = {
     name: string;
     sigle: string;
     users: string;
-    subCourses: string;
   }[];
   dataInterests?: {
     id: string;
@@ -40,7 +38,8 @@ type Props = {
   dataChannel?: {
     id: string;
     name: string;
-    users: string;
+    members: string;
+    creator: string;
     createdAt: string;
   }[];
 };
@@ -53,10 +52,6 @@ export default function Table({
   dataUser,
   dataChannel,
 }: Props) {
-  console.log("====================================");
-  console.log(type);
-  console.log("====================================");
-
   return (
     <ul role="list" className="divide-y divide-gray-100 w-full h-full">
       {(type === typesTable.Utilizadores &&
@@ -73,7 +68,7 @@ export default function Table({
             key={user.id}
           />
         ))) ||
-        (type === typesTable.Canais &&
+        (type === typesTable.Cursos &&
           dataCourse &&
           dataCourse.length > 0 &&
           dataCourse?.map((course) => (
@@ -119,7 +114,8 @@ export default function Table({
               name={channel.name}
               createdAt={channel.createdAt}
               key={channel.id}
-              users={channel.users}
+              members={channel.members}
+              creator={channel.creator}
             />
           ))) || (
           <div className="w-full h-full flex flex-col justify-center items-center ">

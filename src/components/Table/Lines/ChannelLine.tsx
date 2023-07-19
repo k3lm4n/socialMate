@@ -4,7 +4,8 @@ import ActionsOnTable from "../ActionsOnTable";
 type ChannelProps = {
   id: string;
   name: string;
-  users: string;
+  members: string;
+  creator:string;
   createdAt: string;
 };
 
@@ -22,15 +23,15 @@ export default function ChannelLine(data: ChannelProps) {
             {data.name}
           </p>
           <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-            Seguidores: {" " + data.users}
+            Membros: {" " + data.members}
           </p>
         </div>
       </div>
       <div className="flex gap-8">
         <div className="hidden sm:flex sm:flex-col sm:items-end">
-          <p className="text-sm leading-6 text-gray-900">Data de Criação</p>
+          <p className="text-sm leading-6 text-gray-900">Criador:{" "+data.creator}</p>
           <p className="mt-1 text-xs leading-5 text-gray-500">
-            {dayjs(data.createdAt).format("DD/MM/YYYY")}
+          Data de Criação: {" "+dayjs(data.createdAt).format("DD/MM/YYYY")}
           </p>
         </div>
         <div className="pr-8">

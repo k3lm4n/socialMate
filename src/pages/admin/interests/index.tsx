@@ -1,8 +1,15 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Table from "../../../components/Table";
 import { typesTable } from "../../../utils/typesTable";
+import { MiniLoading } from "../../../components/Loading";
+import { CategoriesEndPoints } from "../../../api/api";
+import { useQuery } from "react-query";
 
 export default function Interests() {
+  const { data, status } = useQuery("getInterests", async () =>
+    CategoriesEndPoints.getInterests()
+  );
+
   return (
     <div className="flex flex-col gap-4 px-4 pt-4 w-full h-full">
       <div className="w-full flex justify-between items-center text-center px-4 pt-3">
@@ -32,7 +39,17 @@ export default function Interests() {
         <button className="btn btn-outline hover:bg-blue-400">Adicionar</button>
       </div>
       <div className="flex flex-col w-full h-full  overflow-auto">
-        <Table type={typesTable.Interresses} />
+        {status === "loading" ? (
+          <div className="w-full h-full flex justify-center items-center">
+            <MiniLoading />
+          </div>
+        ) : status === "error" ? (
+          <div className="w-full h-full flex justify-center items-center">
+            <h1 className="text-xl text-red-600">Erro ao carregar os dados</h1>
+          </div>
+        ) : (
+          <Table type={typesTable.Interresses} dataInterests={data?.data} />
+        )}
       </div>
     </div>
   );

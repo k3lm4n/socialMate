@@ -1,8 +1,15 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import Table from "../../../components/Table";
 import { typesTable } from "../../../utils/typesTable";
+import { useQuery } from "react-query";
+import { UserEndPoints } from "../../../api/api";
+import Loading, { MiniLoading } from "../../../components/Loading";
 
 export default function Users() {
+  const { data, status } = useQuery("users", async () =>
+    UserEndPoints.getUsers()
+  );
+
   return (
     <div className="w-full h-full flex flex-col">
       <div className="w-full flex justify-between items-center text-center px-4 pt-3">
@@ -31,13 +38,21 @@ export default function Users() {
       <div className="w-full text-center py-4 my-4  shadow-sm">
         <h2 className="text-2xl font-semi-bold">Usuários</h2>
       </div>
-        <div className="w-full flex flex-col items-end py-4">
-          <button className="btn btn-outline hover:bg-blue-400">
-            Adicionar
-          </button>
-        </div>
+      <div className="w-full flex flex-col items-end py-4">
+        <button className="btn btn-outline hover:bg-blue-400">Adicionar</button>
+      </div>
       <div className="flex flex-col w-full h-full px-8  overflow-auto">
-        <Table type={typesTable.Utilizadores} />
+        {status === "loading" ? (
+          <div className="w-full h-full flex justify-center items-center">
+            <MiniLoading />
+          </div>
+        ) : status === "error" ? (
+          <div className="w-full h-full flex justify-center items-center">
+            <h1 className="text-xl text-red-600">Erro ao carregar os dados</h1>
+          </div>
+        ) : (
+          <Table type={typesTable.Utilizadores} dataUser={data?.data} />
+        )}
       </div>
     </div>
   );

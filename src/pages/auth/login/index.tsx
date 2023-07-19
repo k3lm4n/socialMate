@@ -25,7 +25,7 @@ const Login = () => {
       onSuccess: () => {
         notify();
         setTimeout(() => {
-          navigate("/feed/discovery");
+          navigate("/dashboard");
         }, 3000);
       },
     }

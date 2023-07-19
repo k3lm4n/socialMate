@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Card,
   Typography,
@@ -15,11 +15,14 @@ import {
   UserCircleIcon,
   Cog6ToothIcon,
   PowerIcon,
+  ArrowsRightLeftIcon,
 } from "@heroicons/react/24/solid";
 import { ChevronRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 
 import Logo from "../../assets/unionLogo.svg";
 import { Link } from "react-router-dom";
+import { useMutation } from "react-query";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function Sidebar() {
   const [open, setOpen] = React.useState(0);
@@ -27,6 +30,9 @@ export default function Sidebar() {
   const handleOpen = (value: any) => {
     setOpen(open === value ? 0 : value);
   };
+  const ctx_user = useContext(AuthContext);
+
+  const { mutateAsync } = useMutation(() => ctx_user.logOut());
 
   return (
     <Card className="fixed top-4 left-4 h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
@@ -160,7 +166,16 @@ export default function Sidebar() {
             Definições
           </ListItem>
         </Link>
-        <ListItem>
+        <Link to="/feed/discovery">
+          <ListItem>
+            <ListItemPrefix>
+              <ArrowsRightLeftIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Mudar de Conta
+          </ListItem>
+        </Link>
+
+        <ListItem onClick={() => mutateAsync()}>
           <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />
           </ListItemPrefix>

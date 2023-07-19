@@ -26,8 +26,6 @@ import SignUp from "./pages/auth/signup";
 import Login from "./pages/auth/login";
 import NotFoundPage from "./pages/NotFoundPage";
 
-
-
 export default function App() {
   return (
     <Routes>
@@ -130,9 +128,11 @@ export default function App() {
           path="*"
           element={
             <RequireAuth>
-              <Suspense fallback={<Loading />}>
-                <Dashboard />
-              </Suspense>
+              <IsAdmin>
+                <Suspense fallback={<Loading />}>
+                  <Dashboard />
+                </Suspense>
+              </IsAdmin>
             </RequireAuth>
           }
         />
@@ -140,9 +140,11 @@ export default function App() {
           path="settings"
           element={
             <RequireAuth>
-              <Suspense fallback={<Loading />}>
-                <Settings />
-              </Suspense>
+              <IsAdmin>
+                <Suspense fallback={<Loading />}>
+                  <Settings />
+                </Suspense>
+              </IsAdmin>
             </RequireAuth>
           }
         />
@@ -150,9 +152,11 @@ export default function App() {
           path="posts"
           element={
             <RequireAuth>
-              <Suspense fallback={<Loading />}>
-                <Posts />
-              </Suspense>
+              <IsAdmin>
+                <Suspense fallback={<Loading />}>
+                  <Posts />
+                </Suspense>
+              </IsAdmin>
             </RequireAuth>
           }
         />
@@ -160,9 +164,11 @@ export default function App() {
           path="users"
           element={
             <RequireAuth>
-              <Suspense fallback={<Loading />}>
-                <Users />
-              </Suspense>
+              <IsAdmin>
+                <Suspense fallback={<Loading />}>
+                  <Users />
+                </Suspense>
+              </IsAdmin>
             </RequireAuth>
           }
         />
@@ -170,9 +176,11 @@ export default function App() {
           path="channels"
           element={
             <RequireAuth>
-              <Suspense fallback={<Loading />}>
-                <Channels />
-              </Suspense>
+              <IsAdmin>
+                <Suspense fallback={<Loading />}>
+                  <Channels />
+                </Suspense>
+              </IsAdmin>
             </RequireAuth>
           }
         />
@@ -180,9 +188,11 @@ export default function App() {
           path="profile"
           element={
             <RequireAuth>
-              <Suspense fallback={<Loading />}>
-                <Profile />
-              </Suspense>
+              <IsAdmin>
+                <Suspense fallback={<Loading />}>
+                  <Profile />
+                </Suspense>
+              </IsAdmin>
             </RequireAuth>
           }
         />
@@ -190,9 +200,11 @@ export default function App() {
           path="filemanager"
           element={
             <RequireAuth>
-              <Suspense fallback={<Loading />}>
-                <FilesManager />
-              </Suspense>
+              <IsAdmin>
+                <Suspense fallback={<Loading />}>
+                  <FilesManager />
+                </Suspense>
+              </IsAdmin>
             </RequireAuth>
           }
         />
@@ -200,9 +212,11 @@ export default function App() {
           path="courses"
           element={
             <RequireAuth>
-              <Suspense fallback={<Loading />}>
-                <Courses />
-              </Suspense>
+              <IsAdmin>
+                <Suspense fallback={<Loading />}>
+                  <Courses />
+                </Suspense>
+              </IsAdmin>
             </RequireAuth>
           }
         />
@@ -210,9 +224,11 @@ export default function App() {
           path="interests"
           element={
             <RequireAuth>
-              <Suspense fallback={<Loading />}>
-                <Interests />
-              </Suspense>
+              <IsAdmin>
+                <Suspense fallback={<Loading />}>
+                  <Interests />
+                </Suspense>
+              </IsAdmin>
             </RequireAuth>
           }
         />
@@ -235,3 +251,23 @@ function RequireAuth({ children }: { children: JSX.Element }) {
 
   return children;
 }
+
+function IsAdmin({ children }: { children: JSX.Element }) {
+  const ctx = useContext(AuthContext);
+  const location = useLocation();
+
+  if (ctx.authData.isAuth === undefined) {
+    return null;
+  }
+
+  if (ctx.authData.isAuth === "isLoggedOut") {
+    return <Navigate to="/auth/login" state={{ from: location }} replace />;
+  }
+
+  if (ctx.user?.role !== "ADMIN") {
+    return <Navigate to="/feed/discovery" state={{ from: location }} replace />;
+  }
+
+  return children;
+}
+
