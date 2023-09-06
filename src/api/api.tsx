@@ -63,13 +63,11 @@ async function getChatsOnChannel(id: string) {
 }
 
 async function createChat(data: ChatType) {
-  const response = await axiosInstance.post("/chat", data);
-  return response;
+  return await axiosInstance.post("/chat", data);
 }
 
 async function createChannel(data: ChatChannelType) {
-  const response = await axiosInstance.post("/chatChannel", { data });
-  return response;
+  return await axiosInstance.post("/chatChannel", { data });
 }
 
 async function joinChannel(data: AddMembersType) {

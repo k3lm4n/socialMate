@@ -45,16 +45,6 @@ const Chat = () => {
 
   const { user } = useContext(AuthContext);
 
-  // var y = window.scrollY;
-
-  // useEffect(() => {
-  //   var element = document.querySelector(".ref");
-  //   window.scroll({
-  //     top: element?.scrollHeight,
-  //     left: 0,
-  //   });
-  // }, [messages]);
-
   const { register, handleSubmit, setValue } = useForm<Message>({
     defaultValues: {
       content: "",
@@ -68,16 +58,17 @@ const Chat = () => {
   });
 
   const { mutateAsync } = useMutation((message: Message) =>
-    MessageEndPoints.sendMessage(message)
+    MessageEndPoints.sendMessage({ ...message, chatId: chatId })
   );
 
   const onSubmit: SubmitHandler<Message> = async (data) => {
-    if (data.content !== "")
+    if (data.content !== "") {
       await mutateAsync(data).catch((res: any) => {
         if (res.response.status === 500) {
           toast.error("Impossivel enviar a mensagem");
         }
       });
+    }
     setValue("content", "");
   };
 

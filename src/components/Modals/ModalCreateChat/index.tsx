@@ -19,9 +19,10 @@ const notify = () =>
 
 export default function ModalCreateChat() {
   const ctx = useContext(ModalCreateChatContext);
+  const { channelId } = useParams<{ channelId: string }>();
 
   const { mutateAsync, isLoading } = useMutation(
-    (data: ChatType) => ChatEndPoints.createChat(data),
+    (data: ChatType) => ChatEndPoints.createChat({...data,channel: channelId}),
     {
       onSuccess: () => {
         ctx.handle();
@@ -30,7 +31,9 @@ export default function ModalCreateChat() {
     }
   );
 
-  const { channelId } = useParams<{ channelId: string }>();
+
+  console.log('channelId:',channelId)
+
 
   const { data: name_channel } = useQuery(
     ["getChatChannel", channelId],
@@ -55,11 +58,12 @@ export default function ModalCreateChat() {
   });
 
   const onSubmit: SubmitHandler<ChatType> = async (req) => {
-
     await mutateAsync(req);
   };
 
   register("channel", { value: channelId });
+
+
 
   const cancelButtonRef = useRef(null);
 
