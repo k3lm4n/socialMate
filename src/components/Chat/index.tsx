@@ -20,6 +20,7 @@ import toast from "react-hot-toast";
 
 const Chat = () => {
   const { chatId } = useParams<{ chatId: string }>();
+  const { user } = useContext(AuthContext);
   const { status, data } = useQuery(["chatUnique", chatId], () =>
     ChatEndPoints.getChat(chatId)
   );
@@ -43,7 +44,7 @@ const Chat = () => {
     queryClient.invalidateQueries("chatUnique");
   }, [chatId]);
 
-  const { user } = useContext(AuthContext);
+  
 
   const { register, handleSubmit, setValue } = useForm<Message>({
     defaultValues: {
