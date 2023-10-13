@@ -2,8 +2,8 @@ import { useContext, useEffect, useRef } from "react";
 import BubbleChatLeft from "../../components/Chat/BubbleChatLeft";
 import BubbleChatRight from "../../components/Chat/BubbleChatRight";
 import {
-  VideoCameraIcon,
-  PhoneIcon,
+  // VideoCameraIcon,
+  // PhoneIcon,
   PaperAirplaneIcon,
   ExclamationTriangleIcon,
 } from "@heroicons/react/24/outline";

@@ -43,11 +43,6 @@ type IFile = {
 
 export default function ModalCreatePost() {
   const editorRef = useRef(null) as any;
-  const log = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getContent());
-    }
-  };
   const ctx = useContext(ModalCreatePostContext);
   const { status, data } = useQuery("categoriesFetch", async () => {
     const { data } = await CategoriesEndPoints.getCategories();
@@ -100,7 +95,6 @@ export default function ModalCreatePost() {
     register,
     control,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<PostSchemaType>({
     resolver: zodResolver(postSchema),
@@ -265,7 +259,7 @@ export default function ModalCreatePost() {
                                       <Editor
                                         value={value}
                                         onEditorChange={onChange}
-                                        onInit={(evt, editor) =>
+                                        onInit={( editor) =>
                                           (editorRef.current = editor)
                                         }
                                         apiKey={
