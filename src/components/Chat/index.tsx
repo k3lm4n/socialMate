@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import BubbleChatLeft from "../../components/Chat/BubbleChatLeft";
 import BubbleChatRight from "../../components/Chat/BubbleChatRight";
 import {
@@ -39,12 +39,20 @@ const Chat = () => {
   );
 
   const queryClient = useQueryClient();
+  const messageBox = useRef(null) as any;
 
   useEffect(() => {
     queryClient.invalidateQueries("chatUnique");
-  }, [chatId]);
 
-  
+      messageBox.current?.scrollTo({
+        behavior: "smooth",
+        top: messageBox.current?.scrollHeight,
+      });
+    
+
+  }, [chatId, messages.length]);
+
+
 
   const { register, handleSubmit, setValue } = useForm<Message>({
     defaultValues: {
@@ -64,7 +72,12 @@ const Chat = () => {
 
   const onSubmit: SubmitHandler<Message> = async (data) => {
     if (data.content !== "") {
+      messageBox.current?.scrollTo({
+        behavior: "smooth",
+        top: messageBox.current?.scrollHeight,
+      });
       await mutateAsync(data).catch((res: any) => {
+        
         if (res.response.status === 500) {
           toast.error("Impossivel enviar a mensagem");
         }
@@ -78,7 +91,7 @@ const Chat = () => {
 
   return (
     <>
-      {status === "loading" && user?.id ? (
+      {user && status === "loading" ? (
         <Loading />
       ) : (
         <div className="bg-gray-50 flex flex-col w-full h-full">
@@ -117,7 +130,7 @@ const Chat = () => {
               )}
             </div>
             <div className="flex mr-4 w-20 justify-between">
-              <button>
+              {/* <button>
                 <VideoCameraIcon
                   className="h-6 w-6 ml-2"
                   width={24}
@@ -126,14 +139,14 @@ const Chat = () => {
               </button>
               <button>
                 <PhoneIcon className="h-5 w-5 ml-2" width={20} height={20} />
-              </button>
+              </button> */}
             </div>
           </div>
-          <div className="ref h-full overflow-y-auto pb-3 px-2">
+          <div className="h-full overflow-y-auto pb-3 px-2" ref= {messageBox}>
             {statusMessage === "success" ? (
               Object.values(messages).length > 0 &&
               messages.map((msg, index) =>
-                msg.senderId === user?.id ? (
+                msg.isOfSender ? (
                   <BubbleChatRight props={msg} key={index} />
                 ) : (
                   <BubbleChatLeft props={msg} key={index} />
@@ -161,8 +174,9 @@ const Chat = () => {
                 type="text"
                 {...register("content")}
                 className="input input-bordered lg:input-lg  lg:w-full w-full "
+                
               />
-              <button type="submit" className="btn btn-xl ml-2">
+              <button type="submit" className="btn btn-xl ml-2" >
                 <PaperAirplaneIcon className="h-12 w-7" />
               </button>
             </form>
@@ -173,4 +187,17 @@ const Chat = () => {
   );
 };
 
+// // components/MessageList.tsx
+// const MessageList = ({ messages }: Props) => {
+//   const ref = useRef<HTMLDivElement>(null);
+//   useEffect(() => {
+    
+//   }, [messages.length]);
+//   return (
+//     //...
+//   );
+// };
+
+// export default MessageList;
+  
 export default Chat;

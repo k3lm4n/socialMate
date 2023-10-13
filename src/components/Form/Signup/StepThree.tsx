@@ -16,7 +16,7 @@ export default function StepThree() {
             Username
           </label>
           <div className="mt-2">
-            <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md">
+            <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300   sm:max-w-md">
               <input
                 type="text"
                 id="username"
@@ -61,7 +61,7 @@ export default function StepThree() {
             Telefone
           </label>
           <div className="mt-2">
-            <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md">
+            <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300   sm:max-w-md">
               <input
                 type="text"
                 id="phone"

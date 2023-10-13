@@ -7,6 +7,7 @@ const FeedPage = lazy(() => import("./pages/feed/discovery"));
 const ChatPage = lazy(() => import("./pages/feed/communities"));
 const ChatPageView = lazy(() => import("./pages/feed/communities/chatView"));
 const SettingsPage = lazy(() => import("./pages/feed/settings"));
+const ManagerPage = lazy(() => import("./pages/feed/manager"));
 const Settings = lazy(() => import("./pages/admin/settings"));
 const Posts = lazy(() => import("./pages/admin/posts"));
 const Users = lazy(() => import("./pages/admin/user"));
@@ -88,6 +89,16 @@ export default function App() {
             <RequireAuth>
               <Suspense fallback={<Loading />}>
                 <SettingsPage />
+              </Suspense>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="manager"
+          element={
+            <RequireAuth>
+              <Suspense fallback={<Loading />}>
+                <ManagerPage />
               </Suspense>
             </RequireAuth>
           }

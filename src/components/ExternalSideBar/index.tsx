@@ -3,7 +3,6 @@ import {
   PlusIcon,
   ArrowLeftIcon,
   CogIcon,
-  ChatBubbleLeftRightIcon,
 } from "@heroicons/react/24/outline";
 import ListGroup from "../ListGroup";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -13,7 +12,7 @@ import { ModalCreateChannelContext } from "../../context/ModalCreateChannelConte
 import { useMutation } from "react-query";
 import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-hot-toast";
-import { PencilSquareIcon, UserGroupIcon } from "@heroicons/react/24/solid";
+import { PencilSquareIcon, UserGroupIcon,ChatBubbleLeftRightIcon, AcademicCapIcon } from "@heroicons/react/24/solid";
 import { ModalCreatePostContext } from "../../context/ModalCreatePostContext";
 
 const ExternalSideBar = () => {
@@ -59,13 +58,18 @@ const ExternalSideBar = () => {
               </li>
               <li className="flex items-center justify-center lg:w-12 w-8 lg:h-12 h-8 my-2 rounded-full bg-white hover:shadow-inner transition-all duration-300">
                 <button onClick={() => ctx_act.handle()}>
-                  <ChatBubbleLeftRightIcon className="h-8 w-8 fill-blue-400" />
+                  <ChatBubbleLeftRightIcon className="h-8 w-8 fill-blue-400" color="fff" />
                 </button>
               </li>
 
               <li className="flex items-center justify-center lg:w-12 w-8 lg:h-12 h-8 my-2 rounded-full bg-white hover:shadow-inner transition-all duration-300">
                 <Link to="/feed/chats">
                   <UserGroupIcon className="h-8 w-8 fill-blue-400" />
+                </Link>
+              </li>
+              <li className="flex items-center justify-center lg:w-12 w-8 lg:h-12 h-8 my-2 rounded-full bg-white hover:shadow-inner transition-all duration-300">
+              <Link to="/feed/manager">
+                  <AcademicCapIcon className="h-8 w-8 fill-blue-400" color="fff" />
                 </Link>
               </li>
               <span className="flex w-10 h-[2px] bg-black/30 max-sm:my-1 max-sm:mt-3 " />

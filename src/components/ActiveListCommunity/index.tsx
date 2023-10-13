@@ -59,7 +59,7 @@ export default function ActiveListCommunity() {
         <form
           onSubmit={handleSubmit(onSubmit, (error) => console.error(error))}
         >
-          <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+          <div className="bg-white pt-5 ">
             <div className="sm:flex sm:items-start">
               <div className="space-y-12">
                 <div className="border-b border-gray-900/10 pb-12">
@@ -80,7 +80,7 @@ export default function ActiveListCommunity() {
                         Nome
                       </label>
                       <div className="mt-2">
-                        <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md">
+                        <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300   sm:max-w-md">
                           <input
                             type="text"
                             id="channel_name"

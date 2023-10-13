@@ -1,4 +1,8 @@
 import { ChangeEvent, Fragment, useContext, useRef, useState } from "react";
+import {
+  ArrowsPointingOutIcon,
+  ArrowsPointingInIcon,
+} from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import { useMutation, useQuery } from "react-query";
@@ -19,6 +23,10 @@ import {
   FilmIcon,
   XCircleIcon,
 } from "@heroicons/react/24/outline";
+import { Editor } from "@tinymce/tinymce-react";
+// import 'tinymce/plugins/code';
+// import tinymce from 'tinymce/tinymce';
+// import 'tinymce/plugins/code';
 
 const notify = () =>
   toast("Boa!!", {
@@ -34,6 +42,12 @@ type IFile = {
 };
 
 export default function ModalCreatePost() {
+  const editorRef = useRef(null) as any;
+  const log = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getContent());
+    }
+  };
   const ctx = useContext(ModalCreatePostContext);
   const { status, data } = useQuery("categoriesFetch", async () => {
     const { data } = await CategoriesEndPoints.getCategories();
@@ -41,6 +55,7 @@ export default function ModalCreatePost() {
   });
 
   const [files, setFiles] = useState<IFile[]>([]);
+  const [expand, setExpand] = useState(false);
 
   const handleMultipleImages = (evnt: ChangeEvent<HTMLInputElement>) => {
     const targetFiles = evnt.target.files;
@@ -85,21 +100,31 @@ export default function ModalCreatePost() {
     register,
     control,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<PostSchemaType>({
     resolver: zodResolver(postSchema),
   });
 
+  
   const onSubmit: SubmitHandler<PostSchemaType> = async (req) => {
     if (files.length > 0) {
-      let filesResponseMapped: {url:string, mimetype: string, originalName: string}[] = [];
+      let filesResponseMapped: {
+        url: string;
+        mimetype: string;
+        originalName: string;
+      }[] = [];
       uploadMutation.mutateAsync(files).then((response) => {
         filesResponseMapped = response.map((res) => {
           return res;
         });
-        postCreationMutation.mutateAsync({attatchments: filesResponseMapped, ...req});
+        postCreationMutation.mutateAsync({
+          attatchments: filesResponseMapped,
+          ...req,
+        });
       });
     } else {
+      editorRef.current.getContent();
       await postCreationMutation.mutateAsync(req);
     }
   };
@@ -129,7 +154,7 @@ export default function ModalCreatePost() {
           </Transition.Child>
 
           <div className="fixed inset-0 z-10 overflow-y-auto">
-            <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0 ">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -139,25 +164,51 @@ export default function ModalCreatePost() {
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <Dialog.Panel
+                  className={
+                    !expand
+                      ? " relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all duration-300  sm:my-8 sm:w-[98%] "
+                      : "relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition sm:my-8 sm:ease-in-out duration-300 sm:w-full sm:max-w-lg"
+                  }
+                >
                   <form
                     onSubmit={handleSubmit(onSubmit, (error) =>
                       console.error(error)
                     )}
                   >
                     <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                      <div className="sm:flex sm:items-start">
-                        <div className="space-y-12">
+                      <div className="w-full flex justify-end items-center">
+                        <h2 className="w-full text-base font-semibold leading-7 text-gray-900">
+                          Criando um novo post
+                        </h2>
+                        <button
+                          className="flex justify-center items-center w-8 h-8 rounded-lg bg-gray-100 hover:bg-gray-200 cursor-pointer"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setExpand((prev) => !prev);
+                          }}
+                        >
+                          <ArrowsPointingOutIcon
+                            width={24}
+                            height={24}
+                            className={!expand ? "text-black " : "hidden"}
+                          />
+                          <ArrowsPointingInIcon
+                            width={24}
+                            height={24}
+                            className={expand ? "text-black" : "hidden"}
+                          />
+                        </button>
+                      </div>
+                      <div className="sm:flex sm:items-start w-full">
+                        <div className="space-y-12 w-full">
                           <div className="border-b border-gray-900/10 pb-12">
-                            <h2 className="text-base font-semibold leading-7 text-gray-900">
-                              Criando um novo post
-                            </h2>
                             <p className="mt-1 text-sm leading-6 text-gray-600">
                               Essas informações serão exibidas publicamente,
                               portanto, tenha cuidado com o que você
                               compartilha.
                             </p>
-                            <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
+                            <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-2 sm:grid-cols-6">
                               <div className="col-span-full">
                                 <label
                                   htmlFor="title"
@@ -166,7 +217,7 @@ export default function ModalCreatePost() {
                                   Título
                                 </label>
                                 <div className="mt-2">
-                                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600 sm:max-w-md">
+                                  <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300   sm:max-w-md">
                                     <input
                                       type="text"
                                       id="title"
@@ -184,7 +235,8 @@ export default function ModalCreatePost() {
                                 </div>
                               </div>
                               <div className="col-span-full">
-                                <label
+                                <div className="col-span-full">
+                                  {/* <label
                                   htmlFor="about"
                                   className="block text-sm font-medium leading-6 text-gray-900"
                                 >
@@ -203,119 +255,181 @@ export default function ModalCreatePost() {
                                       {errors.content.message}
                                     </p>
                                   )}
-                                </div>
-                                <p className="mt-1 text-sm leading-6 text-gray-600">
-                                  Assunto a ser abordado
-                                </p>
-                              </div>
-                              <div className="col-span-full">
-                                <label
-                                  htmlFor="category"
-                                  className="block text-sm font-medium leading-6 text-gray-900"
-                                >
-                                  Categoria
-                                </label>
-                                {status === "success" && (
+                                </div> */}
                                   <Controller
-                                    name="category"
                                     control={control}
-                                    render={({ field: { onChange } }) => (
-                                      <Select
-                                        isMulti
-                                        options={data.mappedCategories}
-                                        onChange={(e) => {
-                                          onChange(e);
+                                    name="content"
+                                    render={({
+                                      field: { onChange, value },
+                                    }) => (
+                                      <Editor
+                                        value={value}
+                                        onEditorChange={onChange}
+                                        onInit={(evt, editor) =>
+                                          (editorRef.current = editor)
+                                        }
+                                        apiKey={
+                                          import.meta.env.VITE_API_KEY_TINYMCE
+                                        }
+                                        init={{
+                                          height: 400,
+                                          menubar: true,
+
+                                          plugins: [
+                                            "advlist autolink lists link image charmap print preview anchor code codesample",
+                                            "searchreplace visualblocks code fullscreen",
+                                            "insertdatetime media table paste code help wordcount ",
+                                          ],
+                                          toolbar:
+                                            "undo redo | formatselect | " +
+                                            "bold italic backcolor | alignleft aligncenter | code |" +
+                                            "alignright alignjustify | bullist numlist outdent indent | " +
+                                            "removeformat | help",
+                                          content_style:
+                                            "body { font-family:Helvetica,Arial,sans-serif; font-size:14px }",
                                         }}
                                       />
                                     )}
                                   />
-                                )}
-                                {errors.category?.message && (
-                                  <p className="text-red-600 text-xs">
-                                    {errors.category?.message}
+                                  <p className="mt-1 text-sm leading-6 text-gray-600">
+                                    Assunto a ser abordado
                                   </p>
-                                )}
-                              </div>
-
-                              <div className="col-span-full">
-                                <label
-                                  htmlFor="cover-photo"
-                                  className="block text-sm font-medium leading-6 text-gray-900"
+                                </div>
+                                <div
+                                  className={
+                                    expand
+                                      ? "col-span-full w-full gap-x-6 flex items-center"
+                                      : "col-span-full"
+                                  }
                                 >
-                                  Anexar Ficheiro
-                                </label>
-                                <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
-                                  <div className="text-center">
-                                    <div className="flex flex-row gap-2">
-                                      {files.length == 0 ? (
-                                        <PhotoIcon
-                                          className="mx-auto h-12 w-12 text-gray-300"
-                                          aria-hidden="true"
-                                        />
-                                      ) : (
-                                        files.map((file: IFile, index: any) => (
-                                          <div
-                                            key={index}
-                                            className="flex justify-end"
-                                          >
-                                            <XCircleIcon
-                                              className=" stroke-error h-5 w-5 fill-black absolute hover:cursor-grab"
-                                              onClick={() => {
-                                                handleRemoveImage(index);
-                                              }}
-                                            />
-                                            {file.mimetype.includes("image") ? (
-                                              <img
-                                                src={file.url}
-                                                alt="lorem"
-                                                className="self-center aspect-[16/9] object-cover object-center h-20 w-20 rounded-sm"
-                                              />
-                                            ) : file.mimetype.includes(
-                                                "video"
-                                              ) ? (
-                                              <div>
-                                                <FilmIcon className="mx-auto h-12 w-12 text-gray-300" />
-                                                <span className="text-xs">
-                                                  {file.originalName}
-                                                </span>
-                                              </div>
-                                            ) : (
-                                              <div>
-                                                <DocumentIcon className="mx-auto h-12 w-12 text-gray-300" />
-                                                <span className="text-xs">
-                                                  {file.originalName}
-                                                </span>
-                                              </div>
-                                            )}
-                                          </div>
-                                        ))
-                                      )}
-                                    </div>
+                                  <div
+                                    className={
+                                      expand
+                                        ? "col-span-full w-64"
+                                        : "col-span-full"
+                                    }
+                                  >
+                                    <label
+                                      htmlFor="category"
+                                      className="block text-sm font-medium leading-6 text-gray-900 mb-2"
+                                    >
+                                      Categoria
+                                    </label>
+                                    {status === "success" && (
+                                      <Controller
+                                        name="category"
+                                        control={control}
+                                        render={({ field: { onChange } }) => (
+                                          <Select
+                                            isMulti
+                                            options={data.mappedCategories}
+                                            onChange={(e) => {
+                                              onChange(e);
+                                            }}
+                                          />
+                                        )}
+                                      />
+                                    )}
+                                    {errors.category?.message && (
+                                      <p className="text-red-600 text-xs">
+                                        {errors.category?.message}
+                                      </p>
+                                    )}
+                                  </div>
 
-                                    <div className="mt-4 flex text-sm leading-6 text-gray-600  justify-center items-center">
-                                      <label
-                                        htmlFor="file-upload"
-                                        className="relative cursor-pointer rounded-md bg-white font-semibold text-blue-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 hover:text-blue-500"
-                                      >
-                                        <span>Selecione</span>
-                                        <input
-                                          id="file-upload"
-                                          name="file"
-                                          type="file"
-                                          className="sr-only"
-                                          onChange={handleMultipleImages}
-                                          multiple
-                                        />
-                                      </label>
-                                      <p className="pl-1">or drag and drop</p>
+                                  <div
+                                    className={
+                                      expand
+                                        ? "col-span-full w-64 "
+                                        : "col-span-full"
+                                    }
+                                  >
+                                    <label
+                                      htmlFor="cover-photo"
+                                      className="block text-sm font-medium leading-6 text-gray-900"
+                                    >
+                                      Anexar Ficheiro
+                                    </label>
+                                    <div className="mt-2 flex flex-row justify-center rounded-lg border border-dashed border-gray-900/25 w-full ">
+                                      <div className="flex flex-row w-full">
+                                        <div className="flex flex-row items-center">
+                                          {/* <div> */}
+                                          {files.length == 0 ? (
+                                            <PhotoIcon
+                                              className="h-12 w-12 text-gray-300"
+                                              aria-hidden="true"
+                                            />
+                                          ) : (
+                                            files.map(
+                                              (file: IFile, index: any) => (
+                                                <div
+                                                  key={index}
+                                                  className="flex justify-end"
+                                                >
+                                                  <XCircleIcon
+                                                    className=" stroke-error h-5 w-5 fill-black absolute hover:cursor-grab"
+                                                    onClick={() => {
+                                                      handleRemoveImage(index);
+                                                    }}
+                                                  />
+                                                  {file.mimetype.includes(
+                                                    "image"
+                                                  ) ? (
+                                                    <img
+                                                      src={file.url}
+                                                      alt="lorem"
+                                                      className="self-center aspect-[16/9] object-cover object-center h-20 w-20 rounded-sm"
+                                                    />
+                                                  ) : file.mimetype.includes(
+                                                      "video"
+                                                    ) ? (
+                                                    <div>
+                                                      <FilmIcon className="mx-auto h-12 w-12 text-gray-300" />
+                                                      <span className="text-xs">
+                                                        {file.originalName}
+                                                      </span>
+                                                    </div>
+                                                  ) : (
+                                                    <div>
+                                                      <DocumentIcon className="mx-auto h-12 w-12 text-gray-300" />
+                                                      <span className="text-xs">
+                                                        {file.originalName}
+                                                      </span>
+                                                    </div>
+                                                  )}
+                                                </div>
+                                              )
+                                            )
+                                          )}
+                                        </div>
+
+                                        <div className="flex text-sm leading-6 text-gray-600 justify-center items-center">
+                                          <label
+                                            htmlFor="file-upload"
+                                            className="relative cursor-pointer rounded-md bg-white font-semibold text-blue-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 hover:text-blue-500"
+                                          >
+                                            <span>Selecione</span>
+                                            <input
+                                              id="file-upload"
+                                              name="file"
+                                              type="file"
+                                              className="sr-only"
+                                              onChange={handleMultipleImages}
+                                              multiple
+                                            />
+                                          </label>
+                                        </div>
+                                        {/* <p className="pl-1">or drag and drop</p> */}
+                                      </div>
+                                      {/* <p className="text-xs leading-5 text-gray-600">
+                                          PNG, JPG, Video, PDF
+                                        </p> */}
                                     </div>
-                                    <p className="text-xs leading-5 text-gray-600">
-                                      PNG, JPG, Video, PDF
-                                    </p>
                                   </div>
                                 </div>
                               </div>
                             </div>
+                            {/* </div> */}
                           </div>
                         </div>
                       </div>
@@ -330,7 +444,11 @@ export default function ModalCreatePost() {
                       <button
                         type="button"
                         className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
-                        onClick={() => ctx.handle()}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setExpand(false);
+                          ctx.handle();
+                        }}
                         ref={cancelButtonRef}
                       >
                         Cancelar

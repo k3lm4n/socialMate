@@ -36,7 +36,7 @@ const people = [
     name: "Kelman Dias dos Santos",
     role: "Co-Founder / CEO",
     imageUrl:
-      "https://media.licdn.com/dms/image/C4D03AQEabtjHx7Og4w/profile-displayphoto-shrink_800_800/0/1653379109364?e=1694044800&v=beta&t=fVGOg9i2VwDIkgf1z3fnb1qmC02FuPkwkPCU9ldYbmg",
+      "https://media.licdn.com/dms/image/C4D03AQEabtjHx7Og4w/profile-displayphoto-shrink_800_800/0/1653379109364?e=1702512000&v=beta&t=4yiF7xDeKX6BjLMlvqUnGPyAz8zMB8cuPbRxr2-jKKU",
   },
   // More people...
 ];
@@ -209,7 +209,7 @@ const Homepage = () => {
       </div>
 
       <div
-        className=" bg-section-2 w-screen  mt-32 bg-white flex justify-center items-center"
+        className=" bg-section-2 w-screen  mt-32 bg-white flex flex-col gap-y-8 justify-center items-center"
         id="features"
       >
         <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-y-6 gap-x-10 content-center justify-center">
@@ -223,6 +223,7 @@ const Homepage = () => {
             />
           ))}
         </div>
+        <button className="btn btn-primary btn-outline ">Ver Mais</button>
       </div>
       <div
         className="bg-section-1 w-full lg:h-screen bg-white flex items-center justify-center "

@@ -30,6 +30,7 @@ export interface Message {
   sender: string;
   chatId?: string;
   createdAt?: Date;
+  isOfSender?: boolean;
 }
 
 export interface User {

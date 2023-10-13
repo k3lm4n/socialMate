@@ -46,21 +46,21 @@ const DiscoveryBar = () => {
         <nav className="h-full flex flex-col justify-between">
           <div>
             <h1 className="mt-2 ml-6 mb-6 font-bold lg:text-4xl text-2xl">
-              Discovery
+              Descoberta
             </h1>
             <ul className="flex flex-col">
               {LikedContent.map((item) => (
                 <li key={item.id} className="flex flex-row ">
                   <a
                     href={"/feed/feed"}
-                    className="flex items-center  w-full h-11 mt-1 rounded-md hover:bg-blue-50/25 transition-all duration-300"
+                    className="flex items-center  w-full h-11 mt-1 rounded-md hover:bg-blue-50/25 transition-all duration-300 gap-x-2"
                   >
                     <img
                       src={item.photo}
                       alt="Icon"
-                      width={46}
-                      height={46}
-                      className="h-12 w-12"
+                      width={42}
+                      height={42}
+                      className="h-12 w-12 rounded-full"
                     />
                     <p className="text-sm font-regular">{item.name}</p>
                   </a>

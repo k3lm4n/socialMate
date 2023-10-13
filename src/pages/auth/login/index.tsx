@@ -34,7 +34,7 @@ const Login = () => {
   const { register, handleSubmit } = useForm<Login>({});
 
   const onSubmit: SubmitHandler<Login> = async (data) => {
-    console.log(data);
+    // console.log(data);
     await mutateAsync(data).catch((res) => {
       if (res.response.status === 401) {
         toast.error("Email ou senha incorretos");

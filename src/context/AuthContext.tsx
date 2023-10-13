@@ -48,6 +48,7 @@ const AuthProvider = (props: PropsWithChildren) => {
 
   useEffect(() => {
     checkIfUserIsAuthorized();
+
   }, []);
 
   async function signIn({

@@ -6,6 +6,8 @@ import {
   EllipsisHorizontalIcon,
 } from "@heroicons/react/24/outline";
 
+import parse from "html-react-parser";
+
 import { IPropsPost } from "../../utils/types/@types";
 
 function PostView({ id, title, content, author, attatchments }: IPropsPost) {
@@ -32,7 +34,7 @@ function PostView({ id, title, content, author, attatchments }: IPropsPost) {
         <p>
           {content && content.trim().length > 100
             ? content.trim().substring(0, 100) + "..." + " Ler mais"
-            : content}
+            : parse(content!)}
         </p>
       </div>
 
