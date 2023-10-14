@@ -118,7 +118,6 @@ export default function ModalCreatePost() {
         });
       });
     } else {
-      editorRef.current.getContent();
       await postCreationMutation.mutateAsync(req);
     }
   };

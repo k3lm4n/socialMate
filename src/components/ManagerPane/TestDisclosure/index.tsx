@@ -49,7 +49,7 @@ const AccordionTrigger = React.forwardRef<HTMLButtonElement,Accordion.AccordionT
   <Accordion.Header className="flex">
     <Accordion.Trigger
       className={classNames(
-        'text-black shadow-blue-200 hover:bg-white group flex h-[45px] flex-1 cursor-default items-center justify-between bg-white px-5 text-[15px] leading-none shadow-[0_1px_0] outline-none',
+        'text-violet11 shadow-mauve6 hover:bg-mauve2 group flex h-[45px] flex-1 cursor-default items-center justify-between bg-white px-5 text-[15px] leading-none shadow-[0_1px_0] outline-none',
         className
       )}
       {...props}
@@ -57,7 +57,7 @@ const AccordionTrigger = React.forwardRef<HTMLButtonElement,Accordion.AccordionT
     >
       {children}
       <ChevronDownIcon
-        className="text-blue-400 ease-[cubic-bezier(0.87,_0,_0.13,_1)] transition-transform duration-300 group-data-[state=open]:rotate-180"
+        className="text-violet10 ease-[cubic-bezier(0.87,_0,_0.13,_1)] transition-transform duration-300 group-data-[state=open]:rotate-180"
         aria-hidden
       />
     </Accordion.Trigger>
@@ -67,7 +67,7 @@ const AccordionTrigger = React.forwardRef<HTMLButtonElement,Accordion.AccordionT
 const AccordionContent = React.forwardRef<HTMLDivElement,Accordion.AccordionContentProps>(({ children, className, ...props }, forwardedRef) => (
   <Accordion.Content
     className={classNames(
-      'text-black bg-gray-50/70 data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden text-[15px]',
+      'text-mauve11 bg-mauve2 data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden text-[15px]',
       className
     )}
     {...props}

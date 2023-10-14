@@ -1,9 +1,7 @@
 import { Tab } from "@headlessui/react";
 import UploaderContent from "../UploaderContent";
 import ContentDisclosure from "../ContentDisclosure";
-import TestExam from "../TestExam";
-// import SearchList from "../SearchList";
-// import ActiveList from "../ActiveList";
+import TestExam from "../TestDisclosure";
 
 function classNames(...classes: any[]) {
   return classes.filter(Boolean).join(" ");

@@ -15,7 +15,7 @@ export const barChartOptionsDailyTraffic = {
     style: {
       fontSize: "12px",
       fontFamily: undefined,
-      backgroundColor: "#000000"
+      backgroundColor: "#000000",
     },
     onDatasetHover: {
       style: {
@@ -23,7 +23,7 @@ export const barChartOptionsDailyTraffic = {
         fontFamily: undefined,
       },
     },
-    theme: "dark",
+    theme: "light",
   },
   xaxis: {
     categories: ["00", "04", "08", "12", "14", "16", "18"],
@@ -103,8 +103,11 @@ export const barChartOptionsDailyTraffic = {
 };
 
 export const pieChartOptions = {
-  labels: ["Your files", "System", "Empty"],
-  colors: ["#4318FF", "#6AD2FF", "#EFF4FB"],
+  labels: ["1º Ano", "2º Ano", "3º Ano", "4º Ano", "5º Ano"],
+  colors: ["#c5edd1", "#cdd6dd", "#fed5ca", "#bdcfff", "#8171FC"],
+  fill: {
+    colors: ["#c5edd1", "#cdd6dd", "#fed5ca", "#bdcfff", "#8171FC"],
+  },
   chart: {
     width: "50px",
   },
@@ -132,21 +135,19 @@ export const pieChartOptions = {
       },
     },
   },
-  fill: {
-    colors: ["#4318FF", "#6AD2FF", "#EFF4FB"],
-  },
+
   tooltip: {
     enabled: true,
-    theme: "dark",
+    theme: "light",
     style: {
       fontSize: "12px",
       fontFamily: undefined,
-      backgroundColor: "#000000"
+      backgroundColor: "#000000",
     },
   },
 };
 
-export const pieChartData = [63, 25, 12];
+export const pieChartData = [63, 25, 12, 25, 12];
 
 export const barChartDataWeeklyRevenue = [
   {
@@ -178,9 +179,9 @@ export const barChartOptionsWeeklyRevenue = {
     style: {
       fontSize: "12px",
       fontFamily: undefined,
-      backgroundColor: "#000000"
+      backgroundColor: "#000000",
     },
-    theme: 'dark',
+    theme: "light",
     onDatasetHover: {
       style: {
         fontSize: "12px",
@@ -296,9 +297,9 @@ export const lineChartOptionsTotalSpent = {
     style: {
       fontSize: "12px",
       fontFamily: undefined,
-      backgroundColor: "#000000"
+      backgroundColor: "#000000",
     },
-    theme: 'dark',
+    theme: "light",
     x: {
       format: "dd/MM/yy HH:mm",
     },

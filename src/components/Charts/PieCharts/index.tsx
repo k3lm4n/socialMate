@@ -1,6 +1,7 @@
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 
+
 type ChartProps = {
   // using `interface` is also ok
   [x: string]: any;
@@ -10,7 +11,14 @@ type ChartState = {
   chartOptions: any;
 };
 
+
+
+
+
 class PieChart extends React.Component<ChartProps, ChartState> {
+
+
+  
   constructor(props: { chartData: any[]; chartOptions: any }) {
     super(props);
 
@@ -35,6 +43,7 @@ class PieChart extends React.Component<ChartProps, ChartState> {
         type="pie"
         width="100%"
         height="100%"
+      
       />
     );
   }

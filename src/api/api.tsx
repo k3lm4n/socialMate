@@ -8,6 +8,7 @@ import {
 } from "../utils/validator/chatChannel";
 import axiosInstance from "./axiosInstance";
 import { PostSchemaType, UpdatePostSchemaType } from "../utils/validator/post";
+import { AttachmentSchemaType } from "../utils/validator/attachment";
 
 type IFile = {
   url: any;
@@ -158,6 +159,23 @@ async function createPost(data: PostSchemaType) {
   return response;
 }
 
+async function createContent(data: AttachmentSchemaType) {
+  const response = await axiosInstance.post("/attachment/", data);
+  return response;
+}
+
+async function deleteContent(id: string) {
+  const response = await axiosInstance.delete("/attachment/" + id);
+  return response;
+}
+
+async function getByDiscriminator(discriminator: string) {
+  const response = await axiosInstance.get("/attachment/", {
+    params: { discriminator },
+  });
+  return response;
+}
+
 async function updatePost(id: string, data: UpdatePostSchemaType) {
   const response = await axiosInstance.put("/post/" + id, data);
   return response;
@@ -174,6 +192,12 @@ export const PostEndPoints = {
   createPost,
   updatePost,
   deletePost,
+};
+
+export const ContentEndPoints = {
+  createContent,
+  deleteContent,
+  getByDiscriminator,
 };
 
 export const ChatEndPoints = {
@@ -220,6 +244,46 @@ async function getCourses() {
   const response = await axiosInstance.get("/category/courses");
   return response;
 }
+
+async function getUserByYear() {
+  const response = await axiosInstance.get("/dashboard/degrees");
+  return response;
+}
+
+async function getContentCount(){
+  const response = await axiosInstance.get("/dashboard/content");
+  return response;
+}
+
+async function getPostCount(){
+  const response = await axiosInstance.get("/dashboard/post");
+  return response;
+}
+
+async function getChannelCount(){
+  const response = await axiosInstance.get("/dashboard/channel");
+  return response;
+}
+
+async function getCoursesCount(){
+  const response = await axiosInstance.get("/dashboard/courses");
+  return response;
+}
+
+async function getSubcourses() {
+  const response = await axiosInstance.get("/dashboard/subcourses");
+  return response;
+  
+}
+
+export const DashboardEndPoints = {
+  getUserByYear,
+  getContentCount,
+  getPostCount,
+  getChannelCount,
+  getCoursesCount,
+  getSubcourses,
+};
 
 async function getInterests() {
   const response = await axiosInstance.get("/category/interests");
