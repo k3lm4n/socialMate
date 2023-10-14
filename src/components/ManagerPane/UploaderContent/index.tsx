@@ -1,4 +1,4 @@
-import { ChangeEvent, Fragment, useContext, useRef, useState } from "react";
+import { ChangeEvent, Fragment, useState } from "react";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import { useMutation, useQuery } from "react-query";
 import toast from "react-hot-toast";
@@ -9,7 +9,7 @@ import {
   UploadEndpoint,
 } from "../../../api/api";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ModalCreatePostContext } from "../../../context/ModalCreatePostContext";
+
 import {
   AttachmentSchemaType,
   AttachmentSchema,
