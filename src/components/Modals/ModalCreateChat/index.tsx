@@ -104,7 +104,7 @@ export default function ModalCreateChat() {
                       console.error(error)
                     )}
                   >
-                    <div className="bg-white pt-5 ">
+                    <div className="bg-white pt-5 px-4 ">
                       <div className="sm:flex sm:items-start">
                         <div className="space-y-12">
                           <div className="border-b border-gray-900/10 pb-12">

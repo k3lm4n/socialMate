@@ -44,15 +44,11 @@ const Chat = () => {
   useEffect(() => {
     queryClient.invalidateQueries("chatUnique");
 
-      messageBox.current?.scrollTo({
-        behavior: "smooth",
-        top: messageBox.current?.scrollHeight,
-      });
-    
-
+    messageBox.current?.scrollTo({
+      behavior: "smooth",
+      top: messageBox.current?.scrollHeight,
+    });
   }, [chatId, messages.length]);
-
-
 
   const { register, handleSubmit, setValue } = useForm<Message>({
     defaultValues: {
@@ -77,7 +73,6 @@ const Chat = () => {
         top: messageBox.current?.scrollHeight,
       });
       await mutateAsync(data).catch((res: any) => {
-        
         if (res.response.status === 500) {
           toast.error("Impossivel enviar a mensagem");
         }
@@ -142,11 +137,12 @@ const Chat = () => {
               </button> */}
             </div>
           </div>
-          <div className="h-full overflow-y-auto pb-3 px-2" ref= {messageBox}>
+          <div className="h-full overflow-y-auto pb-3 px-2" ref={messageBox}>
             {statusMessage === "success" ? (
               Object.values(messages).length > 0 &&
               messages.map((msg, index) =>
-                msg.isOfSender ? (
+                (msg.isOfSender && (!user?.id || user.id === msg.senderId)) ||
+                (msg.isOfSender && user?.id === msg.senderId) ? (
                   <BubbleChatRight props={msg} key={index} />
                 ) : (
                   <BubbleChatLeft props={msg} key={index} />
@@ -174,9 +170,8 @@ const Chat = () => {
                 type="text"
                 {...register("content")}
                 className="input input-bordered lg:input-lg  lg:w-full w-full "
-                
               />
-              <button type="submit" className="btn btn-xl ml-2" >
+              <button type="submit" className="btn btn-xl ml-2">
                 <PaperAirplaneIcon className="h-12 w-7" />
               </button>
             </form>
@@ -191,7 +186,7 @@ const Chat = () => {
 // const MessageList = ({ messages }: Props) => {
 //   const ref = useRef<HTMLDivElement>(null);
 //   useEffect(() => {
-    
+
 //   }, [messages.length]);
 //   return (
 //     //...
@@ -199,5 +194,5 @@ const Chat = () => {
 // };
 
 // export default MessageList;
-  
+
 export default Chat;
