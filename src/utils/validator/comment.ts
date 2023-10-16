@@ -17,3 +17,5 @@ export const updateCommentSchema = z.object({
     .min(3, { message: "Post ID must be at least 3 characters" })
     .optional(),
 });
+
+export type CommentSchemaType = z.infer<typeof commentSchema>;

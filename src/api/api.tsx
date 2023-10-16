@@ -168,11 +168,23 @@ async function deleteContent(id: string) {
   const response = await axiosInstance.delete("/attachment/" + id);
   return response;
 }
+async function getContentById(id: string) {
+  const response = await axiosInstance.get("/attachment/unique/" + id);
+  return response;
+}
 
 async function getByDiscriminator(discriminator: string) {
-  const response = await axiosInstance.get("/attachment/", {
-    params: { discriminator },
-  });
+  const response = await axiosInstance.get("/attachment/" + discriminator);
+  return response;
+}
+
+async function getByDiscriminatorContents(
+  discriminator: string,
+  category: string
+) {
+  const response = await axiosInstance.get(
+    "/attachment/" + discriminator + "/" + category
+  );
   return response;
 }
 
@@ -198,6 +210,8 @@ export const ContentEndPoints = {
   createContent,
   deleteContent,
   getByDiscriminator,
+  getByDiscriminatorContents,
+  getContentById,
 };
 
 export const ChatEndPoints = {
@@ -250,22 +264,22 @@ async function getUserByYear() {
   return response;
 }
 
-async function getContentCount(){
+async function getContentCount() {
   const response = await axiosInstance.get("/dashboard/content");
   return response;
 }
 
-async function getPostCount(){
+async function getPostCount() {
   const response = await axiosInstance.get("/dashboard/post");
   return response;
 }
 
-async function getChannelCount(){
+async function getChannelCount() {
   const response = await axiosInstance.get("/dashboard/channel");
   return response;
 }
 
-async function getCoursesCount(){
+async function getCoursesCount() {
   const response = await axiosInstance.get("/dashboard/courses");
   return response;
 }
@@ -273,8 +287,34 @@ async function getCoursesCount(){
 async function getSubcourses() {
   const response = await axiosInstance.get("/dashboard/subcourses");
   return response;
-  
 }
+
+async function createComment(data: any) {
+  const response = await axiosInstance.post("/comment/", data);
+  return response;
+}
+
+async function getComments(postId: string) {
+  const response = await axiosInstance.get("/comment/" + postId);
+  return response;
+}
+
+async function deleteComment(id: string) {
+  const response = await axiosInstance.delete("/comment/" + id);
+  return response;
+}
+
+async function updateComment(id: string, data: any) {
+  const response = await axiosInstance.put("/comment/" + id, data);
+  return response;
+}
+
+export const CommentEndPoints = {
+  createComment,
+  getComments,
+  deleteComment,
+  updateComment,
+};
 
 export const DashboardEndPoints = {
   getUserByYear,

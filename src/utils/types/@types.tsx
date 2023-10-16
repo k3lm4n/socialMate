@@ -56,6 +56,21 @@ export type MappedCourses = {
   };
 };
 
+
+export type IPropsContentView={
+  id:string;
+  name?:string;
+  description?:string;
+  author?:string;
+  createdAt?:string;
+  attatchments?: {
+    id: string;
+    url: string;
+    mimetype: string;
+    originalName: string;
+  }[];
+}
+
 export type IPropsPost = {
   id: string;
   title?: string;

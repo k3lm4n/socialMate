@@ -7,6 +7,10 @@ import ModalCreateChat from "../Modals/ModalCreateChat";
 import ModalCreateChatProvider from "../../context/ModalCreateChatContext";
 import ModalCreatePostProvider from "../../context/ModalCreatePostContext";
 import ModalCreatePost from "../Modals/ModalCreatePost";
+import ModalPostDetailsProvider from "../../context/ModalPostDetailsContext";
+import ModalPostDetails from "../Modals/ModalPostDetails";
+import ModalContentDetailsProvider from "../../context/ModalContentDetailsContext";
+import ModelContentDetails from "../Modals/ModalContentDetails";
 
 export default function FeedLayout() {
   return (
@@ -14,13 +18,19 @@ export default function FeedLayout() {
       <ModalCreateChannelProvider>
         <ModalCreateChatProvider>
           <ModalCreatePostProvider>
-            <div className="bg-gray-300 w-full h-screen">
-              <ActivePanel />
-              <ModalCreateChannel />
-              <ModalCreateChat />
-              <ModalCreatePost />
-              <Outlet />
-            </div>
+            <ModalPostDetailsProvider>
+              <ModalContentDetailsProvider>
+                <div className="bg-gray-300 w-full h-screen">
+                  <ActivePanel />
+                  <ModalCreateChannel />
+                  <ModalCreateChat />
+                  <ModalCreatePost />
+                  <ModalPostDetails />
+                  <ModelContentDetails />
+                  <Outlet />
+                </div>
+              </ModalContentDetailsProvider>
+            </ModalPostDetailsProvider>
           </ModalCreatePostProvider>
         </ModalCreateChatProvider>
       </ModalCreateChannelProvider>

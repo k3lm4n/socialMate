@@ -20,7 +20,7 @@ const notify = () =>
     duration: 3000,
   });
 
-export default function ModalCreateChannel() {
+export default function ModalPostDetails() {
   const ctx = useContext(ModalCreateChannelContext);
 
   const { mutateAsync, isLoading } = useMutation(

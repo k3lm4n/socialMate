@@ -1,8 +1,4 @@
 import { ChangeEvent, Fragment, useContext, useRef, useState } from "react";
-import {
-  ArrowsPointingOutIcon,
-  ArrowsPointingInIcon,
-} from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import { PhotoIcon } from "@heroicons/react/24/solid";
 import { useMutation, useQuery } from "react-query";
@@ -50,7 +46,6 @@ export default function ModalCreatePost() {
   });
 
   const [files, setFiles] = useState<IFile[]>([]);
-  const [expand, setExpand] = useState(false);
 
   const handleMultipleImages = (evnt: ChangeEvent<HTMLInputElement>) => {
     const targetFiles = evnt.target.files;
@@ -100,7 +95,6 @@ export default function ModalCreatePost() {
     resolver: zodResolver(postSchema),
   });
 
-  
   const onSubmit: SubmitHandler<PostSchemaType> = async (req) => {
     if (files.length > 0) {
       let filesResponseMapped: {
@@ -130,7 +124,7 @@ export default function ModalCreatePost() {
       <Transition.Root show={ctx.isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="relative z-10"
+          className="relative z-10 w-full"
           initialFocus={cancelButtonRef}
           onClose={ctx.handle}
         >
@@ -143,7 +137,7 @@ export default function ModalCreatePost() {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity w-full" />
           </Transition.Child>
 
           <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -159,9 +153,8 @@ export default function ModalCreatePost() {
               >
                 <Dialog.Panel
                   className={
-                    !expand
-                      ? " relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all duration-300  sm:my-8 sm:w-[98%] "
-                      : "relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition sm:my-8 sm:ease-in-out duration-300 sm:w-full sm:max-w-lg"
+                    " relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all duration-300  sm:my-8 sm:w-[98%] sm:max-w-7xl "
+                    //  "relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition sm:my-8 sm:ease-in-out duration-300 sm:max-w-lg"
                   }
                 >
                   <form
@@ -174,24 +167,6 @@ export default function ModalCreatePost() {
                         <h2 className="w-full text-base font-semibold leading-7 text-gray-900">
                           Criando um novo post
                         </h2>
-                        <button
-                          className="flex justify-center items-center w-8 h-8 rounded-lg bg-gray-100 hover:bg-gray-200 cursor-pointer"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setExpand((prev) => !prev);
-                          }}
-                        >
-                          <ArrowsPointingOutIcon
-                            width={24}
-                            height={24}
-                            className={!expand ? "text-black " : "hidden"}
-                          />
-                          <ArrowsPointingInIcon
-                            width={24}
-                            height={24}
-                            className={expand ? "text-black" : "hidden"}
-                          />
-                        </button>
                       </div>
                       <div className="sm:flex sm:items-start w-full">
                         <div className="space-y-12 w-full">
@@ -229,26 +204,6 @@ export default function ModalCreatePost() {
                               </div>
                               <div className="col-span-full">
                                 <div className="col-span-full">
-                                  {/* <label
-                                  htmlFor="about"
-                                  className="block text-sm font-medium leading-6 text-gray-900"
-                                >
-                                  Conteúdo
-                                </label>
-                                <div className="mt-1">
-                                  <textarea
-                                    id="about"
-                                    {...register("content")}
-                                    rows={3}
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
-                                    defaultValue={""}
-                                  />
-                                  {errors.content && (
-                                    <p className="text-red-600 text-xs">
-                                      {errors.content.message}
-                                    </p>
-                                  )}
-                                </div> */}
                                   <Controller
                                     control={control}
                                     name="content"
@@ -258,7 +213,7 @@ export default function ModalCreatePost() {
                                       <Editor
                                         value={value}
                                         onEditorChange={onChange}
-                                        onInit={( editor) =>
+                                        onInit={(editor) =>
                                           (editorRef.current = editor)
                                         }
                                         apiKey={
@@ -288,20 +243,8 @@ export default function ModalCreatePost() {
                                     Assunto a ser abordado
                                   </p>
                                 </div>
-                                <div
-                                  className={
-                                    expand
-                                      ? "col-span-full w-full gap-x-6 flex items-center"
-                                      : "col-span-full"
-                                  }
-                                >
-                                  <div
-                                    className={
-                                      expand
-                                        ? "col-span-full w-64"
-                                        : "col-span-full"
-                                    }
-                                  >
+                                <div className="col-span-full">
+                                  <div className="col-span-full">
                                     <label
                                       htmlFor="category"
                                       className="block text-sm font-medium leading-6 text-gray-900 mb-2"
@@ -330,13 +273,7 @@ export default function ModalCreatePost() {
                                     )}
                                   </div>
 
-                                  <div
-                                    className={
-                                      expand
-                                        ? "col-span-full w-64 "
-                                        : "col-span-full"
-                                    }
-                                  >
+                                  <div className="col-span-full mt-2">
                                     <label
                                       htmlFor="cover-photo"
                                       className="block text-sm font-medium leading-6 text-gray-900"
@@ -439,7 +376,6 @@ export default function ModalCreatePost() {
                         className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                         onClick={(e) => {
                           e.preventDefault();
-                          setExpand(false);
                           ctx.handle();
                         }}
                         ref={cancelButtonRef}
