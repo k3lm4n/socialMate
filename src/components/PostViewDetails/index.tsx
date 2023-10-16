@@ -47,8 +47,8 @@ function PostViewDetails({ id }: IPropsPost) {
           </div>
           <div className="px-4">
             <div>
-              {data?.data.content && data?.data.content.trim().length > 100
-                ? data?.data.content.trim().substring(0, 100) +
+              {data?.data.content && String(parse(data?.data.content)).trim().length > 100
+                ? String(parse(data?.data.content)).trim().substring(0, 100) +
                   "..." +
                   " Ler mais"
                 : parse(data?.data.content!)}
