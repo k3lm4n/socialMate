@@ -1,5 +1,4 @@
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
-import parse from "html-react-parser";
 import { IPropsContentView } from "../../utils/types/@types";
 import { FileTextIcon } from "@radix-ui/react-icons";
 import { ContentEndPoints } from "../../api/api";

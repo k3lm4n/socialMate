@@ -34,8 +34,8 @@ function PostView({ id, title, content, author, attatchments }: IPropsPost) {
       </div>
       <div className="px-4">
         <div>
-          {content && content.trim().length > 100
-            ? content.trim().substring(0, 100) + "..." + " Ler mais"
+          {content && String(parse(content)).trim().length > 100
+            ? String(parse(content)).trim().substring(0, 100) + "..." + " Ler mais"
             : parse(content!)}
         </div>
       </div>
