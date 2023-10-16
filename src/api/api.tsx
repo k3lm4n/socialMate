@@ -153,6 +153,10 @@ async function getPost(id: string) {
   const response = await axiosInstance.get("/post/" + id);
   return response;
 }
+async function getAllPost() {
+  const response = await axiosInstance.get("/post/");
+  return response;
+}
 
 async function createPost(data: PostSchemaType) {
   const response = await axiosInstance.post("/post/", data);
@@ -204,6 +208,7 @@ export const PostEndPoints = {
   createPost,
   updatePost,
   deletePost,
+  getAllPost
 };
 
 export const ContentEndPoints = {

@@ -47,7 +47,7 @@ export default function Sidebar() {
           open={open === 1}
           icon={
             <ChevronDownIcon
-              strokeWidth={2.5}
+              
               className={`mx-auto h-4 w-4 transition-transform ${
                 open === 1 ? "rotate-180" : ""
               }`}
@@ -72,7 +72,7 @@ export default function Sidebar() {
               <Link to="users">
                 <ListItem>
                   <ListItemPrefix>
-                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    <ChevronRightIcon  className="h-3 w-5" />
                   </ListItemPrefix>
                   Usuários
                 </ListItem>
@@ -80,7 +80,7 @@ export default function Sidebar() {
               <Link to="posts">
                 <ListItem>
                   <ListItemPrefix>
-                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    <ChevronRightIcon  className="h-3 w-5" />
                   </ListItemPrefix>
                   Posts
                 </ListItem>
@@ -88,7 +88,7 @@ export default function Sidebar() {
               <Link to="channels">
                 <ListItem>
                   <ListItemPrefix>
-                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    <ChevronRightIcon  className="h-3 w-5" />
                   </ListItemPrefix>
                   Canais
                 </ListItem>
@@ -100,7 +100,6 @@ export default function Sidebar() {
           open={open === 2}
           icon={
             <ChevronDownIcon
-              strokeWidth={2.5}
               className={`mx-auto h-4 w-4 transition-transform ${
                 open === 2 ? "rotate-180" : ""
               }`}
@@ -125,7 +124,7 @@ export default function Sidebar() {
               <Link to="courses">
                 <ListItem>
                   <ListItemPrefix>
-                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    <ChevronRightIcon  className="h-3 w-5" />
                   </ListItemPrefix>
                   Cursos
                 </ListItem>
@@ -133,7 +132,7 @@ export default function Sidebar() {
               <Link to="interests">
                 <ListItem>
                   <ListItemPrefix>
-                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    <ChevronRightIcon  className="h-3 w-5" />
                   </ListItemPrefix>
                   Disciplinas
                 </ListItem>
@@ -141,7 +140,7 @@ export default function Sidebar() {
               <Link to="filemanager">
                 <ListItem>
                   <ListItemPrefix>
-                    <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    <ChevronRightIcon  className="h-3 w-5" />
                   </ListItemPrefix>
                   Gestor de Ficheiros
                 </ListItem>

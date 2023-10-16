@@ -1,23 +1,28 @@
 import { Link } from "react-router-dom";
+import parse from "html-react-parser";
+import { useContext } from "react";
+import { ModalPostDetailsContext } from "../../context/ModalPostDetailsContext";
 
 interface IPropsPostCardHome {
+  id?: string;
   title?: string;
   content?: string;
   image?: string;
   interest: {
     id: string | undefined;
     name: string;
+    sigle: string;
   }[];
 }
 
-function PostCardHome({
-  title,
-  content,
-  image,
-  interest,
-}: IPropsPostCardHome) {
+function PostCard({ id, title, content, image, interest }: IPropsPostCardHome) {
+  const ctx = useContext(ModalPostDetailsContext);
+
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow ">
+    <div
+      className="max-w-sm bg-white border border-gray-200 rounded-lg shadow"
+      key={id}
+    >
       <Link to="#">
         <img
           className="rounded-t-lg h-48 w-full object-cover"
@@ -39,12 +44,15 @@ function PostCardHome({
           </h5>
         </Link>
         <p className="mb-3 font-normal text-gray-700 ">
-          {content && content.trim().length > 80
-            ? content.trim().substring(0, 80) + "..."
-            : content}
+          {parse(content!) && String(parse(content!)).trim().length > 80
+            ? String(parse(content!)).trim().substring(0, 80) + "..."
+            : parse(content!)}
         </p>
-        <Link
-          to="#"
+        <button
+          onClick={() => {
+            ctx.handlePost(id!);
+            ctx.handle();
+          }}
           className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 "
         >
           Saber Mais...
@@ -57,22 +65,26 @@ function PostCardHome({
           >
             <path
               stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              // stroke-linecap="round"
+              // stroke-linejoin="round"
+              // stroke-width="2"
               d="M1 5h12m0 0L9 1m4 4L9 9"
             />
           </svg>
-        </Link>
+        </button>
       </div>
       <div className="card-actions justify-end p-4">
         {interest &&
           interest.map((item) => {
-            return <div className="badge badge-outline">{item.name}</div>;
+            return (
+              <div key={item.id} className="badge badge-outline">
+                {item.name}
+              </div>
+            );
           })}
       </div>
     </div>
   );
 }
 
-export default PostCardHome;
+export default PostCard;

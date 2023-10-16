@@ -2,8 +2,22 @@ import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 
 import { posts } from "../../../utils/dbJson";
 import PostCard from "../../../components/PostCard";
+import { useQuery } from "react-query";
+import { PostEndPoints } from "../../../api/api";
 
 export default function Posts() {
+  const getPosts = useQuery(
+    "posts",
+    async () => await PostEndPoints.getAllPost()
+  );
+
+  function randomIntFromInterval(min: number, max: number) {
+    // min and max included
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  console.log(getPosts.data);
+
   return (
     <div className="flex flex-col w-full h-full gap-4 px-4">
       <div className="w-full flex justify-between items-center text-center px-4 pt-3">
@@ -31,12 +45,14 @@ export default function Posts() {
       </div>
       <div className="flex flex-col px-4 w-full h-full overflow-auto pt-4 ">
         <div className="grid lg:grid-cols-4 md:grid-cols-2 gap-y-8 gap-x-8 content-center justify-center">
-          {posts.map((post) => (
+          {getPosts.data?.data.map((post: any) => (
             <PostCard
+              key={post.id}
+              id={post.id}
               content={post.content}
               title={post.title}
-              image={post.image}
-              interest={post.interest}
+              image={posts[randomIntFromInterval(7, 0)].image}
+              interest={post.subCategory}
             />
           ))}
         </div>
