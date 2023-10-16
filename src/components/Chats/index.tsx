@@ -46,7 +46,9 @@ const Chats = () => {
             </div>
           </div>
           <div className="flex flex-col h-full justify-between ">
-            <ChatList />
+            <div>
+              <ChatList />
+            </div>
             <StatusBar />
           </div>
         </nav>

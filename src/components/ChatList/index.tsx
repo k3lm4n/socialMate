@@ -55,7 +55,7 @@ const ChatList = () => {
                   className="data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade w-64 rounded-md bg-white p-5 shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] data-[state=open]:transition-all"
                   sideOffset={5}
                 >
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-2 h-full">
                     <div className="flex flex-row  items-center">
                       <img
                         src={"https://ui-avatars.com/api/" + chat.name}
