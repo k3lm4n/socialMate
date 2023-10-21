@@ -4,28 +4,6 @@ import ExternalSideBar from "../ExternalSideBar";
 import { useContext } from "react";
 import { AuthContext } from '../../context/AuthContext';
 
-const LikedContent = [
-  {
-    name: "Project 1",
-    id: "1",
-    photo: "https://avatars.dicebear.com/api/croodles/stefan.svg",
-  },
-  {
-    name: "Project 2",
-    id: "2",
-    photo: "https://avatars.dicebear.com/api/croodles/elay.svg",
-  },
-  {
-    name: "Project 3",
-    id: "3",
-    photo: "https://avatars.dicebear.com/api/croodles/jack.svg",
-  },
-  {
-    name: "Project 4",
-    id: "4",
-    photo: "https://avatars.dicebear.com/api/croodles/filler.svg",
-  },
-];
 
 const DiscoveryBar = () => {
 
