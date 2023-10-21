@@ -17,7 +17,10 @@ function PostCardHome({
   interest,
 }: IPropsPostCardHome) {
   return (
-    <div className="card xl:w-80 md:w-72 max-md:w-72 shadow-md bg-base-100  hover:cursor-pointer" id={id}>
+    <div
+      className="card xl:w-80 md:w-72 max-md:w-72 shadow-md bg-base-100  hover:cursor-pointer"
+      key={id}
+    >
       <figure>
         <img
           src={
@@ -45,7 +48,11 @@ function PostCardHome({
         <div className="card-actions justify-end">
           {interest &&
             interest.map((item) => {
-              return <div className="badge badge-outline">{item.name}</div>;
+              return (
+                <div className="badge badge-outline" key={item.id}>
+                  {item.name}
+                </div>
+              );
             })}
         </div>
       </div>

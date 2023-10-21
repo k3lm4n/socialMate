@@ -15,6 +15,7 @@ const Dashboard = lazy(() => import("./pages/admin/dashboard"));
 const ChatPageContacts = lazy(() => import("./pages/feed/chats"));
 const ChannelDetails = lazy(() => import("./pages/feed/communities/details"));
 const Profile = lazy(() => import("./pages/admin/profile"));
+const ProfileUser = lazy(() => import("./pages/feed/profile"));
 const Channels = lazy(() => import("./pages/admin/Channels"));
 const FilesManager = lazy(() => import("./pages/admin/fileManager"));
 const Courses = lazy(() => import("./pages/admin/courses"));
@@ -99,6 +100,16 @@ export default function App() {
             <RequireAuth>
               <Suspense fallback={<Loading />}>
                 <ManagerPage />
+              </Suspense>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="profile"
+          element={
+            <RequireAuth>
+              <Suspense fallback={<Loading />}>
+                <ProfileUser />
               </Suspense>
             </RequireAuth>
           }
@@ -281,4 +292,3 @@ function IsAdmin({ children }: { children: JSX.Element }) {
 
   return children;
 }
-

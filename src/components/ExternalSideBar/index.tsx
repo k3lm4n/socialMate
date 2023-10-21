@@ -14,6 +14,7 @@ import { AuthContext } from "../../context/AuthContext";
 import { toast } from "react-hot-toast";
 import { PencilSquareIcon, UserGroupIcon,ChatBubbleLeftRightIcon, AcademicCapIcon } from "@heroicons/react/24/solid";
 import { ModalCreatePostContext } from "../../context/ModalCreatePostContext";
+import { UserIcon } from "@heroicons/react/20/solid";
 
 const ExternalSideBar = () => {
   const location = useLocation();
@@ -49,6 +50,11 @@ const ExternalSideBar = () => {
                     height={24}
                     className="h-6 w-6"
                   />
+                </Link>
+              </li>
+              <li className="flex items-center justify-center lg:w-12 w-8 lg:h-12 h-8 my-2 rounded-full bg-white hover:shadow-inner transition-all duration-300">
+                <Link to="/feed/profile">
+                  <UserIcon className="h-8 w-8 fill-blue-400" />
                 </Link>
               </li>
               <li className="flex items-center justify-center lg:w-12 w-8 lg:h-12 h-8 my-2 rounded-full bg-white hover:shadow-inner transition-all duration-300">

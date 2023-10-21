@@ -215,6 +215,7 @@ const Homepage = () => {
         <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-y-6 gap-x-10 content-center justify-center">
           {posts.map((post) => (
             <PostCardHome
+              key={post.id}
               id={post.id}
               content={post.content}
               title={post.title}

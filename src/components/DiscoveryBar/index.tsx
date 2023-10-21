@@ -1,6 +1,8 @@
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import StatusBar from "../StatusBar";
 import ExternalSideBar from "../ExternalSideBar";
+import { useContext } from "react";
+import { AuthContext } from '../../context/AuthContext';
 
 const LikedContent = [
   {
@@ -26,6 +28,10 @@ const LikedContent = [
 ];
 
 const DiscoveryBar = () => {
+
+  const ctx = useContext(AuthContext);
+  
+
   return (
     <>
       <input className="peer hidden" type="checkbox" id="sidebar-toggle" />
@@ -46,21 +52,21 @@ const DiscoveryBar = () => {
         <nav className="h-full flex flex-col justify-between">
           <div>
             <h1 className="mt-2 ml-6 mb-6 font-bold lg:text-4xl text-2xl">
-              Descoberta
+              Interesses
             </h1>
             <ul className="flex flex-col">
-              {LikedContent.map((item) => (
-                <li key={item.id} className="flex flex-row ">
+              {ctx.user?.interest.map((item) => (
+                <li key={item.id} className="flex flex-row pl-2 ">
                   <a
-                    href={"/feed/feed"}
+                    href={"/feed/discovery"}
                     className="flex items-center  w-full h-11 mt-1 rounded-md hover:bg-blue-50/25 transition-all duration-300 gap-x-2"
                   >
                     <img
-                      src={item.photo}
+                      src={"https://ui-avatars.com/api/" +item.name}
                       alt="Icon"
-                      width={42}
-                      height={42}
-                      className="h-12 w-12 rounded-full"
+                      width={36}
+                      height={36}
+                      className="h-10 w-10 rounded-full"
                     />
                     <p className="text-sm font-regular">{item.name}</p>
                   </a>

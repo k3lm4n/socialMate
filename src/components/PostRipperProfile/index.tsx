@@ -4,10 +4,10 @@ import { PostEndPoints } from "../../api/api";
 import { MiniLoading } from "../Loading";
 import { IPropsPost } from "../../utils/types/@types";
 
-export default function PostRipper() {
+export default function PostRipperProfile() {
   const { data, isLoading, isError } = useQuery(
-    "postsByInterest",
-    PostEndPoints.getPostByInterest
+    "MinesPosts",
+    PostEndPoints.getAllMy
   );
 
   return (

@@ -1,14 +1,21 @@
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import axiosInstance from "../api/axiosInstance";
 
-
 type User = {
   name: string;
+  lastname: string;
+  birthdate: string;
+  course: string;
+  address: string;
   email: string;
   username: string;
   avatar?: string;
   id: string;
   role: string;
+  interest: {
+    id: string;
+    name: string;
+  }[];
 };
 
 type AuthData = {
@@ -48,7 +55,6 @@ const AuthProvider = (props: PropsWithChildren) => {
 
   useEffect(() => {
     checkIfUserIsAuthorized();
-
   }, []);
 
   async function signIn({
@@ -63,6 +69,7 @@ const AuthProvider = (props: PropsWithChildren) => {
     setIsAuth({
       isAuth: "isLoggedIn",
     });
+    checkIfUserIsAuthorized();
     return response.data;
   }
 

@@ -202,13 +202,19 @@ async function deletePost(id: string) {
   return response;
 }
 
+async function getAllMy() {
+  const response = await axiosInstance.get("/post/mines/");
+  return response.data;
+}
+
 export const PostEndPoints = {
   getPostByInterest,
   getPost,
   createPost,
   updatePost,
   deletePost,
-  getAllPost
+  getAllPost,
+  getAllMy,
 };
 
 export const ContentEndPoints = {

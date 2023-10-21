@@ -2,7 +2,7 @@ import {
   HandThumbUpIcon,
   ChatBubbleLeftIcon,
   ArrowPathRoundedSquareIcon,
-  EllipsisHorizontalIcon,
+  // EllipsisHorizontalIcon,
 } from "@heroicons/react/24/outline";
 import parse from "html-react-parser";
 import { IPropsPost } from "../../utils/types/@types";
@@ -29,13 +29,15 @@ function PostView({ id, title, content, author, attatchments }: IPropsPost) {
           </div>
         </div>
         <button>
-          <EllipsisHorizontalIcon className="text-black w-6 h-6" />
+          {/* <EllipsisHorizontalIcon className="text-black w-6 h-6" /> */}
         </button>
       </div>
       <div className="px-4">
         <div>
           {content && String(parse(content)).trim().length > 100
-            ? String(parse(content)).trim().substring(0, 100) + "..." + " Ler mais"
+            ? String(parse(content)).trim().substring(0, 100) +
+              "..." +
+              " Ler mais"
             : parse(content!)}
         </div>
       </div>
@@ -73,7 +75,21 @@ function PostView({ id, title, content, author, attatchments }: IPropsPost) {
                   <source src={item.url} type={item.mimetype} />
                 </audio>
               );
-            } else if (item.mimetype.includes("application")) {
+            } else if (item.mimetype.includes("application/pdf")) {
+              return (
+                <div
+                  key={item.id}
+                  className="h-full w-full flex justify-center items-center cursor-pointer"
+                  onClick={() => window.open(item.url, item.originalName)}
+                >
+                  <iframe
+                    src={item.url}
+                    className="w-full h-full"
+                    title={item.originalName}
+                  ></iframe>
+                </div>
+              );
+            } else if (item.mimetype.includes("application/")) {
               return (
                 <div
                   key={item.id}
