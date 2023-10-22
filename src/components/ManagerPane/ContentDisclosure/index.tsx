@@ -58,7 +58,7 @@ export default function ContentDisclosure() {
   >(({ children, className, ...props }, forwardedRef) => (
     <Accordion.Content
       className={classNames(
-        "text-black bg-gray-50/70 data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden text-[15px]",
+        "text-black bg-gray-50/70 data-[state=open]:animate-slideDown data-[state=closed]:animate-slideUp overflow-hidden text-[15px] cursor-pointer",
         className
       )}
       {...props}

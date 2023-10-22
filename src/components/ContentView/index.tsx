@@ -91,7 +91,21 @@ function ContentView({ id }: IPropsContentView) {
                       <source src={item.url} type={item.mimetype} />
                     </audio>
                   );
-                } else if (item.mimetype.includes("application")) {
+                } else if (item.mimetype.includes("application/pdf")) {
+                  return (
+                    <div
+                      key={item.id}
+                      className="h-full w-full flex justify-center items-center cursor-pointer"
+                      onClick={() => window.open(item.url, item.originalName)}
+                    >
+                      <iframe
+                        src={item.url}
+                        className="w-full h-full"
+                        title={item.originalName}
+                      ></iframe>
+                    </div>
+                  );
+                } else if (item.mimetype.includes("application/")) {
                   return (
                     <div
                       key={item.id}
