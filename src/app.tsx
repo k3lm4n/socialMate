@@ -20,6 +20,7 @@ const Channels = lazy(() => import("./pages/admin/Channels"));
 const FilesManager = lazy(() => import("./pages/admin/fileManager"));
 const Courses = lazy(() => import("./pages/admin/courses"));
 const Interests = lazy(() => import("./pages/admin/interests"));
+const VideoApp = lazy(() => import("./pages/feed/videoChat"));
 
 import FeedLayout from "./components/Layouts/FeedLayout";
 import DashboardLayout from "./components/Layouts/DashboardLayout";
@@ -52,6 +53,17 @@ export default function App() {
       </Route>
 
       <Route path="*" element={<NotFoundPage />} />
+      <Route
+        path="/videocall/:chatId"
+        element={
+          <RequireAuth>
+            <Suspense fallback={<Loading />}>
+              <VideoApp />
+            </Suspense>
+          </RequireAuth>
+        }
+      />
+
       <Route path="/feed/" element={<FeedLayout />}>
         <Route
           path="discovery"

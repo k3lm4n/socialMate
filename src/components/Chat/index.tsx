@@ -12,11 +12,12 @@ import { Message } from "../../utils/types/@types";
 import { AuthContext } from "../../context/AuthContext";
 import { SocketContext } from "../../context/SocketContext";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { ChatEndPoints, MessageEndPoints } from "../../api/api";
 import Loading from "../Loading";
 import toast from "react-hot-toast";
+import { VideoCameraIcon } from "@heroicons/react/20/solid";
 
 const Chat = () => {
   const { chatId } = useParams<{ chatId: string }>();
@@ -125,14 +126,10 @@ const Chat = () => {
               )}
             </div>
             <div className="flex mr-4 w-20 justify-between">
+              <Link to={'/videocall/'+chatId} className="hover:bg-green-400 rounded-full flex justify-center items-center btn btn-outline">
+                <VideoCameraIcon className="h-8 w-8" width={32} height={32} />
+              </Link>
               {/* <button>
-                <VideoCameraIcon
-                  className="h-6 w-6 ml-2"
-                  width={24}
-                  height={24}
-                />
-              </button>
-              <button>
                 <PhoneIcon className="h-5 w-5 ml-2" width={20} height={20} />
               </button> */}
             </div>

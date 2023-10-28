@@ -43,12 +43,20 @@ async function deleteUser(id: string) {
   return response;
 }
 
+async function getAccessToken(channelName: string, userId: string) {
+  const response = await axiosInstance.get(
+    "/accessToken/" + channelName + "/" + userId
+  );
+  return response;
+}
+
 export const UserEndPoints = {
   getUsers,
   createUser,
   updateUser,
   deleteUser,
   logout,
+  getAccessToken,
 };
 
 //Chat API
