@@ -3,7 +3,7 @@ import AgoraUIKit from "agora-react-uikit";
 import { useQuery } from "react-query";
 import { UserEndPoints } from "../../../api/api";
 import Loading from "../../../components/Loading";
-import { redirect, useParams, useNavigate } from "react-router-dom";
+import {  useParams, useNavigate } from "react-router-dom";
 
 export default function VideoChat() {
   const { chatId } = useParams<{ chatId: string }>();
