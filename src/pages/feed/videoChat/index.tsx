@@ -27,7 +27,7 @@ export default function VideoChat() {
   const callbacks = {
     EndCall: () => {
       setVideoCall(false);
-      // navigate("/feed/chats");
+      navigate("/feed/chats");
     },
   };
 
