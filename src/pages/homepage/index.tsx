@@ -160,7 +160,7 @@ const Homepage = () => {
                   ))}
                   <li className="h-16 w-full flex items-center justify-center mx-6 text-xl  font-inter  text-black">
                     <a
-                      href="auth/login"
+                      href="/auth/login"
                       className="w-full h-16 lg:h-12 flex items-center justify-center font-inter text-black lg:text-white lg:bg-blue-500 lg:rounded-md px-6 hover:bg-blue-400  "
                     >
                       Entrar
